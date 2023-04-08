@@ -49,10 +49,11 @@ export const inviteDirectMessage = async (userId, client, channelMember, invitat
       });
   
       const userArray = [userId]
-
+      const memberArray = [channelMember]
+      console.log(channelMember, "channelMember")
       await temporaryChannel.create();
       await temporaryChannel.addMembers(userArray);
-      await temporaryChannel.inviteMembers(channelMember); 
+      await temporaryChannel.inviteMembers(memberArray); 
   
       // The channel's unique ID will be available in channel.cid
       console.log("New temporary channel created");
@@ -76,6 +77,7 @@ export const createDirectMessage = async (client, channelMembers, nameOtherUser)
   
   
       const userArrays = channelMembers
+      console.log(userArrays, "userArrays")
 
 
       await channel.create();

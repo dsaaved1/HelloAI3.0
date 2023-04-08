@@ -141,9 +141,12 @@ const NewChatScreen = props => {
             console.log("send invitation individual chat")
 
             const userChats = chatClient.user.userChats
+            console.log(userChats, 'userChats in new chat screen')
             if (userChats && userChats.includes(userId)) {
+                console.log("chat exists")
                 setChatExists(true)
               } else {
+                console.log("chat does not exist")
                 inviteDirectMessage(chatClient.user.id, chatClient, userId, "Join my chat")
                 navigation.navigate('invitations');
               }

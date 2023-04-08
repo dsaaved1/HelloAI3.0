@@ -11,15 +11,18 @@ const twoMemberFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
   member_count: 2,
-  //typeChat: { $eq: 'chat'}
+  isGroupChat: { $eq: false },
+  typeChat: { $eq: 'chat'},
+  temporary: { $exists: false }
 };
 
 
 const groupFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
-  member_count: { $gt: 2 },
-  //typeChat: { $eq: 'chat'}
+  //member_count: { $gt: 2 },
+  isGroupChat: { $eq: true },
+  typeChat: { $eq: 'chat'}
 };
 
 

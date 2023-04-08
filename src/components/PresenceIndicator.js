@@ -12,11 +12,12 @@ const styles = StyleSheet.create({
     width: 10,
   },
   onlineCircle: {
-    backgroundColor: '#117A58',
+    backgroundColor: '#53FF66',
+    //'#117A58'
     borderRadius: 100 / 2,
-    height: 10,
+    height: 11,
     marginRight: 5,
-    width: 10,
+    width: 11,
   },
 });
 

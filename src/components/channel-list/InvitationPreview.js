@@ -78,6 +78,7 @@ import {Pressable, StyleSheet, Text, View,
           await createDirectMessage(chatClient,userIds,displayName);
           
           const userName = chatClient.user.userChats;
+          console.log(userName, "user name in invitation preview")
           if (userName && userName.length > 0) { // check if userName field exists
             chatClient.updatePartialUser({
               id: chatClient.user.id,
@@ -96,6 +97,10 @@ import {Pressable, StyleSheet, Text, View,
             });
           }
    
+          //there is a channel with each only one member
+          //user chats doesn't work
+          //it didn't work
+          console.log(channel.cid, "channel cid")
           await channel.delete();
       }
     }

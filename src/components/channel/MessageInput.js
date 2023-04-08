@@ -208,9 +208,6 @@ export default (props) => {
     const [power, setPower] = useState("image");
     const [messageImage, setMessageImage] = useState("");
 
-    console.log(channel.data.AIMessages, "channel AI messages")
-    console.log("skjfd")
-
 
   const numberOfFiles = fileUploads.length
   const channelMembers = get(channel, [

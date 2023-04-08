@@ -134,8 +134,8 @@ export const theme: DeepPartial<Theme> = {
   messageSimple: {
     file: {
       container: {
-        backgroundColor: '#232B48'
-        //backgroundColor: colors.dark.highlighted,
+        //backgroundColor: '#232B48'
+        backgroundColor: colors.dark.highlighted,
       },
       fileSize: {color: colors.dark.primaryTransparent},
       title: {color: colors.dark.text, fontWeight: 'normal'},
@@ -150,10 +150,10 @@ export const theme: DeepPartial<Theme> = {
         borderColor: 'transparent',
       },
       containerInner: {
-        backgroundColor: '#232B48',
-        borderColor: '#232B48',
-        //backgroundColor: colors.dark.secondary,
-        //borderColor: colors.dark.secondary,
+        // backgroundColor: '#232B48',
+        // borderColor: '#232B48',
+        backgroundColor: colors.dark.secondary,
+        borderColor: colors.dark.secondary,
         alignItems: 'stretch',
       },
       deletedMetaText: {
