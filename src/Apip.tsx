@@ -3,7 +3,7 @@ import MainStack from './navigation/MainStack';
 import {NavigationContainer} from '@react-navigation/native';
 type Props = {};
 
-function App({}: Props) {
+function Apip({}: Props) {
   return (
     <NavigationContainer>
       <MainStack />
@@ -11,4 +11,4 @@ function App({}: Props) {
   );
 }
 
-export default App;
+export default Apip;
