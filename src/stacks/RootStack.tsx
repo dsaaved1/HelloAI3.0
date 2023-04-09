@@ -19,12 +19,15 @@ import Invitations from '../screens/Invitations';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { BottomTabs } from '../components/BottomTabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import GroupInfo from '../screens/GroupInfo';
+import Settings from '../screens/Settings';
+import AddParticipants from '../screens/AddParticipants';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
+const ConvosStack = createStackNavigator();
 
 export enum ROOT_STACK {
   CHANNEL_LIST = 'RootStackChannelList',
@@ -36,6 +39,7 @@ export enum ROOT_STACK {
   PROFILE = 'RootStackSettings',
   INVITATIONS = 'invitations',
   TABS = 'tabs',
+
 }
 
 
@@ -122,6 +126,16 @@ const CustomDrawerContent = () => {
     </View>)
 }
 
+const NewNavigator = () => ( 
+  <Stack.Navigator
+  screenOptions={{
+    headerShown: false,
+  }}>
+  <Stack.Screen name="GroupInfo" component={GroupInfo} />
+  <Stack.Screen name="Settings" component={Settings} />
+  <Stack.Screen name="AddParticipants" component={AddParticipants} />
+</Stack.Navigator>
+)
 
 const HomeStackNavigator = () => (
   //we need home stack navigator to navigate through tab and mainting convos

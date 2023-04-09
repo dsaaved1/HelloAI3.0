@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "source ~/.bash_profile&&react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -58,11 +58,13 @@
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
     "react-navigation-header-buttons": "^10.0.0",
+    "styled-components": "^5.3.6",
     "stream-chat-react-native": "5.5.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.19.4",
     "@react-native-community/eslint-config": "^3.1.0",
     "@types/jest": "^29.2.0",
@@ -71,7 +73,10 @@
     "@types/react-dom": "^18.0.8",
     "@types/react-native": "^0.70.6",
     "@types/react-native-dotenv": "^0.2.0",
+    "@types/react-native-vector-icons": "^6.4.13",
     "@types/react-test-renderer": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
+    "@types/styled-components-react-native": "^5.2.1",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "babel-jest": "^29.2.2",

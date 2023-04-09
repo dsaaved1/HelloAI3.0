@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Pressable, SafeAreaView, TextInput} from 'react-native';
 import {ChannelList} from 'stream-chat-react-native';
 import {chatClient} from '../client'
@@ -14,6 +14,30 @@ const Convos = ({route}) => {
   const {channelName} = route?.params || {};
   const {channelUsers} = route.params || {};
  
+
+  // const [refreshList, setRefreshList] = useState(false);
+
+  // console.log("convos rendered")
+
+  // const handleChannelUpdate = useCallback((e) => {
+  //   console.log('channel updated', e)
+  //   console.log(e.channel.data.typeChat, 'typeChat')
+  //   // Check if the updated channel has typeChat == 'chat'
+  //   if (e.channel.data.typeChat === 'convo') {
+  //     setRefreshList((prev) => !prev);
+  //   }
+  // }, []);
+  
+  // useEffect(() => {
+  //   console.log("here")
+  //   console.log("useEffect called convos")
+  //   chatClient.on('channel.updated', handleChannelUpdate);
+  //   console.log("useEffect called on mount convos")
+  //   return () => {
+  //     console.log("useEffect called on unmount convos")
+  //     chatClient.off('channel.updated', handleChannelUpdate);
+  //   };
+  // }, [handleChannelUpdate]);
 
 
   //have an input box and a default channel that's where all questions
@@ -46,7 +70,12 @@ const Convos = ({route}) => {
   }
 
   // Define custom filters based on the channelId
-  const filters = { type: 'messaging', members: { $in: [chatClient.user.id] }, chatId: channelId, typeChat: { $eq: 'convo'}};
+  const filters = { 
+    type: 'messaging', 
+    members: { $in: [chatClient.user.id] }, 
+    chatId: channelId, 
+    typeChat: { $eq: 'convo'}
+  };
   const sort = { last_message_at: -1 };
  
   return (
@@ -55,6 +84,7 @@ const Convos = ({route}) => {
        
 
         <ChannelList
+            //key={refreshList}
             Preview={ConvoPreview}
             filters={filters}
             sort={sort}

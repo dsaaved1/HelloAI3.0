@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import {ChannelList} from 'stream-chat-react-native'
 import ChannelPreview from '../components/channel-list/ChannelPreview'
 import {useNavigation} from '@react-navigation/native'
@@ -16,7 +16,6 @@ const twoMemberFilters = {
   temporary: { $exists: false }
 };
 
-
 const groupFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
@@ -25,12 +24,12 @@ const groupFilters = {
   typeChat: { $eq: 'chat'}
 };
 
-
 const sort = { last_message_at: -1 };
 
 
 export const List = props => {
   const showGroups = props.showGroups;
+  const [refreshList, setRefreshList] = useState(false);
   //this might help me in my invitations bug
   const memoizedFilters = useMemo(() => {
     if (showGroups) {
@@ -41,8 +40,38 @@ export const List = props => {
   }, [showGroups]);
   
   const navigation = useNavigation();
+  
+  // console.log("List rendered")
 
-
+  // const handleChannelUpdate = useCallback((e) => {
+  //   console.log("here")
+  //   console.log('channel updated', e)
+  //   console.log(e.channel.data.typeChat, 'typeChat')
+  //   // Check if the updated channel has typeChat == 'chat'
+  //   if (e.channel.data.typeChat === 'chat') {
+  //     setRefreshList((prev) => !prev);
+  //   }
+  // }, []);
+  
+  // useEffect(() => {
+  //   console.log("useEffect called invitations");
+  
+  //   const logChannelUpdatedEvent = (e) => {
+  //     console.log("channel.updated event:", e);
+  //   };
+  
+  //   chatClient.on("channel.updated", logChannelUpdatedEvent);
+  
+  //   chatClient.on("channel.updated", handleChannelUpdate);
+  //   console.log("useEffect called on mount invitations");
+  //   return () => {
+  //     console.log("useEffect called on unmount invitations");
+  //     chatClient.off("channel.updated", logChannelUpdatedEvent);
+  //     chatClient.off("channel.updated", handleChannelUpdate);
+  //   };
+  // }, [handleChannelUpdate]);
+  
+  
 
   return (
     <View style={{ flex: 1}}>
@@ -57,7 +86,13 @@ export const List = props => {
       </View>
 
       <View style={{ flex: 1 }}>
-        <ChannelList Preview={ChannelPreview} filters={memoizedFilters} sort={sort}  EmptyStateIndicator={CustomEmpty}/>
+        <ChannelList 
+          //key={refreshList}
+          Preview={ChannelPreview} 
+          filters={memoizedFilters} 
+          sort={sort}  
+          EmptyStateIndicator={CustomEmpty}
+        />
       </View>
 
   </View>

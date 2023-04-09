@@ -1,0 +1,34 @@
+import React from 'react';
+import { View, Text, Button, Alert } from 'react-native';
+
+const AlertButton = () => {
+
+  const showAlert = () => {
+    Alert.alert(
+      'Remove User',
+      'Are you sure you want to remove this user?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Remove',
+          onPress: () => console.log('Remove Pressed'),
+          style: 'destructive',
+        },
+      ],
+      { cancelable: false }
+    );
+    }
+    
+  return (
+    <View>
+      <Text> Native Confirmation Modal Example</Text>
+      <Button title="Remove User" onPress={showAlert} />
+    </View>
+  );
+};
+
+export default AlertButton;
