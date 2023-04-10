@@ -27,7 +27,6 @@ const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
-const ConvosStack = createStackNavigator();
 
 export enum ROOT_STACK {
   CHANNEL_LIST = 'RootStackChannelList',
@@ -39,7 +38,6 @@ export enum ROOT_STACK {
   PROFILE = 'RootStackSettings',
   INVITATIONS = 'invitations',
   TABS = 'tabs',
-
 }
 
 
@@ -161,7 +159,7 @@ const TabNavigation = () => (
     <Tab.Navigator tabBar={(props) => <BottomTabs {...props} />}>
       <Tab.Screen component={HomeStackNavigator} name='home'  options={noHeaderOptions} />
       <Tab.Screen component={Invitations} name={'invitations'}  options={noHeaderOptions}/>
-      <Tab.Screen component={ProfileScreen} name={'profile'} options={noHeaderOptions}/>
+      <Tab.Screen component={Settings} name={'profile'} options={noHeaderOptions}/>
     </Tab.Navigator>
   </BottomSheetModalProvider>
 );
@@ -183,7 +181,13 @@ export default ({clientReady}: {clientReady: boolean}) => {
           name={ROOT_STACK.CHANNEL_SCREEN}
           options={noHeaderOptions}
         />
-        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Screen
+          component={GroupInfo}
+          name={'GroupInfo'}
+          options={noHeaderOptions} // or any other options you need
+      />
+
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen
                 component={NewChatScreen}
                 name={ROOT_STACK.NEW_SCREEN}

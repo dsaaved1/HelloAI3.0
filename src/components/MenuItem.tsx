@@ -62,12 +62,13 @@ function MenuItem({
         <PlainTextPressableWrap
           onPress={onPlainTextPress}
           withNextIcon={plainTextWithNextIcon}>
+
           {leftIcon && (
             <>
               <View
                 style={{
-                  height: 50,
-                  width: 50,
+                  height: 35,
+                  width: 35,
                   borderRadius: 25,
                   backgroundColor: colors.deepGray,
                   alignItems: 'center',
@@ -75,8 +76,8 @@ function MenuItem({
                 }}>
                 <AntDesignIcon
                   name={leftIconLink ? 'link' : 'plus'}
-                  color={colors.darkblue}
-                  size={25}
+                  color={colors.blue}
+                  size={15}
                   style={{
                     transform: [{rotate: leftIconLink ? '45deg' : '0deg'}],
                   }}
@@ -96,7 +97,7 @@ function MenuItem({
               <Spacer width={10} />
             </>
           )}
-          <T18 color={plaintextColor || colors.blue}>{mainText}</T18>
+          <T14 color={plaintextColor || colors.blue}>{mainText}</T14>
 
           {plainTextWithNextIcon && (
             <MaterialIcons
@@ -118,8 +119,8 @@ function MenuItem({
               backgroundColor={iconBackgroundColor}
               style={{
                 borderRadius: isContact ? 50 : 5,
-                height: isContact ? 50 : 30,
-                width: isContact ? 50 : 30,
+                height: isContact ? 40 : 30,
+                width: isContact ? 40 : 30,
               }}>
               {isContact ? (
                 <Image
@@ -132,7 +133,7 @@ function MenuItem({
               )}
             </IconWrapper>
             <MainANsSubTextWrap>
-              <T18 numberOfLines={1}>{mainText}</T18>
+              <T14 numberOfLines={1} color='#859299'>{mainText}</T14>
               {subText && (
                 <T12
                   numberOfLines={2}
@@ -171,6 +172,7 @@ export default MenuItem;
 const Wrapper = styled.TouchableOpacity`
   width: 100%;
   padding: 2.5% 5%;
+  background-color: ${'#1C2337'};
 `;
 
 const IconWrapper = styled.View<{backgroundColor?: string}>`

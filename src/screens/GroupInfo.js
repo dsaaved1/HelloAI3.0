@@ -1,8 +1,8 @@
 //CAUSE PROBLEMS  Fragment
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {colors} from '../common/colors/index';
-import {T16, T24} from '../common/Typography/index';
+import {T16, T24, T18} from '../common/Typography/index';
 import Header from '../components/channel/Header';
 import MenuWrapper from '../components/MenuWrapper';
 import MenuItem from '../components/MenuItem';
@@ -14,119 +14,63 @@ import FontAwesoem5Icons from 'react-native-vector-icons/FontAwesome5';
 import Spacer from '../containers/Spacer/Spacer';
 import {useNavigation} from '@react-navigation/native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-
 import UIDivider from '../components/UIDivider';
 import BottomAlert from '../components/BottomAlert';
 
+import {View, StyleSheet} from 'react-native';
+import { chatClient} from '../client'
+import { SCText } from '../components/SCText';
+import userImage from '../images/userImage.jpeg'
+import SuperAvatar from '../components/SuperAvatar';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type Props = {};
 
-function GroupInfo({}: Props) {
-  const {navigate} = useNavigation();
+const GroupInfo = ({route}) =>  {
+  const navigation = useNavigation();
   const [showAddAlert, setShowAddAlert] = useState(false);
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const [showChatAlert, setShowChatAlert] = useState(false);
+  const [contacts, setContacts] = useState([]);
+  const [participants, setParticpants] = useState(0);
+  
+  const {channel} = route.params || {};
+  const source = channel.data.image ?  { uri: channel.data.image } : userImage;
+  const [isGroupChat, setIsGroupChat] = useState(channel.data.isGroupChat)
 
-  const [contacts, setContacts] = useState([
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Leo Primo',
-      about: '🦋',
-      id: 1,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Theo Primo',
-      about: 'Disponible',
-      id: 2,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Ali Primo',
-      about: 'Disponible',
-      id: 3,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Zaid Munir',
-      about: 'Disponible',
-      id: 4,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Abraham',
-      about: 'Disponible',
-      id: 5,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Adri',
-      about: 'Disponible',
-      id: 6,
-    },
+  async function fetchMembers() {
+    const sort = [{ user: { name: 1 } }];
+    const objectMembers = await channel.queryMembers({})
+    // Do something with objectMembers here
+    console.log(objectMembers, "object")
+    const participantsCount = objectMembers.members.length;
+    console.log(participantsCount, "participants count")
+    // Transform the membersArray to the required format for contacts
+    const fetchedContacts = objectMembers.members.map((member, index) => {
+      return {
+        image: { uri: member.user.image }, // Assuming the user has an 'image' property
+        name: member.user.name,
+        about: member.user.id, // Assuming the user has an 'about' property
+        id: index,
+      };
+    });
+    console.log(fetchedContacts, "fetched")
+    
+    // Update the contacts state
+    setContacts(fetchedContacts);
+    setParticpants(participantsCount)
+  }
+  
+  useEffect(() => {
+    fetchMembers();
+  }, [])
 
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Miqui',
-      about: 'Disponible',
-      id: 7,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Mateo Primo',
-      about: 'Disponible',
-      id: 8,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Nico',
-      about: 'Disponible',
-      id: 9,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Hermana',
-      about: 'Disponible',
-      id: 10,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Iris',
-      about: 'Disponible',
-      id: 11,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Natty',
-      about: 'Disponible',
-      id: 12,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Juanca',
-      about: 'Disponible',
-      id: 13,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Usman',
-      about: 'Disponible',
-      id: 14,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Saqib',
-      about: 'Disponible',
-      id: 15,
-    },
-    {
-      image: require('../assets/images/profile.jpg'),
-      name: 'Usama',
-      about: 'Disponible',
-      id: 16,
-    },
-  ]);
+  const handleAddModerator = async () => {
+    try {
+        await channel.addModerators(['steve']);
+    } catch (error) {
+      console.error('Error adding moderator:', error);
+    }
+  };
 
   const chatOptions = [
     {
@@ -178,7 +122,10 @@ function GroupInfo({}: Props) {
       onPress: () => {},
     },
   ];
+
+
   return (
+    <View style={{flex: 1, paddingHorizontal: 20}} >
     <Wrapper>
       <ScrollableView
         contentContainerStyle={{
@@ -189,30 +136,37 @@ function GroupInfo({}: Props) {
         <Header
           headerTitle="Group Info"
           onRightButtonPress={() => setShowRemoveAlert(true)}
-          onLeftButtonPress={() => setShowChatAlert(true)}
+          onLeftButtonPress={() => navigation.goBack()}
+          //onLeftButtonPress={() => setShowChatAlert(true)}
           leftButtonText="Back"
           rightButtonText="Edit"
           showBackIcon={true}
           tiltLeft
         />
         <Spacer height={10} />
-        <ButtonsContainer>
-          <GoToSettingsButton onPress={() => navigate('Settings')}>
-            <T16>Settings</T16>
-          </GoToSettingsButton>
-          <GoToSettingsButton
-            onPress={() => navigate('AddParticipants', {contacts: contacts})}>
-            <T16>Add Participant</T16>
-          </GoToSettingsButton>
-        </ButtonsContainer>
-        <ProfileImageContainer>
-          
-          <Image
-            source={require('../assets/images/profile.jpg')}
-            resizeMode="cover"
-          />
-        </ProfileImageContainer>
-        <MenuWrapper>
+      
+
+        <View style={styles.column}>
+            <View>
+              <Image
+                source={source}
+                style={styles.userImage}
+              />
+            </View>
+            <View style={styles.userDetails}>
+              <SCText style={styles.userName}>
+                {channel.data.name}
+              </SCText>
+              {channel.data.description && 
+                  <SCText style={styles.userID}>
+                 {channel.data.description}
+                </SCText>
+              }
+              
+            </View>
+        </View>
+
+        {/* <MenuWrapper>
           <MenuItem
             plainText={true}
             mainText="Add Group Description"
@@ -220,11 +174,13 @@ function GroupInfo({}: Props) {
               setShowAddAlert(true);
             }}
           />
-        </MenuWrapper>
+        </MenuWrapper> */}
+
         <MenuWrapper>
           
           <MenuItem
-            iconBackgroundColor={colors.darkblue}
+           iconBackgroundColor='#33FFB3'
+            //iconBackgroundColor={colors.darkblue}
             icon={<FontAwesomeIcons name="image" size={18} color={colors.white} />}
             mainText="Media, Links, and Docs"
             rightIconText={721}
@@ -232,7 +188,7 @@ function GroupInfo({}: Props) {
           <UIDivider forMenu={true} />
 
           <MenuItem
-            iconBackgroundColor={colors.yellow}
+             iconBackgroundColor='#FFFF66'
             icon={
               <MaterialCommunityIconsIcon
                 name="star"
@@ -247,7 +203,7 @@ function GroupInfo({}: Props) {
 
         <MenuWrapper>
           <MenuItem
-            iconBackgroundColor={colors.darkblue}
+            iconBackgroundColor='#3F22EC'
             icon={
               <IoniconsIcon name="lock-closed" size={18} color={colors.white} />
             }
@@ -258,33 +214,42 @@ function GroupInfo({}: Props) {
           <UIDivider forMenu={true} />
 
           <MenuItem
-            iconBackgroundColor={colors.darkblue}
+            iconBackgroundColor='#FF6653'
             icon={
               <IoniconsIcon name="settings" size={18} color={colors.white} />
             }
             mainText="Group Settings"
           />
         </MenuWrapper>
-        <T24 style={{marginTop: '6%', alignSelf: 'flex-start'}}>
-          {contacts.length} Participants
-        </T24>
-        <MenuWrapper>
-          <MenuItem
-            mainText="Add Participants"
-            rightIcon={false}
-            plainText={true}
-            leftIcon={true}
-          />
-          <UIDivider forContacts={true} style={{marginTop: -5}} />
-          <MenuItem
-            mainText="Invite to Group via Link"
-            rightIcon={false}
-            plainText={true}
-            leftIcon={true}
-            leftIconLink={true}
-          />
-          <UIDivider forContacts={true} style={{marginTop: -5}} />
 
+        <T18 style={{marginTop: '6%', alignSelf: 'flex-start'}}>
+           {participants} Participants
+        </T18>
+
+        <MenuWrapper>
+            {isGroupChat && 
+            <>
+              <TouchableOpacity
+                 onPress={handleAddModerator}
+              >
+                <MenuItem
+                  mainText="Add Participants"
+                  rightIcon={false}
+                  plainText={true}
+                  leftIcon={true}
+                />
+              </TouchableOpacity>
+              <UIDivider forContacts={true} style={{marginTop: -5}} />
+              <MenuItem
+                mainText="Invite to Group via Link"
+                rightIcon={false}
+                plainText={true}
+                leftIcon={true}
+                leftIconLink={true}
+              />
+              <UIDivider forContacts={true} style={{marginTop: -5}} />
+              </>
+            }
           {contacts
             .slice(0, Math.min(contacts.length, 10))
             .map((item, index) => (
@@ -302,18 +267,17 @@ function GroupInfo({}: Props) {
                  </>
               // </Fragment>
             ))}
+            
+
           {contacts.length > 10 && (
             <>
-              <UIDivider forContacts={true} />
-              <Spacer height={10} />
-
               <MenuItem
                 plainText={true}
                 mainText={'See All'}
                 plaintextColor={colors.gray}
                 plainTextWithNextIcon={true}
               />
-              <Spacer height={10} />
+             
             </>
           )}
         </MenuWrapper>
@@ -384,6 +348,7 @@ function GroupInfo({}: Props) {
         />
       </ScrollableView>
     </Wrapper>
+    </View>
   );
 }
 
@@ -427,3 +392,36 @@ const ButtonsContainer = styled.View`
   justify-content: space-between;
   width: 100%;
 `;
+
+
+const styles = StyleSheet.create({
+  column: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '10%',
+  },
+  userID: {
+    fontSize: 16,
+    fontWeight: '400',
+    alignItems: 'center',
+  },
+  userName: {
+    alignItems: 'center',
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+  userDetails: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    
+  },
+  userImage: {
+    borderRadius: 10,
+    height: 110,
+    width: 110,
+  },
+
+});

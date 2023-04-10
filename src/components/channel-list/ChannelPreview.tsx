@@ -91,7 +91,7 @@ export default ({
         const channelMembers = channel.state.members;
         // Extract user IDs from the channel members object
         const userIds = Object.keys(channelMembers);
-        navigate(ROOT_STACK.CONVOS, { channelId: channel.id, channelName: channel.data.name, channelUsers: userIds});
+        navigate(ROOT_STACK.CONVOS, { channel:channel, channelId: channel.id, channelName: channel.data.name, channelUsers: userIds});
   }
 
   const handleOnLongPress = () => toggleChannelSelectionForEditing(channel)

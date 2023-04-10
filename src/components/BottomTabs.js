@@ -2,10 +2,13 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useKeyboard } from '../hooks/useKeaboard';
 import { SCText } from './SCText';
 import { SVGIcon } from './SVGIcon';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -47,8 +50,8 @@ export const BottomTabs = ({ navigation, state }) => {
         };
         case 'profile':
         return {
-          icon: <SVGIcon height={25} type='you-tab' width={25} />,
-          iconActive: <SVGIcon fill={'blue'} height={25} type='you-tab-active' width={25} />,
+          icon: <MaterialCommunityIcons name="account-outline" size={25} color="#dce7eb" />,
+          iconActive: <MaterialCommunityIcons name="account" size={25} color="#fff" />,
           title: 'Profile',
         };
     }

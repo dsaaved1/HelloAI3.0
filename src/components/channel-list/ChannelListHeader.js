@@ -8,11 +8,17 @@ import {useAppContext} from '../../App'
 import {isEmpty} from 'lodash'
 import {chatClient} from '../../client'
 import {createConvo} from '../../utils/actions/chatActions'
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 export default (props) => {
-  const channelName = props.channelName
-  const channelId = props.channelId
   const channelUsers = props.channelUsers
+  const channel = props.channel
+
+  console.log("channel  id", channel.cid)
+  const navigation = useNavigation();
+
 
 
   const {selectedChannelsForEditing, setSelectedChannelsForEditing} =
@@ -29,7 +35,7 @@ export default (props) => {
 
   const handleCreateConvo = async () => {
     try {
-        await createConvo(chatClient, channelUsers, channelId, channelName);
+        await createConvo(chatClient, channelUsers, channel.id, channel.data.name);
     } catch (error) {
       console.error('Error creating convo:', error);
     }
@@ -43,6 +49,7 @@ export default (props) => {
         ...flex.directionRowItemsCenter,
       }}>
       <StatusBar backgroundColor={colors.dark.secondary} />
+      
       <PeekabooView isEnabled={isInChannelSelectionMode}>
         <View style={flex.directionRowItemsCenterContentSpaceBetween1}>
           <View style={flex.directionRowItemsCenter}>
@@ -69,7 +76,7 @@ export default (props) => {
       </PeekabooView>
       <PeekabooView isEnabled={!isInChannelSelectionMode}>
         <View style={styles.appNameText}>
-          <Text style={styles.titleText}>{channelName}</Text>
+          <Text style={styles.titleText}>{channel.data.name}</Text>
         </View>
         <IconButton
           onPress={handleCreateConvo}
@@ -82,7 +89,7 @@ export default (props) => {
           pathFill={colors.dark.secondaryLight}
         /> */}
         <IconButton
-          onPress={() => null}
+          onPress={() => navigation.navigate('GroupInfo', { channel: channel})}
           iconName={'Menu'}
           pathFill={colors.dark.secondaryLight}
         />

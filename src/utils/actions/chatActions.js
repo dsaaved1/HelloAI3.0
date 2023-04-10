@@ -3,6 +3,7 @@ import uuid from 'react-native-uuid';
 
 function getRandomColor() {
     const colors = ['#6653FF', '#53FF66', '#FF6653', '#BC53FF', '#19C37D', '#FFFF66', '#3F22EC', '#FF6EFF', '#FF9933'];
+    
     return colors[Math.floor(Math.random() * colors.length)];
 }
 

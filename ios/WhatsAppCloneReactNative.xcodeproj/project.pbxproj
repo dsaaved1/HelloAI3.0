@@ -46,6 +46,15 @@
 		C438D82E29E31512006EA6F6 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C438D80F29E31512006EA6F6 /* SimpleLineIcons.ttf */; };
 		C438D82F29E31512006EA6F6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C438D81029E31512006EA6F6 /* MaterialIcons.ttf */; };
 		C438D83029E31512006EA6F6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C438D81029E31512006EA6F6 /* MaterialIcons.ttf */; };
+		C47ECABA29E3B883006F5BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECAB929E3B883006F5BD8 /* AppDelegate.swift */; };
+		C47ECABC29E3B883006F5BD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECABB29E3B883006F5BD8 /* SceneDelegate.swift */; };
+		C47ECABE29E3B883006F5BD8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECABD29E3B883006F5BD8 /* ViewController.swift */; };
+		C47ECAC129E3B883006F5BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C47ECABF29E3B883006F5BD8 /* Main.storyboard */; };
+		C47ECAC329E3B885006F5BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C47ECAC229E3B885006F5BD8 /* Assets.xcassets */; };
+		C47ECAC629E3B885006F5BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C47ECAC429E3B885006F5BD8 /* LaunchScreen.storyboard */; };
+		C47ECAD129E3B886006F5BD8 /* HelloAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECAD029E3B886006F5BD8 /* HelloAITests.swift */; };
+		C47ECADB29E3B886006F5BD8 /* HelloAIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECADA29E3B886006F5BD8 /* HelloAIUITests.swift */; };
+		C47ECADD29E3B886006F5BD8 /* HelloAIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ECADC29E3B886006F5BD8 /* HelloAIUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +64,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = WhatsAppCloneReactNative;
+		};
+		C47ECACD29E3B886006F5BD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C47ECAB629E3B883006F5BD8;
+			remoteInfo = HelloAI;
+		};
+		C47ECAD729E3B886006F5BD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C47ECAB629E3B883006F5BD8;
+			remoteInfo = HelloAI;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -91,6 +114,19 @@
 		C438D80E29E31512006EA6F6 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C438D80F29E31512006EA6F6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		C438D81029E31512006EA6F6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		C47ECAB729E3B883006F5BD8 /* HelloAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C47ECAB929E3B883006F5BD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C47ECABB29E3B883006F5BD8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C47ECABD29E3B883006F5BD8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C47ECAC029E3B883006F5BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C47ECAC229E3B885006F5BD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C47ECAC529E3B885006F5BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C47ECAC729E3B885006F5BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C47ECACC29E3B885006F5BD8 /* HelloAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C47ECAD029E3B886006F5BD8 /* HelloAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloAITests.swift; sourceTree = "<group>"; };
+		C47ECAD629E3B886006F5BD8 /* HelloAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C47ECADA29E3B886006F5BD8 /* HelloAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloAIUITests.swift; sourceTree = "<group>"; };
+		C47ECADC29E3B886006F5BD8 /* HelloAIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloAIUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -108,6 +144,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-WhatsAppCloneReactNative.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAB429E3B883006F5BD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAC929E3B885006F5BD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAD329E3B886006F5BD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +225,9 @@
 				13B07FAE1A68108700A75B9A /* WhatsAppCloneReactNative */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* WhatsAppCloneReactNativeTests */,
+				C47ECAB829E3B883006F5BD8 /* HelloAI */,
+				C47ECACF29E3B886006F5BD8 /* HelloAITests */,
+				C47ECAD929E3B886006F5BD8 /* HelloAIUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -182,6 +242,9 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* WhatsAppCloneReactNative.app */,
 				00E356EE1AD99517003FC87E /* WhatsAppCloneReactNativeTests.xctest */,
+				C47ECAB729E3B883006F5BD8 /* HelloAI.app */,
+				C47ECACC29E3B885006F5BD8 /* HelloAITests.xctest */,
+				C47ECAD629E3B886006F5BD8 /* HelloAIUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +282,37 @@
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		C47ECAB829E3B883006F5BD8 /* HelloAI */ = {
+			isa = PBXGroup;
+			children = (
+				C47ECAB929E3B883006F5BD8 /* AppDelegate.swift */,
+				C47ECABB29E3B883006F5BD8 /* SceneDelegate.swift */,
+				C47ECABD29E3B883006F5BD8 /* ViewController.swift */,
+				C47ECABF29E3B883006F5BD8 /* Main.storyboard */,
+				C47ECAC229E3B885006F5BD8 /* Assets.xcassets */,
+				C47ECAC429E3B885006F5BD8 /* LaunchScreen.storyboard */,
+				C47ECAC729E3B885006F5BD8 /* Info.plist */,
+			);
+			path = HelloAI;
+			sourceTree = "<group>";
+		};
+		C47ECACF29E3B886006F5BD8 /* HelloAITests */ = {
+			isa = PBXGroup;
+			children = (
+				C47ECAD029E3B886006F5BD8 /* HelloAITests.swift */,
+			);
+			path = HelloAITests;
+			sourceTree = "<group>";
+		};
+		C47ECAD929E3B886006F5BD8 /* HelloAIUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C47ECADA29E3B886006F5BD8 /* HelloAIUITests.swift */,
+				C47ECADC29E3B886006F5BD8 /* HelloAIUITestsLaunchTests.swift */,
+			);
+			path = HelloAIUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,12 +361,66 @@
 			productReference = 13B07F961A680F5B00A75B9A /* WhatsAppCloneReactNative.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C47ECAB629E3B883006F5BD8 /* HelloAI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C47ECAE429E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAI" */;
+			buildPhases = (
+				C47ECAB329E3B883006F5BD8 /* Sources */,
+				C47ECAB429E3B883006F5BD8 /* Frameworks */,
+				C47ECAB529E3B883006F5BD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloAI;
+			productName = HelloAI;
+			productReference = C47ECAB729E3B883006F5BD8 /* HelloAI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C47ECACB29E3B885006F5BD8 /* HelloAITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C47ECAE529E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAITests" */;
+			buildPhases = (
+				C47ECAC829E3B885006F5BD8 /* Sources */,
+				C47ECAC929E3B885006F5BD8 /* Frameworks */,
+				C47ECACA29E3B885006F5BD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C47ECACE29E3B886006F5BD8 /* PBXTargetDependency */,
+			);
+			name = HelloAITests;
+			productName = HelloAITests;
+			productReference = C47ECACC29E3B885006F5BD8 /* HelloAITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C47ECAD529E3B886006F5BD8 /* HelloAIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C47ECAE629E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAIUITests" */;
+			buildPhases = (
+				C47ECAD229E3B886006F5BD8 /* Sources */,
+				C47ECAD329E3B886006F5BD8 /* Frameworks */,
+				C47ECAD429E3B886006F5BD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C47ECAD829E3B886006F5BD8 /* PBXTargetDependency */,
+			);
+			name = HelloAIUITests;
+			productName = HelloAIUITests;
+			productReference = C47ECAD629E3B886006F5BD8 /* HelloAIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -281,6 +429,17 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
+					};
+					C47ECAB629E3B883006F5BD8 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					C47ECACB29E3B885006F5BD8 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = C47ECAB629E3B883006F5BD8;
+					};
+					C47ECAD529E3B886006F5BD8 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = C47ECAB629E3B883006F5BD8;
 					};
 				};
 			};
@@ -299,6 +458,9 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* WhatsAppCloneReactNative */,
 				00E356ED1AD99517003FC87E /* WhatsAppCloneReactNativeTests */,
+				C47ECAB629E3B883006F5BD8 /* HelloAI */,
+				C47ECACB29E3B885006F5BD8 /* HelloAITests */,
+				C47ECAD529E3B886006F5BD8 /* HelloAIUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -349,6 +511,30 @@
 				C438D82329E31512006EA6F6 /* FontAwesome5_Solid.ttf in Resources */,
 				C438D81B29E31512006EA6F6 /* MaterialCommunityIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAB529E3B883006F5BD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C47ECAC629E3B885006F5BD8 /* LaunchScreen.storyboard in Resources */,
+				C47ECAC329E3B885006F5BD8 /* Assets.xcassets in Resources */,
+				C47ECAC129E3B883006F5BD8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECACA29E3B885006F5BD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAD429E3B886006F5BD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +706,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C47ECAB329E3B883006F5BD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C47ECABE29E3B883006F5BD8 /* ViewController.swift in Sources */,
+				C47ECABA29E3B883006F5BD8 /* AppDelegate.swift in Sources */,
+				C47ECABC29E3B883006F5BD8 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAC829E3B885006F5BD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C47ECAD129E3B886006F5BD8 /* HelloAITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47ECAD229E3B886006F5BD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C47ECADB29E3B886006F5BD8 /* HelloAIUITests.swift in Sources */,
+				C47ECADD29E3B886006F5BD8 /* HelloAIUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -528,7 +741,36 @@
 			target = 13B07F861A680F5B00A75B9A /* WhatsAppCloneReactNative */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
+		C47ECACE29E3B886006F5BD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C47ECAB629E3B883006F5BD8 /* HelloAI */;
+			targetProxy = C47ECACD29E3B886006F5BD8 /* PBXContainerItemProxy */;
+		};
+		C47ECAD829E3B886006F5BD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C47ECAB629E3B883006F5BD8 /* HelloAI */;
+			targetProxy = C47ECAD729E3B886006F5BD8 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C47ECABF29E3B883006F5BD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C47ECAC029E3B883006F5BD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C47ECAC429E3B885006F5BD8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C47ECAC529E3B885006F5BD8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
@@ -779,6 +1021,208 @@
 			};
 			name = Release;
 		};
+		C47ECADE29E3B886006F5BD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HelloAI/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C47ECADF29E3B886006F5BD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HelloAI/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C47ECAE029E3B886006F5BD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HelloAI";
+			};
+			name = Debug;
+		};
+		C47ECAE129E3B886006F5BD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HelloAI";
+			};
+			name = Release;
+		};
+		C47ECAE229E3B886006F5BD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HelloAI;
+			};
+			name = Debug;
+		};
+		C47ECAE329E3B886006F5BD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = diegosaavedra.HelloAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HelloAI;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -805,6 +1249,33 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C47ECAE429E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C47ECADE29E3B886006F5BD8 /* Debug */,
+				C47ECADF29E3B886006F5BD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C47ECAE529E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C47ECAE029E3B886006F5BD8 /* Debug */,
+				C47ECAE129E3B886006F5BD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C47ECAE629E3B886006F5BD8 /* Build configuration list for PBXNativeTarget "HelloAIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C47ECAE229E3B886006F5BD8 /* Debug */,
+				C47ECAE329E3B886006F5BD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

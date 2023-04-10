@@ -7,12 +7,16 @@ import ChannelListHeader from '../components/channel-list/ChannelListHeader';
 import CustomEmpty from '../components/CustomEmpty';
 import {colors} from '../theme'
 import { ScreenHeader } from '../components/ScreenHeader';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 const Convos = ({route}) => {
   const {channelId} = route?.params || {};
   const {channelName} = route?.params || {};
   const {channelUsers} = route.params || {};
+  const {channel} = route.params || {};
+  const navigation = useNavigation();
  
 
   // const [refreshList, setRefreshList] = useState(false);
@@ -64,6 +68,22 @@ const Convos = ({route}) => {
               placeholderTextColor="#999"
             />
           </View>
+          {Platform.OS === 'android' ? (
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: 0,
+              borderRadius: 25,
+              width: 50,
+              height: 50,
+              backgroundColor: '#3777f0',
+              transform: [{ translateY: -25 }, { translateX: -25 }],
+            }}
+          >
+          </TouchableOpacity>
+        ) : null}
         </SafeAreaView>
       </View>
     );
@@ -80,7 +100,7 @@ const Convos = ({route}) => {
  
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.dark.secondary}}>
-       <ChannelListHeader channelName={channelName} channelId={channelId} channelUsers={channelUsers}/>
+       <ChannelListHeader channel={channel} channelName={channelName} channelId={channelId} channelUsers={channelUsers}/>
        
 
         <ChannelList
@@ -90,8 +110,22 @@ const Convos = ({route}) => {
             sort={sort}
             EmptyStateIndicator={CustomEmpty}
         />
-
-
+        {Platform.OS === 'android' ? (
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: 0,
+              borderRadius: 25,
+              width: 50,
+              height: 50,
+              backgroundColor: '#3777f0',
+              transform: [{ translateY: -25 }, { translateX: -25 }],
+            }}
+          >
+          </TouchableOpacity>
+        ) : null}
     </SafeAreaView>
   );
 };
