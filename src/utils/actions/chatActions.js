@@ -17,12 +17,13 @@ export const createGroupChat = async (userId, client, chatName, channelMembers, 
           typeChat: 'chat',
         });
     
+
         const userArray = [userId]
-
+        
         await channel.create();
-        await channel.addMembers(userArray);
+        await channel.addMembers([{user_id:userId, channel_role:"channel_moderator"}]);
 
-        await channel.inviteMembers(channelMembers);
+        await channel.addMembers(channelMembers);
     
         // The channel's unique ID will be available in channel.cid
         console.log("New channel created with ID:", channel.id);

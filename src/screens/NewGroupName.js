@@ -71,7 +71,7 @@ const NewGroupName = (props) => {
                                 const channelInfo =  await createGroupChat(user.id, chatClient, chatName, userIds, true);
                                 console.log('send invitation to users to create a group chat')
                                 //navigation.navigate(ROOT_STACK.CONVOS, { channelId: channelInfo.id, channelName: channelInfo.name, channelUsers: channelInfo.members});
-                                navigation.navigate('tabs');
+                                navigation.navigate('Home');
                             }}/>
                 </HeaderButtons>
             },

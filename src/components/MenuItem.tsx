@@ -67,8 +67,8 @@ function MenuItem({
             <>
               <View
                 style={{
-                  height: 35,
-                  width: 35,
+                  height: 40,
+                  width: 40,
                   borderRadius: 25,
                   backgroundColor: colors.deepGray,
                   alignItems: 'center',
@@ -77,7 +77,7 @@ function MenuItem({
                 <AntDesignIcon
                   name={leftIconLink ? 'link' : 'plus'}
                   color={colors.blue}
-                  size={15}
+                  size={20}
                   style={{
                     transform: [{rotate: leftIconLink ? '45deg' : '0deg'}],
                   }}
@@ -118,7 +118,7 @@ function MenuItem({
             <IconWrapper
               backgroundColor={iconBackgroundColor}
               style={{
-                borderRadius: isContact ? 50 : 5,
+                borderRadius: isContact ? 40 : 5,
                 height: isContact ? 40 : 30,
                 width: isContact ? 40 : 30,
               }}>

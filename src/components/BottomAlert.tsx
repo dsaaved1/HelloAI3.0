@@ -30,6 +30,7 @@ const CustomAlert: React.FC<Props> = ({
   textColor,
   withIcon,
 }) => {
+  
   return (
     <View style={{
       backgroundColor:'rgba(0,0,0,0.7)',
@@ -104,7 +105,8 @@ const OneButton = styled(TouchableOpacityActiveOne)<{
   min-height: 56px;
   justify-content: ${props => (props.withIcon ? 'flex-start' : 'center')};
   align-items: center;
-  background-color: ${colors.blackShaded};
+  background-color: ${'#1C2337'};
+  // background-color: ${colors.blackShaded};
   border-radius: ${props => (props.borderRadius ? '12px' : 0)};
   padding-vertical: 14px;
   padding-horizontal: 24px;

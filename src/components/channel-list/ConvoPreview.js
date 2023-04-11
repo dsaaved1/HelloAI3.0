@@ -46,6 +46,7 @@ export default ({
   const {selectedChannelsForEditing, setSelectedChannelsForEditing} =
     useAppContext()
   const [showModal, setShowModal] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const [convoName, setConvoName] = useState('');   
    
   //for some reason here the direct messsages are not being displayed the other user name
@@ -125,6 +126,7 @@ export default ({
         }}
       >
         <TouchableOpacity
+        onPress={() => {setShowModalDelete(true)}}
         style={{
           paddingHorizontal: 10,
           paddingHorizontal: 30,
@@ -183,6 +185,11 @@ export default ({
     setShowModal(false);
     setConvoName('');
   };
+
+  const handleDelete = async () => {
+    await channel.delete();
+    setShowModalDelete(false);
+  }
 
 
   const handleOnLongPress = () => toggleChannelSelectionForEditing(channel)
@@ -256,7 +263,14 @@ export default ({
            animationType="slide"
            transparent={true}
        >
+          <Pressable
+            style={{ flex: 1 }}
+            onPress={() => {
+              setShowModal(false);
+            }}
+          >
            <View style={styles.modalContainer}>
+           <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
              <View style={styles.modalContent}>
                <Text style={styles.modalTitle}>Rename Convo</Text>
 
@@ -272,14 +286,53 @@ export default ({
                <View style={styles.modalButtonsContainer}>
                  <TouchableOpacity
                    style={styles.modalButton}
-                   onPress={() => {setShowModal(false), setConvoName('')}}
+                   onPress={() => {handleRename()}}
                  >
-                   <Text style={styles.modalButtonText}>Cancel</Text>
+                   <Text style={styles.modalButtonText}>Change</Text>
                  </TouchableOpacity>
 
                </View>
              </View>
+             </Pressable>
            </View>
+           </Pressable>
+          </Modal>
+
+          <Modal
+           visible={showModalDelete}
+           animationType="slide"
+           transparent={true}
+       >
+        <Pressable
+            style={{ flex: 1 }}
+            onPress={() => {
+              setShowModalDelete(false);
+            }}
+          >
+           <View style={styles.modalContainer}>
+           <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
+             <View style={styles.modalContent}>
+               <Text style={styles.modalTitle}>Delete Convo:</Text>
+
+               <Text
+                style={{ fontSize: 20,
+                  color: colors.dark.secondaryLight,
+                  marginBottom: 25,}}
+               >
+                  {channel.data.name}
+               </Text>
+               <View style={styles.modalButtonsContainer}>
+                 <TouchableOpacity
+                   style={{...styles.modalButton, backgroundColor: accent_red}}
+                   onPress={() => {handleDelete()}}
+                 >
+                   <Text style={styles.modalButtonText}>Delete</Text>
+                 </TouchableOpacity>
+               </View>
+             </View>
+             </Pressable>
+           </View>
+           </Pressable>
           </Modal>
       </Pressable>
       </View>
@@ -381,7 +434,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 20,

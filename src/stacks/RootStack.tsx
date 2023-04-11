@@ -22,6 +22,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import GroupInfo from '../screens/GroupInfo';
 import Settings from '../screens/Settings';
 import AddParticipants from '../screens/AddParticipants';
+import StarredMessages from '../screens/StarredMessages';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -37,7 +38,7 @@ export enum ROOT_STACK {
   NEW_GROUP_NAME = 'RootStackNewGroupName',
   PROFILE = 'RootStackSettings',
   INVITATIONS = 'invitations',
-  TABS = 'tabs',
+  TABS = 'Home',
 }
 
 
@@ -167,13 +168,13 @@ const TabNavigation = () => (
 export default ({clientReady}: {clientReady: boolean}) => {
   if (!clientReady) return null
   return (  <Stack.Navigator
-    initialRouteName={ROOT_STACK.TABS}
+    initialRouteName={'Home'}
     screenOptions={{
       headerTitleStyle: {alignSelf: 'center', fontWeight: 'bold'},
     }}>
       <Stack.Screen
         component={DrawerNavigator}
-        name={ROOT_STACK.TABS}
+        name={'Home'}
         options={noHeaderOptions}
       />
       <Stack.Screen
@@ -184,7 +185,13 @@ export default ({clientReady}: {clientReady: boolean}) => {
       <Stack.Screen
           component={GroupInfo}
           name={'GroupInfo'}
-          options={noHeaderOptions} // or any other options you need
+          //options={noHeaderOptions} // or any other options you need
+      />
+
+      <Stack.Screen
+          component={StarredMessages}
+          name={'Starred'}
+          //options={noHeaderOptions} // or any other options you need
       />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -196,6 +203,11 @@ export default ({clientReady}: {clientReady: boolean}) => {
               <Stack.Screen
                 component={NewGroupName}
                 name={ROOT_STACK.NEW_GROUP_NAME}
+                //options={noHeaderOptions} // or any other options you need
+              />
+               <Stack.Screen
+                component={AddParticipants}
+                name={"AddParticipants"}
                 //options={noHeaderOptions} // or any other options you need
               />
       </Stack.Group>

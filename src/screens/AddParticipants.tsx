@@ -6,8 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  //can cause problems
-  //ImageSourcePropType,
+  ImageSourcePropType, 
   Pressable,
 } from 'react-native';
 import styled from 'styled-components/native';
@@ -23,9 +22,10 @@ import BottomAlert from '../components/BottomAlert';
 
 
 
+
 interface Contact {
   name: string;
-  //image: ImageSourcePropType;
+  image: ImageSourcePropType; 
   about: string;
   id: number;
 }
@@ -146,15 +146,15 @@ function AddParticipants() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {selectedContacts.length > 0 &&
             selectedContacts.map((item, index) => (
-              <Fragment key={index}>
+              <>
                 <MainSelectedContactWrap
                   style={{marginLeft: index > 0 ? 20 : 0}}>
                   <SelectedContactWrap>
-                    {/* <Image
+                    <Image
                       source={item.image}
-                      style={{height: '100%', width: '100%'}}
-                      resizeMode="cover"
-                    /> */}
+                      //style={{height: '100%', width: '100%'}}
+                      //resizeMode="cover"
+                    />
                   </SelectedContactWrap>
                   <T14 color={colors.white}>{item.name}</T14>
                   <Pressable
@@ -167,7 +167,7 @@ function AddParticipants() {
                     />
                   </Pressable>
                 </MainSelectedContactWrap>
-              </Fragment>
+                </>
             ))}
         </ScrollView>
       </View>
