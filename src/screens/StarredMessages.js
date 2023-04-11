@@ -12,6 +12,7 @@ const StarredMessages = props => {
     const fetchPinnedMessages = async () => {
         const pinnedMessagesPromises = channels.map(async (channel) => {
             const channelState = await channel.query();
+            //console.log(await channel.getPinnedMessages(), "other way")
             return channelState.pinned_messages;
         });
 
@@ -36,17 +37,6 @@ const StarredMessages = props => {
             // headerLeft: () => {
                 headerTintColor: '#3777f0', 
             // },
-            headerRight: () => {
-                return <HeaderButtons 
-                >
-                   
-                        <Item
-                            title={"Edit"}
-                            color={ '#3777f0'}
-                        />
-                
-                </HeaderButtons>
-            },
         })
     }, [pinnedMessages]);
 

@@ -103,7 +103,7 @@ export default (props) => {
           pathFill={colors.dark.secondaryLight}
         /> */}
         <IconButton
-          onPress={() => navigation.navigate('GroupInfo', { channel: channel})}
+          onPress={() => navigation.navigate('Info', { channel: channel})}
           iconName={'Menu'}
           pathFill={colors.dark.secondaryLight}
         />

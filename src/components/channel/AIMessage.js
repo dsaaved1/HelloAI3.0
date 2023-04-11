@@ -12,7 +12,6 @@ import {
     useTheme,
     useChannelContext,
   } from 'stream-chat-react-native';
-//   import { Feather, FontAwesome, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import {StreamChatGenerics} from '../../types'
 import {
   MessageTouchableHandlerPayload,
@@ -23,6 +22,7 @@ import {Check} from 'stream-chat-react-native-core/src/icons/index'
 import {colors} from '../../theme'
 import {sizes} from '../../global'
 import {SVGIcon} from '../SVGIcon'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
   function format24Hours(dateString) {
@@ -100,8 +100,8 @@ export default AIMessage = () => {
                                   <>
                                         {isSolved === 'unsolved' ? (
                                            <View style={[styles.circleButton, { backgroundColor: '#D94444' }]}>
-                                           <SVGIcon height={7} fill={'black'} type={'close-button'} width={7} />
-                                       </View>
+                                              <SVGIcon height={7} fill={'black'} type={'close-button'} width={7} />
+                                           </View>
                                           // <View style={{ flexDirection: 'row', marginHorizontal:20}}>
                                               
                                           //     <Text style={{color:"#D86F6F", marginRight:10}}>Unsolved</Text>
@@ -109,13 +109,13 @@ export default AIMessage = () => {
                                           // </View>
                                       ) : (
                                         <View style={styles.checkWrap}>
-                                        <Check
-                                            pathFill={colors.dark.background}
-                                            width={sizes.l}
-                                            height={sizes.l}
-                                        />
+                                            <Check
+                                                pathFill={colors.dark.background}
+                                                width={sizes.l}
+                                                height={sizes.l}
+                                            />
                                         
-                                    </View>
+                                        </View>
                                           // <View style={{ flexDirection: 'row', marginHorizontal:20}}>
                                               
                                           //     <Text style={{color:"#8E8E", marginRight: 10}}>Solved</Text>
@@ -126,7 +126,9 @@ export default AIMessage = () => {
                                   </>
                               )}
 
-                              {/* { isStarred && <FontAwesome name='star' size={14} color={'#8E8E93'} style={{ marginRight: 5 }} />  */}
+                              { isStarred && 
+                              <FontAwesome name='star' size={14} color={'#8E8E93'} style={{ marginRight: 5 }} /> 
+                              }
                               <Text style={styles.time}>{dateString}</Text>
                           </View>             
                         }
@@ -206,7 +208,6 @@ export default AIMessage = () => {
         fontWeight: '400',
         color: '#8e9297',
         marginLeft: 5,
-        marginTop: 3
     },
     nameContainer: {
         flexDirection: 'row',
@@ -239,7 +240,7 @@ export default AIMessage = () => {
         borderWidth: 2,
         borderColor: colors.dark.highlighted,
         backgroundColor: colors.dark.primaryLight,
-        marginRight: 5,
+        marginRight: 9,
       },
       circleButton: {
         width: 23,
@@ -248,7 +249,7 @@ export default AIMessage = () => {
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 12,
-        marginRight: 5,
+        marginRight: 9,
         borderColor: colors.dark.secondary,
         borderWidth: 1,
       },

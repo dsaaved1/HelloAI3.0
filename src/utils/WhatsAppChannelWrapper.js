@@ -98,10 +98,10 @@ export default ({
       SendButton={RenderNothing}
       onLongPressMessage={handleToggleMessageSelection}
       MessageContent={MessageContent}
-      MessageHeader={channel.data.isGroupChat? MessageHeader : RenderNothing}
+      //MessageHeader={channel.data.isGroupChat? MessageHeader : RenderNothing}
       {...props}
 
-      //MessageFooter={renderMessageFooter}
+      MessageFooter={RenderNothing}
 
 
       //message content gets rid message footer and all the other stuff

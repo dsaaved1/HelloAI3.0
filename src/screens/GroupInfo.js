@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import styled from 'styled-components/native';
 import {colors} from '../common/colors/index';
 import {T16, T24, T18} from '../common/Typography/index';
@@ -14,7 +14,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Spacer from '../containers/Spacer/Spacer';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect } from '@react-navigation/native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UIDivider from '../components/UIDivider';
 import BottomAlert from '../components/BottomAlert';
@@ -28,26 +28,54 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import IconButton from '../components/IconButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import {ROOT_STACK} from '../stacks/RootStack'
+
+const formatDate = (date) => {
+  if (date == undefined){
+    return
+  }
+  const now = new Date();
+  const inputDate = new Date(date);
+  const isToday = now.toDateString() === inputDate.toDateString();
+
+  if (isToday) {
+    return inputDate.toLocaleString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } else {
+    return inputDate.toLocaleString('en-US', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  }
+};
 
 const GroupInfo = props =>  {
   const navigation = useNavigation();
-  const [showAddAlert, setShowAddAlert] = useState(false);
+
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const [showLeaveAlert, setShowLeaveAlert] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showBlockAlert, setShowBlockAlert] = useState(false);
   const [showMuteAlert, setShowMuteAlert] = useState(false);
   const [showUnmuteAlert, setShowUnmuteAlert] = useState(false);
   const [showChatAlert, setShowChatAlert] = useState(false);
   const [showMemberAlert, setShowMemberAlert] = useState(false);
+
   const [contacts, setContacts] = useState([]);
   const [participants, setParticpants] = useState(0);
   const [memberAction, setMemberAction] = useState(null)
   const [channels, setChannels] = useState(null)
-  
   const [isAnyModalVisible, setIsAnyModalVisible] = useState(false);
+
   const channel = props.route?.params?.channel || {};
   const source = channel.data.image ?  { uri: channel.data.image } : userImage;
   const [isModerator, setIsModerator] = useState(false)
+
+  
+
 
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
@@ -61,6 +89,7 @@ const GroupInfo = props =>  {
         name: `${member.user.name} ${role}`,
         about: member.user.id, // Assuming the user has an 'about' property
         id: index,
+        role: role
       };
     });
 
@@ -70,35 +99,24 @@ const GroupInfo = props =>  {
   }
 
   async function fetchConvos(){
-    let filters;
-    if (channel.isGroupChat){
-      filters = {
-        members: { $in: [chatClient.user.id] },
-        type: 'messaging',
-        member_count: 2,
-        //isGroupChat: { $eq: false },
-        //typeChat: { $eq: 'chat'},
-        temporary: { $exists: false }
-      };
-      
-    } else {
-      filters = {
-        members: { $in: [chatClient.user.id] },
-        type: 'messaging',
-        member_count: { $gt: 2 },
-        //isGroupChat: { $eq: true },
-        //typeChat: { $eq: 'chat'}
-      };
-    }
-    const channels = await chatClient.queryChannels(filters, {});
-    setChannels(channels)
+    console.log(channel.id, "popopo")
+    //different channel but somehow the length is always the same
+    const filters = { 
+      type: 'messaging', 
+      members: { $in: [chatClient.user.id] }, 
+      chatId: channel.id, 
+      typeChat: { $eq: 'convo'}
+    };
+    const sort = [{ last_message_at: -1 }];
+    const queriedChannels = await chatClient.queryChannels(filters, sort, {});
+    const channelsWithCurrent = [...queriedChannels, channel];
+    setChannels(channelsWithCurrent);
   }
   
 
   useEffect(() => {
     setIsAnyModalVisible(anyModalVisible());
   }, [
-    showAddAlert,
     showRemoveAlert,
     showChatAlert,
     showMemberAlert,
@@ -106,19 +124,26 @@ const GroupInfo = props =>  {
     showBlockAlert,
     showMuteAlert,
     showUnmuteAlert,
+    showDeleteAlert
   ]);
 
   
   useEffect(() => {
+    console.log("here1")
     fetchMembers();
     fetchConvos();
-
   }, [])
 
-  useEffect(() => {
-    fetchMembers();
-  }, [participants])
+  useFocusEffect(
+    useCallback(() => {
+      console.log("here2")
+      fetchMembers();
+      fetchConvos();
 
+    }, [participants])
+  );
+
+  
  
   useEffect(() => {
     props.navigation.setOptions({
@@ -216,6 +241,11 @@ const GroupInfo = props =>  {
         //doesn't work correctly
         await channel.removeMembers([memberAction?.about]);
         await channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}]);
+
+        // await Promise.all([
+        //   channel.removeMembers([memberAction?.about]),
+        //   channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}])
+        // ]);
         setShowRemoveAlert(false);
         setParticpants(participants)
       },
@@ -231,7 +261,7 @@ const GroupInfo = props =>  {
   ];
 
   const anyModalVisible = () =>
-  showAddAlert || showRemoveAlert || showChatAlert || showMemberAlert || 
+  showDeleteAlert || showRemoveAlert || showChatAlert || showMemberAlert || 
   showLeaveAlert || showBlockAlert || showMuteAlert || showUnmuteAlert ;
 
 
@@ -241,7 +271,7 @@ const GroupInfo = props =>  {
   contentContainerStyle={{
     alignItems: 'center',
     flexGrow: 1,
-   paddingHorizontal: 20, paddingVertical: 10, 
+   paddingHorizontal: 20, paddingTop: 10, paddingBottom: 20,
     backgroundColor: anyModalVisible() ? 'rgba(0,0,0,0.7)' : '#0E1528',
   }}
   showsVerticalScrollIndicator={false}
@@ -297,7 +327,7 @@ const GroupInfo = props =>  {
               //iconBackgroundColor={colors.darkblue}
               icon={<FontAwesomeIcons name="image" size={18} color={colors.white} />}
               mainText="Media, Links, and Docs"
-              rightIconText={721}
+              //rightIconText={721}
             />
             <UIDivider forMenu={true} />
 
@@ -314,7 +344,7 @@ const GroupInfo = props =>  {
                     />
                   }
                   mainText="Starred Messages"
-                  rightIconText={'None'}
+                  //rightIconText={'None'}
                 />
             </TouchableOpacity>
         </MenuWrapper>
@@ -327,7 +357,7 @@ const GroupInfo = props =>  {
                 <IoniconsIcon name="lock-closed" size={18} color={colors.white} />
               }
               mainText="Encryption"
-              subText="Message and calls are ene-to-end encrypted. Tap to learn more."
+              subText="Message are end-to-end encrypted."
             />
 
             <UIDivider forMenu={true} />
@@ -338,12 +368,14 @@ const GroupInfo = props =>  {
                       setShowUnmuteAlert(true);
                     }}
                     >
+                      
                       <MenuItem
                         iconBackgroundColor='#ED2939'
                         icon={
                           <Octicons name="unmute" size={18} color={colors.white} />
                         }
                         mainText="Unmute"
+                        rightIconText={formatDate(channel.muteStatus().expiresAt)}
                       />
                     </TouchableOpacity>
               : 
@@ -376,7 +408,7 @@ const GroupInfo = props =>  {
               <View style={{ marginTop: '5%', flex:1}}>
                 <IconButton
                     style={{ alignSelf: 'flex-end' }}
-                    onPress= {() => setShowRemoveAlert(true)}
+                    onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel})}
                     iconName={'CirclePlus'}
                     //pathFill={'grey'}
                   />
@@ -426,6 +458,7 @@ const GroupInfo = props =>  {
                   contactProfile={item.image}
                   mainText={item.name}
                   subText={item?.about}
+                  //rightIconText={item.role}
                 />
               </TouchableOpacity>
                 {contacts.length - 1 > index && (
@@ -480,17 +513,35 @@ const GroupInfo = props =>  {
 
               <UIDivider forPlaintext={true} /> */}
 
-              <TouchableOpacity
-                    onPress={() => {
-                        setShowLeaveAlert(true);
-                      }}
-                >
-                  <MenuItem
-                    plainText={true}
-                    mainText="Exit Group"
-                    plaintextColor={colors.redText}
-                  />
-              </TouchableOpacity>
+                <TouchableOpacity
+                      onPress={() => {
+                          setShowLeaveAlert(true);
+                        }}
+                  >
+                    <MenuItem
+                      plainText={true}
+                      mainText="Exit Group"
+                      plaintextColor={colors.redText}
+                    />
+                </TouchableOpacity>
+
+                {isModerator &&
+                  <>
+                      <UIDivider forPlaintext={true} />
+                      <TouchableOpacity
+                      onPress={() => {
+                          setShowDeleteAlert(true);
+                        }}
+                      >
+                        <MenuItem
+                          plainText={true}
+                          mainText="Delete Group"
+                          plaintextColor={colors.redText}
+                        />
+                    </TouchableOpacity>
+                  </>
+                }
+
             </MenuWrapper>
             :
             <MenuWrapper>
@@ -519,20 +570,6 @@ const GroupInfo = props =>  {
         }
 
 
-        <BottomAlert
-          visible={showAddAlert}
-          description="Add Hermana to 'Wills' Group?"
-          actions={[
-            {
-              text: 'Cancel',
-              onPress: () => setShowAddAlert(false),
-            },
-            {
-              text: 'Add',
-              onPress: () => {},
-            },
-          ]}
-        />
 
         <BottomAlert
           visible={showLeaveAlert}
@@ -549,6 +586,29 @@ const GroupInfo = props =>  {
                 setShowLeaveAlert(false)
                 await channel.removeMembers([user.id]);
                 navigation.navigate('tabs');
+              },
+            },
+          ]}
+        />
+
+        <BottomAlert
+          visible={showDeleteAlert}
+          destructiveButtonIndex={1}
+          description={`Are you sure you want to delete the group "${channel.data.name}"? 
+          This action will also remove all associated subchannels and permanently delete all messages.`}
+          actions={[
+            {
+              text: 'Cancel',
+              onPress: () => setShowDeleteAlert(false),
+            },
+            {
+              text: 'Delete Group',
+              onPress: async () => {
+                await Promise.all([
+                  channels.map(channel => channel.delete()),
+                ]);
+                setShowDeleteAlert(false)
+                navigation.navigate("Home")
               },
             },
           ]}
@@ -620,11 +680,11 @@ const GroupInfo = props =>  {
               onPress: () => setShowMuteAlert(false),
             },
             {
-              text: '1 day',
+              text: '10 hours',
               onPress: async () => {
-                const oneDayMilliseconds = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+                const tenHoursMilliseconds = 10 * 60 * 60 * 1000; // 36,000,000 milliseconds
                 await Promise.all([
-                  channels.map(channel => channel.mute({ expiration: oneDayMilliseconds })),
+                  channels.map(channel => channel.mute({ expiration: tenHoursMilliseconds })),
                   channel.updatePartial({ set:{ muteChannel: true } }),
                 ]);
                 setShowMuteAlert(false)

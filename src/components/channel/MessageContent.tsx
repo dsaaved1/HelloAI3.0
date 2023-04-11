@@ -68,7 +68,7 @@ export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
          
         setMessageContentWidth={setMessageContentWidth}
         MessageFooter={RenderNothing}
-       //MessageHeader={RenderNothing}
+        MessageHeader={RenderNothing}
       /> 
       
       }

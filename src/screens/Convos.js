@@ -18,6 +18,7 @@ const Convos = ({route}) => {
   const {channel} = route.params || {};
   const navigation = useNavigation();
  
+  console.log(channelId, "channelId")
 
   // const [refreshList, setRefreshList] = useState(false);
 
@@ -78,7 +79,7 @@ const Convos = ({route}) => {
               borderRadius: 25,
               width: 50,
               height: 50,
-              backgroundColor: '#3777f0',
+              backgroundColor: colors.dark.secondaryLight,
               transform: [{ translateY: -25 }, { translateX: -25 }],
             }}
           >
@@ -120,7 +121,7 @@ const Convos = ({route}) => {
               borderRadius: 25,
               width: 50,
               height: 50,
-              backgroundColor: '#3777f0',
+              backgroundColor: colors.dark.secondaryLight,
               transform: [{ translateY: -25 }, { translateX: -25 }],
             }}
           >

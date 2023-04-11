@@ -12,12 +12,21 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import UIDivider from '../components/UIDivider';
 import { useTheme } from '@react-navigation/native';
 import { ScreenHeader } from '../components/ScreenHeader';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 
-function Settings(Props) {
+
+function Settings({ route }){
+  const navigation = useNavigation();
+  const parentNavigation = route.params.parentNavigation;
+  // const getParentNavigation = () => {
+  //   const parentRouteName = useNavigationState(state => state.routes[state.index].name);
+  //   return parentRouteName;
+  // };
+  
   return (
     <View style={{flex:1}}>
     <ScreenHeader title='Profile' />
@@ -58,19 +67,24 @@ function Settings(Props) {
         </MenuWrapper>
         {/* <Spacer height={20} /> */}
         <MenuWrapper wrapperStyle={{borderRadius: 0}}>
-          <MenuItem
-             iconBackgroundColor='#6653FF'
-            //iconBackgroundColor={colors.darkblue}
-            icon={
-              <Entypo
-                name="key"
-                size={18}
-                color='#859299'
-                style={{transform: [{rotate: '324deg'}]}}
-              />
-            }
-            mainText="Account"
-          />
+            <TouchableOpacity
+              onPress={() => parentNavigation.navigate('Account')}
+            >
+                <MenuItem
+                  iconBackgroundColor='#6653FF'
+                  //iconBackgroundColor={colors.darkblue}
+                  icon={
+                    <Entypo
+                      name="key"
+                      size={18}
+                      color='#859299'
+                      style={{transform: [{rotate: '324deg'}]}}
+                    />
+                  }
+                  mainText="Account"
+                />
+          </TouchableOpacity>
+
           <UIDivider forMenu={true} />
 
           <MenuItem

@@ -8,6 +8,7 @@ import {
   FlatList,
   ActivityIndicator,
   SafeAreaView,
+  Animated
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import IconButton from '../components/IconButton';
@@ -20,6 +21,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { createGroupChat, inviteDirectMessage } from '../utils/actions/chatActions'
 import { useAuthContext } from '../contexts/AuthContext';
 import { ROOT_STACK } from '../stacks/RootStack';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import BottomAlert from '../components/BottomAlert';
 
 
 const NewChatScreen = props => {
@@ -32,26 +35,29 @@ const NewChatScreen = props => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUsers, setSelectedUsers] = useState({});
     const [text, setText] = useState("")
+    const [fadeInAnimation] = useState(new Animated.Value(0));
+    const [showAddAlert, setShowAddAlert] = useState(false);
 
     const selectedUsersFlatList = useRef();
-
-    const existingUsers = props.route.params && props.route.params.existingUsers;
     const isGroupChat = props.route.params && props.route.params.isGroupChat;
-
     const isGroupChatDisabled = Object.keys(selectedUsers).length === 0
-    const isNewChat = true
-   
+    const isNewChat = props.route?.params?.isNewChat
+    const channel = props.route?.params?.channel || {};
+
+
     useEffect(() => {
         props.navigation.setOptions({
             headerTitle: () => (
                 <View style={{ alignItems: 'center', margin: 5 }}>
-                  <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+                  <Text style={{ 
+                    color: showAddAlert ? 'rgba(255, 255, 255, 0.3)' : 'white',
+                    fontSize: 16, fontWeight: 'bold' }}>
                      {isGroupChat ? "Add participants" : "New chat"}
                   </Text>
                 </View>
               ),
             headerStyle: {
-                backgroundColor: '#0E1528', 
+                backgroundColor: showAddAlert ? 'rgba(0,0,0,0.7)' : '#0E1528', 
               },
             headerLeft: () => {
                 return <HeaderButtons 
@@ -59,7 +65,7 @@ const NewChatScreen = props => {
                 >
                     <Item
                         title="Close"
-                        color='#3777f0'
+                        color= {showAddAlert ? 'rgba(55, 119, 240, 0.3)' : '#3777f0'}
                         onPress={() => props.navigation.goBack()}/>
                 </HeaderButtons>
             },
@@ -75,13 +81,18 @@ const NewChatScreen = props => {
                             disabled={isGroupChatDisabled}
                             color={isGroupChatDisabled ? colors.lightGrey : '#3777f0'}
                             onPress={async () => {
-                                navigation.navigate(ROOT_STACK.NEW_GROUP_NAME, { selectedUsers: selectedUsers});
+                                if (isNewChat) {
+                                    navigation.navigate(ROOT_STACK.NEW_GROUP_NAME, { selectedUsers: selectedUsers});
+                                } else {
+                                   setShowAddAlert(true)
+                                }
+                                
                             }}/>
                     }
                 </HeaderButtons>
             },
         })
-    }, [selectedUsers]);
+    }, [showAddAlert, isGroupChatDisabled]);
 
     useEffect(() => {
         const delaySearch = setTimeout(async () => {
@@ -94,7 +105,8 @@ const NewChatScreen = props => {
           setIsLoading(true);
       
           try {
-            const usersResult = await searchUsers(chatClient, searchTerm);
+            //take care if you are searching for your own user id
+            const usersResult = (searchTerm === chatClient.user.id) ? [] : await searchUsers(chatClient, searchTerm);
             setUsers(usersResult);
       
             // Update noResultsFound based on search results
@@ -118,23 +130,36 @@ const NewChatScreen = props => {
       }, [searchTerm]);
 
 
+      const startFadeInAnimation = () => {
+        Animated.timing(fadeInAnimation, {
+          toValue: 1,
+          duration: 350, // Adjust the duration as needed
+          useNativeDriver: true,
+        }).start();
+      };
+
+      const getSelectedUserIds = () => {
+        const userIds = Object.keys(selectedUsers);
+        return userIds.join(', ');
+      };
+
     const userPressed  = (userId, userImage) => {
 
         if (isGroupChat) {
             // Create a new object from selectedUsers
             let newSelectedUsers = { ...selectedUsers };
 
-            if (userImage in newSelectedUsers) {
+            if (userId in newSelectedUsers) {
                 // Remove the userImage if it's already in selectedUsers
-                delete newSelectedUsers[userImage];
+                delete newSelectedUsers[userId];
             } else {
                 // Add the userImage and userId to selectedUsers
-                newSelectedUsers[userImage] = userId;
+                newSelectedUsers[userId] = userImage;
             }
 
             setSelectedUsers(newSelectedUsers);
             setText("")
-
+            startFadeInAnimation();
             console.log(newSelectedUsers, 'newSelectedUsers after adding')
         }
         else {
@@ -148,7 +173,7 @@ const NewChatScreen = props => {
               } else {
                 console.log("chat does not exist")
                 inviteDirectMessage(chatClient.user.id, chatClient, userId, "Join my chat")
-                navigation.navigate('invitations');
+                navigation.navigate('Home');
               }
             
 
@@ -156,46 +181,44 @@ const NewChatScreen = props => {
     }
     
   return (
-            <View style={styles.container}>
+            <View 
+                style={{...styles.container, 
+                backgroundColor: showAddAlert ? 'rgba(0,0,0,0.7)' : '#0E1528',
+                }}
+            >
 
-                    
                 {
-                isGroupChat &&
-                <View style={styles.selectedUsersContainer}>
-                    <FlatList
-                        style={styles.selectedUsersList}
-                        data={Object.keys(selectedUsers)}
-                        horizontal={true}
-                        keyExtractor={item => item}
-                        contentContainerStyle={{ alignItems: 'center' }}
-                        ref={ref => selectedUsersFlatList.current = ref}
-                        onContentSizeChange={() => selectedUsersFlatList.current.scrollToEnd()}
-                        renderItem={itemData => {
-                            const userImage = itemData.item;
-                            const userId = selectedUsers[userImage];
-                            //get also connect user image
-                            return <ProfileImage
-                                        style={styles.selectedUserStyle}
-                                        size={40}
-                                        uri={userImage}
-                                        onPress={() => userPressed(userId, userImage)}
-                                        showRemoveButton={true}
-                                    />
-                        }}
-                    />
-                </View>
-            }
+                isGroupChat && Object.keys(selectedUsers).length > 0  &&
+                    <Animated.View style={[styles.selectedUsersContainer, { opacity: fadeInAnimation }]}>
+                        <FlatList
+                            style={styles.selectedUsersList}
+                            data={Object.entries(selectedUsers)}
+                            horizontal={true}
+                            keyExtractor={item => item}
+                            contentContainerStyle={{ alignItems: 'center' }}
+                            ref={ref => selectedUsersFlatList.current = ref}
+                            onContentSizeChange={() => selectedUsersFlatList.current.scrollToEnd()}
+                            renderItem={itemData => {
+                                const userId = itemData.item[0];
+                                const userImage = itemData.item[1];
+                                return <ProfileImage
+                                    style={styles.selectedUserStyle}
+                                    size={50}
+                                    uri={userImage}
+                                    onPress={() => userPressed(userId, userImage)}
+                                    showRemoveButton={true}
+                                />
+                            }}
+                        />
+                    </Animated.View>
+                }
 
 
         <View style={styles.searchContainer}>
-            {/* <FontAwesome name="search" size={15} color={'grey'} /> */}
-            <IconButton
-        width={15}
-          iconName={'MagnifyingGlass'}
-          //pathFill={colors.dark.secondaryLight}
-        /> 
+            <FontAwesome name="search" size={15} color={colors.lightGrey} />
             <TextInput
                 placeholder='Search'
+                placeholderTextColor='grey'
                 autoCapitalize="none"
                 style={styles.searchBox}
                 onChangeText={(txt) => setText(txt)}
@@ -225,17 +248,14 @@ const NewChatScreen = props => {
                     const userImage = userData.image;
                     const userId = userData.id;
 
-                    if (existingUsers && existingUsers.includes(userImage)) {
-                        return;
-                    }
 
                     return <DataItem
                                 title={userData.name}
-                                //subTitle={`${userData.firstName} ${userData.lastName}`}
+                                subTitle={userId}
                                 image={userImage}
                                 onPress={() => userPressed(userId, userImage)}
                                 type={isGroupChat ? "checkbox" : ""}
-                                isChecked={userImage in selectedUsers}
+                                isChecked={userId in selectedUsers}
                             />
                 }}
             />
@@ -248,11 +268,11 @@ const NewChatScreen = props => {
                 //this is not rendering
 
                 <View style={styles.center}>
-                    {/* <FontAwesome
+                    <FontAwesome
                         name="question"
                         size={55}
                         color={'grey'}
-                        style={styles.noResultsIcon}/> */}
+                        style={styles.noResultsIcon}/>
                     <Text style={styles.noResultsText}>No users found!</Text>
                 </View>
             )
@@ -261,12 +281,12 @@ const NewChatScreen = props => {
         {
             !isLoading && !users && (
                 <View style={styles.center}>
-                    {/* <FontAwesome
+                    <FontAwesome
                         name="users"
                         size={55}
                         color={'grey'}
-                        style={styles.noResultsIcon}/> */}
-                    <Text style={styles.noResultsText}>Enter a name to search for a user!</Text>
+                        style={styles.noResultsIcon}/>
+                    <Text style={styles.noResultsText}>Enter a username to find and invite a user!</Text>
                 </View>
             )
         }
@@ -274,16 +294,36 @@ const NewChatScreen = props => {
         {
             !isLoading && chatExists && (
                 <View style={styles.center}>
-                    {/* <FontAwesome
-                        name="users"
+                    <FontAwesome
+                        name="exclamation"
                         size={55}
                         color={'grey'}
-                        style={styles.noResultsIcon}/> */}
+                        style={styles.noResultsIcon}/>
                     <Text style={styles.noResultsText}>You have already a chat with this user</Text>
                 </View>
             )
         }
 
+        {!isNewChat && 
+            <BottomAlert
+            visible={showAddAlert}
+            description={`Add ${getSelectedUserIds()} to ${channel.data.name} group?`}
+            actions={[
+                {
+                text: 'Cancel',
+                onPress: () => setShowAddAlert(false),
+                },
+                {
+                text: 'Add',
+                onPress: async () => {
+                    setShowAddAlert(false)
+                    await channel.addMembers(Object.keys(selectedUsers));
+                    navigation.navigate('Info', { channel: channel})
+                },
+                },
+            ]}
+            />
+        }
         </View>
   )
 }
@@ -294,40 +334,41 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
         flex: 1,
-        backgroundColor: '#0E1528',
         paddingTop: 10
     },
     center: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: colors.extraLightGrey,
-        height: 30,
+        height: 35,
         marginVertical: 8,
         paddingHorizontal: 8,
         paddingVertical: 5,
         borderRadius: 5
     },
     searchBox: {
-        marginLeft: 8,
         fontSize: 15,
-        width: '100%'
+        marginLeft: 5,
+        width: '100%',
+        height: 45, 
     },
     button: {
         backgroundColor: '#3777f0',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        paddingVertical: 5,
         borderRadius: 5,
-        marginVertical: 10
+        marginVertical: 10,
+        height: 35,
+        justifyContent: 'center'
       },
       text: {
         color: '#FFFFFF',
-        fontSize: 18,
-        //fontWeight: 'bold',
+        fontSize: 14,
         textAlign: 'center',
       },
     noResultsIcon: {
@@ -356,8 +397,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.3
     },
     selectedUsersContainer: {
-        height: 50,
-        justifyContent: 'center'
+        height: 70,
+        justifyContent: 'center',
     },
     selectedUsersList: {
         height: '100%',

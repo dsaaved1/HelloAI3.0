@@ -200,13 +200,14 @@ export default (props) => {
     const [visible, setVisible] = useState(false);
     const [visibleContainer, setVisibleContainer] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-    let Container = visibleContainer ? View : Swipeable;
     const [messageText, setMessageText] = useState("");
     const {client} = useChatContext()
     const {updateMessage} = useMessagesContext()
     const {channel} = useChannelContext()
     const [power, setPower] = useState("image");
     const [messageImage, setMessageImage] = useState("");
+
+    let Container = visibleContainer ? View : Swipeable;
 
 
   const numberOfFiles = fileUploads.length
@@ -558,14 +559,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     //marginTop: 15,
     paddingRight: 15,
-    width: '100%',
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    paddingBottom: 20,
     width: '100%',
   },
   mediaButton: {

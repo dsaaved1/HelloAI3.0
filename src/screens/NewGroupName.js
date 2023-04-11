@@ -26,7 +26,6 @@ const NewGroupName = (props) => {
     const {selectedUsers} = route?.params || {};
     const [selectedUsersName, setSelectedUsersName] = useState(selectedUsers);
 
-    console.log(selectedUsers, "selected Users")
 
     const [chatName, setChatName] = useState("");
     const isGroupChatDisabled = Object.keys(selectedUsersName).length === 0   || chatName.length === 0;
@@ -83,15 +82,12 @@ const NewGroupName = (props) => {
 
     const userPressed  = (userId, userImage) => {
 
-            // Create a new object from selectedUsers
             let newSelectedUsers = { ...selectedUsersName };
 
-            if (userImage in newSelectedUsers) {
-                // Remove the userImage if it's already in selectedUsers
-                delete newSelectedUsers[userImage];
+            if (userId in newSelectedUsers) {
+                delete newSelectedUsers[userId];
             } else {
-                // Add the userImage and userId to selectedUsers
-                newSelectedUsers[userImage] = userId;
+                newSelectedUsers[userId] = userImage;
             }
 
             setSelectedUsersName(newSelectedUsers);
@@ -125,27 +121,26 @@ const NewGroupName = (props) => {
                 
        
                 <View style={styles.selectedUsersContainer}>
-                    <FlatList
-                        style={styles.selectedUsersList}
-                        data={Object.keys(selectedUsersName)}
-                        horizontal={true}
-                        keyExtractor={item => item}
-                        contentContainerStyle={{ alignItems: 'center' }}
-                        ref={ref => selectedUsersFlatList.current = ref}
-                        onContentSizeChange={() => selectedUsersFlatList.current.scrollToEnd()}
-                        renderItem={itemData => {
-                            const userImage = itemData.item;
-                            const userId = selectedUsersName[userImage];
-                            //get also connect user image
-                            return <ProfileImage
-                                        style={styles.selectedUserStyle}
-                                        size={40}
-                                        uri={userImage}
-                                        onPress={() => userPressed(userId, userImage)}
-                                        showRemoveButton={true}
-                                    />
-                        }}
-                    />
+                     <FlatList
+                            style={styles.selectedUsersList}
+                            data={Object.entries(selectedUsersName)}
+                            horizontal={true}
+                            keyExtractor={item => item}
+                            contentContainerStyle={{ alignItems: 'center' }}
+                            ref={ref => selectedUsersFlatList.current = ref}
+                            onContentSizeChange={() => selectedUsersFlatList.current.scrollToEnd()}
+                            renderItem={itemData => {
+                                const userId = itemData.item[0];
+                                const userImage = itemData.item[1];
+                                return <ProfileImage
+                                    style={styles.selectedUserStyle}
+                                    size={50}
+                                    uri={userImage}
+                                    onPress={() => userPressed(userId, userImage)}
+                                    showRemoveButton={true}
+                                />
+                            }}
+                        />
                 </View>
         
 

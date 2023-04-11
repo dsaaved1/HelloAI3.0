@@ -11,8 +11,8 @@ const twoMemberFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
   member_count: 2,
-  //isGroupChat: { $eq: false },
-  //typeChat: { $eq: 'chat'},
+  isGroupChat: { $eq: false },
+  typeChat: { $eq: 'chat'},
   temporary: { $exists: false }
 };
 
@@ -20,8 +20,8 @@ const groupFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
   member_count: { $gt: 2 },
-  //isGroupChat: { $eq: true },
-  //typeChat: { $eq: 'chat'}
+  isGroupChat: { $eq: true },
+  typeChat: { $eq: 'chat'}
 };
 
 const sort = { last_message_at: -1 };
@@ -78,7 +78,7 @@ export const List = props => {
 
       <View style={{ alignItems: "center", backgroundColor: '#0E1528' }}>
           <Pressable 
-          onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isGroupChat: showGroups })}
+          onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isGroupChat: showGroups, isNewChat: true})}
           style={styles.buttonContainer}
           >
             <Text style={{color:'white'}}>+</Text>

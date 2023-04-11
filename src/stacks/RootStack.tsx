@@ -23,11 +23,13 @@ import GroupInfo from '../screens/GroupInfo';
 import Settings from '../screens/Settings';
 import AddParticipants from '../screens/AddParticipants';
 import StarredMessages from '../screens/StarredMessages';
+import Account from '../screens/Account';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
-const HomeStack = createStackNavigator();
+const HomeStack = createStackNavigator()
+const SettingsStack = createStackNavigator()
 
 export enum ROOT_STACK {
   CHANNEL_LIST = 'RootStackChannelList',
@@ -125,16 +127,7 @@ const CustomDrawerContent = () => {
     </View>)
 }
 
-const NewNavigator = () => ( 
-  <Stack.Navigator
-  screenOptions={{
-    headerShown: false,
-  }}>
-  <Stack.Screen name="GroupInfo" component={GroupInfo} />
-  <Stack.Screen name="Settings" component={Settings} />
-  <Stack.Screen name="AddParticipants" component={AddParticipants} />
-</Stack.Navigator>
-)
+
 
 const HomeStackNavigator = () => (
   //we need home stack navigator to navigate through tab and mainting convos
@@ -155,12 +148,36 @@ const HomeStackNavigator = () => (
     </HomeStack.Navigator>
 )
 
+const SettingsNavigator = ({navigation}) => (
+  //we need home stack navigator to navigate through tab and mainting convos
+    <SettingsStack.Navigator
+      initialRouteName={'profile'}
+      screenOptions={{
+        headerTitleStyle: {alignSelf: 'center', fontWeight: 'bold'},
+      }}>
+         <SettingsStack.Group>
+            <SettingsStack.Screen
+              component={Settings}
+              name={'profile'}
+              options={noHeaderOptions}
+              initialParams={{ parentNavigation: navigation }}
+            />
+            <SettingsStack.Screen
+              component={Account}
+              name={'Account'}
+            />
+           
+      </SettingsStack.Group>
+      
+    </SettingsStack.Navigator>
+)
+
 const TabNavigation = () => (
   <BottomSheetModalProvider>
     <Tab.Navigator tabBar={(props) => <BottomTabs {...props} />}>
       <Tab.Screen component={HomeStackNavigator} name='home'  options={noHeaderOptions} />
       <Tab.Screen component={Invitations} name={'invitations'}  options={noHeaderOptions}/>
-      <Tab.Screen component={Settings} name={'profile'} options={noHeaderOptions}/>
+      <Tab.Screen component={SettingsNavigator} name={'profile'} options={noHeaderOptions}/>
     </Tab.Navigator>
   </BottomSheetModalProvider>
 );
@@ -184,31 +201,30 @@ export default ({clientReady}: {clientReady: boolean}) => {
         />
       <Stack.Screen
           component={GroupInfo}
-          name={'GroupInfo'}
-          //options={noHeaderOptions} // or any other options you need
+          name={'Info'}
       />
 
       <Stack.Screen
           component={StarredMessages}
           name={'Starred'}
-          //options={noHeaderOptions} // or any other options you need
       />
+
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen
                 component={NewChatScreen}
                 name={ROOT_STACK.NEW_SCREEN}
-                //options={noHeaderOptions} // or any other options you need
+    
               />
               <Stack.Screen
                 component={NewGroupName}
                 name={ROOT_STACK.NEW_GROUP_NAME}
-                //options={noHeaderOptions} // or any other options you need
+    
               />
                <Stack.Screen
                 component={AddParticipants}
                 name={"AddParticipants"}
-                //options={noHeaderOptions} // or any other options you need
+    
               />
       </Stack.Group>
 

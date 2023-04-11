@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     checkedStyle: {
-        backgroundColor: '#12a383',
+        backgroundColor: '#3777f0',
+        //backgroundColor: '#12a383',
         borderColor: 'transparent'
     },
     leftIconContainer: {

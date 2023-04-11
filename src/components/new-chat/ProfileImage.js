@@ -5,6 +5,7 @@ import userImage from '../../assets/images/userImage.jpeg';
 import colors from '../../assets/constants/colors';
 import IconButton from '../IconButton'
 import { SVGIcon } from '../SVGIcon';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 const ProfileImage = props => {
@@ -35,13 +36,7 @@ const ProfileImage = props => {
             {
                 showEditButton && !isLoading &&
                 <View style={styles.editIconContainer}>
-                    <IconButton
-                    usePressable={false}
-                    iconName={'Play'}
-                    pathFill={'black'}
-                    style={styles.IconButton}
-                      />
-                    {/* <FontAwesome name="pencil" size={15} color="black" /> */}
+                    <FontAwesome name="pencil" size={15} color="black" />
                 </View>
             }
             
@@ -49,17 +44,7 @@ const ProfileImage = props => {
             {
                 showRemoveButton && !isLoading &&
                 <View style={styles.removeIconContainer}>
-                    {/* <IconButton
-                    //triggered in new scree
-                    usePressable={false}
-                    iconName={'Trash'}
-                    pathFill={colors.extraLightGrey}
-                    style={styles.IconButton}
-                    width={15}
-                      /> */}
-                      
-                      <SVGIcon height={12} type='delete-text' width={12} />
-                    {/* <FontAwesome name="close" size={15} color="black" /> */}
+                    <FontAwesome name="close" size={15} color="black" />
                 </View>
             }
 
