@@ -62,7 +62,7 @@ function Settings({ route }){
                 //color={colors.white}
               />
             }
-            mainText="Starred Messages"
+            mainText="Subscription"
           />
         </MenuWrapper>
         {/* <Spacer height={20} /> */}
@@ -82,6 +82,9 @@ function Settings({ route }){
                     />
                   }
                   mainText="Account"
+                  //update profile
+                  //logout
+                  //delete account
                 />
           </TouchableOpacity>
 
@@ -95,6 +98,8 @@ function Settings({ route }){
               <IoniconsIcon name="lock-closed" size={18} color='#859299' />
             }
             mainText="Privacy"
+            //blocked users
+            //two factor authentication
           />
           <UIDivider forMenu={true} />
 
@@ -116,7 +121,7 @@ function Settings({ route }){
                 color='#859299'
               />
             }
-            mainText="Storage and Data"
+            mainText="Language"
           />
         </MenuWrapper>
         {/* <Spacer height={20} /> */}
@@ -127,14 +132,20 @@ function Settings({ route }){
           //iconBackgroundColor='#9162FF'
             //iconBackgroundColor={colors.darkblue}
             icon={<AntDesignIcon name="info" size={18} color='#859299' />}
-            mainText="Help"
+            mainText="About"
+//             1. Terms and conditions privacy policy
+// 2. Contact Us. Help
+// 3. HelloAi features
           />
           <UIDivider forMenu={true} />
 
           <MenuItem
             iconBackgroundColor={colors.red}
             icon={<AntDesignIcon name="heart" size={18} color='#859299' />}
-            mainText="Tell a Friend"
+            mainText="Support us"
+            //twitter
+            //rate
+            //feedback
           />
         </MenuWrapper>
       </ScrollableView>
