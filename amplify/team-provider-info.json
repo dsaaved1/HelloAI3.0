@@ -1,0 +1,26 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-helloai30-staging-235436-authRole",
+      "UnauthRoleArn": "arn:aws:iam::531259943220:role/amplify-helloai30-staging-235436-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::531259943220:role/amplify-helloai30-staging-235436-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-helloai30-staging-235436-deployment",
+      "UnauthRoleName": "amplify-helloai30-staging-235436-unauthRole",
+      "StackName": "amplify-helloai30-staging-235436",
+      "StackId": "arn:aws:cloudformation:us-east-2:531259943220:stack/amplify-helloai30-staging-235436/370d1fb0-d8c4-11ed-91ed-02ca8f8db694",
+      "AmplifyAppId": "dwht33u732d59"
+    },
+    "categories": {
+      "auth": {
+        "HelloAI30": {}
+      },
+      "function": {
+        "getStreamTokenUser": {
+          "streamKey": "a89tc8x6a9zy",
+          "streamSecret": "qcshmy6q97y989gf2qdg9wxbh9kgcagkaxuwb9fvjdyvb26sh4cgy85yr4rh6374"
+        }
+      }
+    }
+  }
+}
