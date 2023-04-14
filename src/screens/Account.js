@@ -23,6 +23,7 @@ import { chatClient, user} from '../client'
 import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import BottomAlert from '../components/BottomAlert';
+import { Auth } from "aws-amplify";
 
 
 const Account = props => {
@@ -30,6 +31,11 @@ const Account = props => {
     const [showDeleteAccount, setShowDeleteAccount] = useState(false);
     const [showDeleteUser, setShowDeleteUser] = useState(false);
     const source = chatClient.user.image? { uri: chatClient.user.image } : userImage
+
+    const logout = () => {
+        chatClient.disconnectUser();
+        Auth.signOut();
+      };
 
     const updateName = async (newName) => {
         try {
@@ -111,7 +117,8 @@ const Account = props => {
       <MaterialCommunityIcons
         name="logout"
         size={18}
-        color="#3777f0" // Choose a color for log out
+        color="#3777f0" 
+        onPress={logout}
       />
     }
     mainText="Log Out"

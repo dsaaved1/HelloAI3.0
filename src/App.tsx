@@ -6,14 +6,14 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import {TextInput, LogBox} from 'react-native'
+import {TextInput, LogBox, View, ActivityIndicator } from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context'
 import {Chat, OverlayProvider, ThemeProvider} from 'stream-chat-react-native'
-import {chatClient, user, userToken} from './client'
+//import {chatClient, user, userToken} from './client'
 import {colors, theme} from './theme'
 import 'moment/min/moment-with-locales'
 import 'moment/min/locales'
@@ -21,19 +21,27 @@ import {ChannelPreviewMessengerProps} from 'stream-chat-react-native-core/src/co
 import { MessageProps } from 'stream-chat-react-native-core';
 import RootStack from './stacks/RootStack'
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
-// import { Amplify, Auth } from 'aws-amplify'
-// import awsconfig from './aws-exports'
+
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import awsconfig from './aws-exports'
+import {createStackNavigator} from '@react-navigation/stack'
+import {  API, graphqlOperation } from "aws-amplify";
+import { getStreamToken } from "./graphql/queries";
+import { Alert } from "react-native";
 // import {withAuthenticator} from 'aws-amplify-react-native'
 // import AuthContext from './contexts/AuthContext'
 
-// import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
-// import NewPasswordScreen from './screens/NewPasswordScreen';
-// import SignInScreen from './screens/SignInScreen';
-// import SignUpScreen from './screens/SignUpScreen';
-// import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import NewPasswordScreen from './screens/NewPasswordScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
+import {StreamChat} from 'stream-chat'
+import {STREAM_API_KEY, STREAM_USER_TOKEN, STREAM_USER_ID} from '@env'
+import {ChatContextValue} from 'stream-chat-react-native'
 
-// Amplify.configure(awsconfig)
-// Auth.configure(awsconfig);
+Amplify.configure(awsconfig)
+Auth.configure(awsconfig);
 LogBox.ignoreAllLogs();
 
 export type StreamChannel = ChannelPreviewMessengerProps['channel'] | undefined
@@ -61,10 +69,13 @@ export const AppContext = React.createContext<AppContextType>(
 )
 export const useAppContext = () => React.useContext(AppContext)
 
-const App = () => {
+const chatClient = StreamChat.getInstance(
+  STREAM_API_KEY,
+) as unknown as ChatContextValue['client']
+
+const App = ({ clientReady }) => {
   const messageInputRef = useRef<TextInput>(null)
   const [channel, setChannel] = useState<StreamChannel>()
-  const [clientReady, setClientReady] = useState<boolean>(true)
   const [selectedChannelsForEditing, setSelectedChannelsForEditing] = useState<StreamChannel[]>([])
   const [selectedMessageIdsEditing, setSelectedMessageIdsEditing] = useState<StreamMessageId[]>([])
   const {bottom} = useSafeAreaInsets()
@@ -79,13 +90,13 @@ const App = () => {
   
     //this makes sure that the user is logged in before connecting to stream chat
     //and not cause that strange channel list bug
-    const setupClient = async () => {
-      const connectPromise = chatClient.connectUser(user, userToken)
-      setClientReady(true)
-      await connectPromise
-    }
+    // const setupClient = async () => {
+    //   const connectPromise = chatClient.connectUser(user, userToken)
+    //   setClientReady(true)
+    //   await connectPromise
+    // }
 
-    setupClient()
+    // setupClient()
   }, [])
 
   return (
@@ -122,105 +133,106 @@ export const noHeaderOptions = {
 }
 
 
-export default () => {
-  return (
-    <SafeAreaProvider>
-      <App />
-    </SafeAreaProvider>
-  )
-}
-
-
-// const Stack = createStackNavigator()
-
 // export default () => {
-
-//   const [user, setUser] = useState(undefined);
-
-//   const checkUser = async () => {
-//     console.log('checkUser')
-//     try {
-//       const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
-//       const {name, preferred_username, email} = authUser.attributes;
-
-//       const tokenResponse = await API.graphql(graphqlOperation(getStreamToken));
-//       const token = tokenResponse?.data?.getStreamToken;
-
-//       if (!token) {
-//         Alert.alert("Failed to fetch the token");
-//         return;
-//       }
-
-//       await chatClient.connectUser(
-//         {
-//           id: preferred_username,
-//           name: name,
-//           image:
-//             "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png",
-//         },
-//         token
-//       );
-  
-//       console.log("Connected to Stream Chat");
-
-//       console.log("name", name)
-//       console.log("preferred_username", preferred_username)
-//       console.log("email", email)
-//       setUser(authUser);
-//     } catch (e) {
-//       console.log(e, "this is the error")
-//       setUser(null);
-//     }
-//   };
-
-//   useEffect(() => {
-//     checkUser();
-//   }, []);
-
-//   useEffect(() => {
-//     const listener = data => {
-//       if (data.payload.event === 'signIn' || data.payload.event === 'signOut') {
-//         checkUser();
-//       }
-//     };
-
-//     Hub.listen('auth', listener);
-//     return () => {
-//       Hub.remove('auth', listener);
-//       chatClient.disconnectUser();
-//     };
-//   }, []);
-
-//   if (user === undefined) {
-//     return (
-//       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//         <ActivityIndicator />
-//       </View>
-//     );
-//   }
 //   return (
-//     <SafeAreaProvider > 
-//         {user ? (
-//             <App/>
-//         ) : (
-//           <NavigationContainer>
-//             <Stack.Navigator screenOptions={{headerShown: false}}>
-//               <>
-//                 <Stack.Screen name="SignIn" component={SignInScreen} />
-//                 <Stack.Screen name="SignUp" component={SignUpScreen} />
-//                 <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
-//                 <Stack.Screen
-//                   name="ForgotPassword"
-//                   component={ForgotPasswordScreen}
-//                 />
-//                 <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
-//               </>
-//               </Stack.Navigator>
-//           </NavigationContainer>
-//         )}
+//     <SafeAreaProvider>
+//       <App />
 //     </SafeAreaProvider>
 //   )
 // }
+
+
+const Stack = createStackNavigator()
+
+export default () => {
+
+  const [user, setUser] = useState(undefined);
+ const [clientReady, setClientReady] = useState<boolean>(false);
+
+  const checkUser = async () => {
+    console.log('checkUser')
+    try {
+      const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
+      const {name, preferred_username, email} = authUser.attributes;
+
+      const tokenResponse = await API.graphql(graphqlOperation(getStreamToken));
+      const token = tokenResponse?.data?.getStreamToken;
+
+      if (!token) {
+        Alert.alert("Failed to fetch the token");
+        return;
+      }
+
+      await chatClient.connectUser(
+        {
+          id: preferred_username,
+          name: name,
+ 
+        },
+        token
+      );
+  
+      console.log("Connected to Stream Chat");
+
+      console.log("name", name)
+      console.log("preferred_username", preferred_username)
+      console.log("email", email)
+      setClientReady(true)
+      setUser(authUser);
+    } catch (e) {
+      console.log(e, "this is the error")
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  useEffect(() => {
+    const listener = data => {
+      if (data.payload.event === 'signIn' || data.payload.event === 'signOut') {
+        checkUser();
+      }
+    };
+
+    Hub.listen('auth', listener);
+    return () => {
+      Hub.remove('auth', listener);
+      chatClient.disconnectUser();
+    };
+  }, []);
+
+  if (user === undefined) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+  return (
+    <SafeAreaProvider > 
+        {user ? (
+            <App clientReady={clientReady}/>
+        ) : (
+          <NavigationContainer theme={{colors: {background: colors.dark.background}}}>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <>
+                <Stack.Screen name="SignIn" component={SignInScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
+                <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPasswordScreen}
+                />
+                <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+              </>
+              </Stack.Navigator>
+          </NavigationContainer>
+        )}
+    </SafeAreaProvider>
+  )
+}
 
 
  

@@ -265,3 +265,5 @@ const SelectedContactWrap = styled.View`
 const MainSelectedContactWrap = styled.View`
   align-items: center;
 `;
+
+
