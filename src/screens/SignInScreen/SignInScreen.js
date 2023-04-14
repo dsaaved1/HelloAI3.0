@@ -59,6 +59,7 @@ const SignInScreen = () => {
           style={[styles.logo, {height: height * 0.3}]}
           resizeMode="contain"
         /> */}
+        <Text style={styles.title}>HelloAI</Text>
 
         <CustomInput
           name="username"
@@ -108,6 +109,13 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
+    marginTop: 100
+  },
+  title: {
+    fontSize: 56,
+    fontWeight: 'bold',
+    color: '#3777f0',
+    marginBottom: 15
   },
   logo: {
     width: '70%',

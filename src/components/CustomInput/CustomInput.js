@@ -28,6 +28,7 @@ const CustomInput = ({
               placeholder={placeholder}
               style={styles.input}
               secureTextEntry={secureTextEntry}
+              autoCapitalize="none"
             />
           </View>
           {error && (
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
 
-    paddingHorizontal: 10,
+    padding: 10,
     marginVertical: 5,
   },
   input: {},

@@ -144,11 +144,12 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
+    marginTop: 100
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#051C60',
+    color: '#3B71F3',
     margin: 10,
   },
   text: {
