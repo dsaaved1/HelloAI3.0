@@ -100,13 +100,13 @@ function Settings({ route }){
           />
           <UIDivider forMenu={true} />
 
-          <MenuItem
+          {/* <MenuItem
           iconBackgroundColor='#FFA500'
             //iconBackgroundColor={colors.red}
             icon={<Entypo name="notification" size={18} color='#859299' />}
             mainText="Notifications"
           />
-          <UIDivider forMenu={true} />
+          <UIDivider forMenu={true} /> */}
 
           <MenuItem
              iconBackgroundColor='#53FF66'
