@@ -15,6 +15,7 @@ import UIDivider from './UIDivider';
 
 type Props = {
   style?: ViewStyle;
+  color?: string;
   onPress?: () => void;
   icon?: ReactNode;
   iconBackgroundColor?: string;
@@ -37,6 +38,7 @@ type Props = {
 
 function MenuItem({
   style,
+  color,
   onPress,
   icon,
   iconBackgroundColor,
@@ -133,7 +135,7 @@ function MenuItem({
               )}
             </IconWrapper>
             <MainANsSubTextWrap>
-              <T14 numberOfLines={1} color='#859299'>{mainText}</T14>
+            <T14 numberOfLines={1} color={color || '#859299'}>{mainText}</T14>
               {subText && (
                 <T12
                   numberOfLines={2}

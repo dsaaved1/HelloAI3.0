@@ -32,6 +32,7 @@ import {
 } from 'stream-chat-react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
+
 import keys from '../../assets/constants/keys';
 import youtube from '../../assets/images/youtube.png';
 import camera from '../../assets/images/camera.png';
@@ -40,6 +41,21 @@ import microphone from '../../assets/images/microphone.png';
 import code from '../../assets/images/code.png';
 import library from '../../assets/images/library.png';
 import file from '../../assets/images/file.png';
+import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+import FeatherIcons from 'react-native-vector-icons/Feather';
+import EvilIconsIcons from 'react-native-vector-icons/EvilIcons';
+import FontAwesoem5Icons from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import BottomAlert from '../BottomAlert';
+import GPT3 from '../../images/GPT3.png'
+import GPT4 from '../../images/GPT4.png'
+import Bard from '../../images/Bard.png'
+//import { SVGIcon } from '../SVGIcon';
+
+
 
 const ModalPoup = ({visible, onClose, takePhotoAI, pickImageAI, clearMemory}) => {
   const [showModal, setShowModal] = useState(visible);
@@ -206,9 +222,151 @@ export default (props) => {
     const {channel} = useChannelContext()
     const [power, setPower] = useState("image");
     const [messageImage, setMessageImage] = useState("");
+    const [currentModel, setCurrentModel] = useState("GPT-3.5");
 
     let Container = visibleContainer ? View : Swipeable;
 
+    const [showChatAIAlert, setShowChatAIAlert] = useState(false);
+    const [showChatAlert, setShowChatAlert] = useState(false);
+    const [showAIModel, setShowAIModel] = useState(false);
+
+    const optionsModels = [
+      {
+        text: 'Cancel',
+        onPress: () => setShowAIModel(false),
+      },
+      {
+        text: 'GPT-3.5',
+        icon: (
+          <View style={{borderRadius:25}}>
+            <Image source={GPT3} style={{borderRadius:25, width:25, height:25}}/>
+          </View>
+        ),
+        onPress: () => {
+          setCurrentModel("GPT-3.5")
+          setShowAIModel(false)
+        },
+      },
+      {
+        text: 'GPT-4',
+        icon: (
+          <View style={{borderRadius:25}}>
+            {/* <SVGIcon height={15} type={'opeanai'} width={15} /> */}
+            <Image source={GPT4} style={{borderRadius:25, marginLeft: -2, width:30, height:30}}/>
+          </View>
+        ),
+        onPress: () => {
+          setCurrentModel("GPT-4")
+          setShowAIModel(false)
+        },
+      },
+      {
+        text: 'Bard',
+        icon:(
+          <View style={{borderRadius:25}}>
+            <Image source={Bard} style={{width:25, height:25}}/>
+          </View>
+        ),
+        onPress: () => {
+          setShowAIModel(false)
+        },
+      },
+    ];
+
+    const chatOptionAI = [
+      {
+        text: 'Cancel',
+        onPress: () => setShowChatAIAlert(false),
+      },
+      {
+        text: 'Camera',
+        icon: (
+          <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
+        ),
+        onPress: () => {},
+      },
+      {
+        text: 'Photo & Video Library',
+        icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
+        onPress: () => {},
+      },
+      {
+        text: 'Poll',
+        icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
+        onPress: () => {},
+      },
+      {
+        text: 'Refresh Conversation',
+        icon: (
+          <IoniconsIcon name="ios-refresh" color="#3777f0" size={25} />
+        ),
+        onPress: () => {
+          clearMemory()
+          
+        },
+      },
+      {
+        text: 'Choose AI Model',
+        icon: (
+          <MaterialCommunityIcons name="chat-question" color="#3777f0" size={25} />
+        ),
+        onPress: () => {
+          setShowChatAIAlert(false)
+          setShowAIModel(true)
+        },
+      },
+    ];
+
+    const chatOption = [
+      {
+        text: 'Cancel',
+        onPress: () => setShowChatAlert(false),
+      },
+      {
+        text: 'Camera',
+        icon: (
+          <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
+        ),
+        onPress: () => {},
+      },
+      {
+        text: 'Photo & Video Library',
+        icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
+        onPress: () => {},
+      },
+      {
+        text: 'Document',
+        icon: (
+          <IoniconsIcon
+            name="md-document-outline"
+            color= '#3777f0'
+            size={25}
+          />
+        ),
+        onPress: () => {},
+      },
+      // {
+      //   text: 'Location',
+      //   icon: (
+      //     <IoniconsIcon
+      //       name="ios-location-outline"
+      //       color= '#3777f0'
+      //       size={25}
+      //     />
+      //   ),
+      //   onPress: () => {},
+      // },
+      {
+        text: 'Contact',
+        icon: <EvilIconsIcons name="user" color= '#3777f0' size={25} />,
+        onPress: () => {},
+      },
+      // {
+      //   text: 'Poll',
+      //   icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
+      //   onPress: () => {},
+      // },
+    ];
 
   const numberOfFiles = fileUploads.length
   const channelMembers = get(channel, [
@@ -297,9 +455,14 @@ export default (props) => {
     setMessageText("");
   }
 
-  const sendQuestionChatGPT = async (question) => {
+  const sendQuestionGPT = async (question) => {
     await sendQuestion()
-    await sendChatGPT(question)
+    if (currentModel == 'GPT-4'){
+      await sendGPT4(question)
+    } else {
+      await sendGPT3(question)
+    }
+   
   }
 
   const sendQuestion = async () => {
@@ -308,16 +471,13 @@ export default (props) => {
       text: text,
     };
 
-    // console.log(channel.cid, "channel")
-    // console.log(newChannel.cid, "newChannel")
-    // console.log(messageData, "messageData")
     messageInputRef?.current?.blur()
     await channel.sendMessage(messageData);
     setText("");
     
   };
 
-  const sendChatGPT = async (question) => {
+  const sendGPT4= async (question) => {
     const { Configuration, OpenAIApi } = require('openai')
     const configuration = new Configuration({
       apiKey: keys.ai,
@@ -329,7 +489,56 @@ export default (props) => {
         const completeQuestion = question + messageImage
         const questionChat = {"role": "user", "content": completeQuestion}
         const convoData = channel.data.AIMessages
-        console.log(convoData, "channel AI messages inside")
+        convoData.push(questionChat);
+
+        console.log("here in ai gpt-4 during response1")
+        const response = await openai.createChatCompletion({
+          model: "gpt-4",
+          messages: convoData
+        });
+    
+        const answer = response.data.choices[0].message.content
+        
+        console.log(answer)
+        console.log("here in ai gpt-4 after response3")
+        // console.log(answer)
+
+        convoData.push({"role": "assistant", "content": answer})
+
+        console.log("updating convo")
+        await channel.updatePartial({ set:{ AIMessages: convoData } });
+
+
+        const messageData = {
+            question: question,
+            model: 'GPT-4',
+            modelAIPhoto:'https://firebasestorage.googleapis.com/v0/b/mind-4bdad.appspot.com/o/chatImages%2FGPT-4.png?alt=media&token=c9fadfd5-2088-407e-8ec0-b0b6b63bf0b8',
+            text: answer,
+            class: "AIAnswer",
+        };
+
+
+        await channel.sendMessage(messageData)
+
+    } catch (e) {
+        console.error("Error asking AI GPT-4: ", e);
+    }
+
+
+  }
+
+  const sendGPT3 = async (question) => {
+    const { Configuration, OpenAIApi } = require('openai')
+    const configuration = new Configuration({
+      apiKey: keys.ai,
+    })
+    const openai = new OpenAIApi(configuration)
+
+    console.log("here in ai before response")
+    try {
+        const completeQuestion = question + messageImage
+        const questionChat = {"role": "user", "content": completeQuestion}
+        const convoData = channel.data.AIMessages
         convoData.push(questionChat);
 
         console.log("here in ai during response1")
@@ -369,10 +578,6 @@ export default (props) => {
   }
 
   const handleSendOnPress = async () => {
-
-    // console.log("handleSendOnPress")
-    // console.log(channel.cid, "channel")
-    // console.log(newChannel.cid, "newChannel")
     messageInputRef?.current?.blur()
     await sendMessage()
   }
@@ -401,9 +606,14 @@ export default (props) => {
                   
 
                     <PeekabooView isEnabled={!recordingActive}>
-                        <IconButton
+                        {/* <IconButton
                           onPress={pickFile}
                           iconName={'Attachment'}
+                          pathFill={colors.dark.secondaryLight}
+                        /> */}
+                        <IconButton
+                          onPress={() => setShowChatAlert(true)}
+                          iconName={'Plus'}
                           pathFill={colors.dark.secondaryLight}
                         />
 
@@ -452,6 +662,12 @@ export default (props) => {
               
             </View>
          </SafeAreaView>
+         <BottomAlert
+          visible={showChatAlert}
+          actions={chatOption}
+          textColor={colors.dark.text}
+          withIcon={true}
+        />
       </View>
     )
   }
@@ -493,7 +709,7 @@ export default (props) => {
 
               <PeekabooView isEnabled={!recordingActive}>
                   <IconButton
-                    onPress={() => setVisible(true)}
+                    onPress={() => setShowChatAIAlert(true)}
                     iconName={'Plus'}
                     pathFill={colors.dark.secondaryLight}
                   />
@@ -522,7 +738,7 @@ export default (props) => {
                         />
                     :
                       <IconButton
-                          onPress={() => sendQuestionChatGPT(text)}
+                          onPress={() => sendQuestionGPT(text)}
                           iconName={'Send'}
                           pathFill={colors.dark.text}
                           style={styles.send}
@@ -538,16 +754,23 @@ export default (props) => {
           </SafeAreaView>
         <ModalPoup visible={visible} onClose={() => setVisible(false)} clearMemory={clearMemory}/>
       </Container>
+      <BottomAlert
+          visible={showChatAIAlert}
+          actions={chatOptionAI}
+          textColor={colors.dark.text}
+          withIcon={true}
+        />
+         <BottomAlert
+          visible={showAIModel}
+          actions={optionsModels}
+          textColor={colors.dark.text}
+          withIcon={true}
+        />
     </View>
     
   )
 }
 
-export const messageInputStyle = {
-  backgroundColor: colors.dark.secondary,
-  //borderRadius: sizes.xl,
-  //marginHorizontal: sizes.s,
-}
 const styles = StyleSheet.create({
   outerContainer: {
     ...flex.directionRowItemsEnd,
@@ -560,6 +783,7 @@ const styles = StyleSheet.create({
     //marginTop: 15,
     paddingRight: 15,
     width: '100%',
+    paddingTop: 5
   },
   mediaButton: {
     width: 35,

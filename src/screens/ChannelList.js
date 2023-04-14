@@ -19,9 +19,9 @@ const twoMemberFilters = {
 const groupFilters = {
   members: { $in: [chatClient.user.id] },
   type: 'messaging',
-  member_count: { $gt: 2 },
-  isGroupChat: { $eq: true },
-  typeChat: { $eq: 'chat'}
+  member_count: { $gt: 5 },
+  //isGroupChat: { $eq: true },
+  //typeChat: { $eq: 'chat'}
 };
 
 const sort = { last_message_at: -1 };

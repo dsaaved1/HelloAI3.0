@@ -10,6 +10,7 @@ import {chatClient} from '../../client'
 import {createConvo} from '../../utils/actions/chatActions'
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default (props) => {
@@ -89,6 +90,14 @@ export default (props) => {
         </View>
       </PeekabooView>
       <PeekabooView isEnabled={!isInChannelSelectionMode}>
+      {Platform.OS === 'android' ? (
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{marginLeft:7}}
+          >
+            <Ionicons name="md-menu" size={30} color={colors.dark.secondaryLight} />
+          </TouchableOpacity>
+        ) : null}
         <View style={styles.appNameText}>
           <Text style={styles.titleText}>{channel.data.name}</Text>
         </View>

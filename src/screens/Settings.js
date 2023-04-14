@@ -16,16 +16,14 @@ import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
+import userImage from '../images/userImage.jpeg'
 
 
 
 function Settings({ route }){
   const navigation = useNavigation();
-  const parentNavigation = route.params.parentNavigation;
-  // const getParentNavigation = () => {
-  //   const parentRouteName = useNavigationState(state => state.routes[state.index].name);
-  //   return parentRouteName;
-  // };
+  const source = chatClient.user.image? { uri: chatClient.user.image } : userImage
+ 
   
   return (
     <View style={{flex:1}}>
@@ -36,9 +34,7 @@ function Settings({ route }){
         <View style={styles.row}>
             <View>
               <Image
-                source={{
-                  uri: chatClient.user.image,
-                }}
+                source={source}
                 style={styles.userImage}
               />
             </View>
@@ -67,9 +63,9 @@ function Settings({ route }){
         </MenuWrapper>
         {/* <Spacer height={20} /> */}
         <MenuWrapper wrapperStyle={{borderRadius: 0}}>
-            <TouchableOpacity
-              onPress={() => parentNavigation.navigate('Account')}
-            >
+            {/* <TouchableOpacity
+              onPress={() => navigation.navigate('Account')}
+            > */}
                 <MenuItem
                   iconBackgroundColor='#6653FF'
                   //iconBackgroundColor={colors.darkblue}
@@ -79,14 +75,14 @@ function Settings({ route }){
                       size={18}
                       color='#859299'
                       style={{transform: [{rotate: '324deg'}]}}
+                    
                     />
+                    
                   }
+                  onPress={()=>navigation.navigate('Account')}
                   mainText="Account"
-                  //update profile
-                  //logout
-                  //delete account
                 />
-          </TouchableOpacity>
+          {/* </TouchableOpacity> */}
 
           <UIDivider forMenu={true} />
 
@@ -100,6 +96,7 @@ function Settings({ route }){
             mainText="Privacy"
             //blocked users
             //two factor authentication
+            //encryption
           />
           <UIDivider forMenu={true} />
 
@@ -133,9 +130,7 @@ function Settings({ route }){
             //iconBackgroundColor={colors.darkblue}
             icon={<AntDesignIcon name="info" size={18} color='#859299' />}
             mainText="About"
-//             1. Terms and conditions privacy policy
-// 2. Contact Us. Help
-// 3. HelloAi features
+            onPress={()=>navigation.navigate('About')}
           />
           <UIDivider forMenu={true} />
 
@@ -143,9 +138,8 @@ function Settings({ route }){
             iconBackgroundColor={colors.red}
             icon={<AntDesignIcon name="heart" size={18} color='#859299' />}
             mainText="Support us"
-            //twitter
-            //rate
-            //feedback
+            onPress={()=>navigation.navigate('Support')}
+           
           />
         </MenuWrapper>
       </ScrollableView>

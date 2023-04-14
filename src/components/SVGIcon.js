@@ -9,6 +9,7 @@ import ThreadsIcon from '../images/svgs/channel-list/threads.svg';
 import FileAttachmentIcon from '../images/svgs/channel/attachment.svg';
 import BackButtonIcon from '../images/svgs/channel/back-button.svg';
 import CloseButtonIcon from '../images/svgs/channel/close-button.svg';
+//import OpenAI from '../images/svgs/channel/opeanai.svg'
 import EmojiIcon from '../images/svgs/channel/emoji.svg';
 import FormattingIcon from '../images/svgs/channel/formating.svg';
 import InfoIcon from '../images/svgs/channel/info.svg';
@@ -56,6 +57,7 @@ const iconMap = {
   'search-tab-active': GlobalSearchSelectedIcon,
   'you-tab': YouTabIcon,
   'you-tab-active': YouTabIconActive,
+  //'opeanai': OpenAI,
 
   //new
   'check': Check,

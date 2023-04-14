@@ -62,29 +62,14 @@ const Convos = ({route}) => {
           {/* <View style={styles.header}>
             <Text style={styles.title}>Hello AI</Text>
           </View> */}
-          <View style={styles.searchContainer}>
+          {/* <View style={styles.searchContainer}>
             <TextInput
               style={styles.searchInput}
               placeholder="Search here..."
               placeholderTextColor="#999"
             />
-          </View>
-          {Platform.OS === 'android' ? (
-          <TouchableOpacity
-            onPress={() => navigation.openDrawer()}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 0,
-              borderRadius: 25,
-              width: 50,
-              height: 50,
-              backgroundColor: colors.dark.secondaryLight,
-              transform: [{ translateY: -25 }, { translateX: -25 }],
-            }}
-          >
-          </TouchableOpacity>
-        ) : null}
+          </View> */}
+          
         </SafeAreaView>
       </View>
     );
@@ -111,22 +96,6 @@ const Convos = ({route}) => {
             sort={sort}
             EmptyStateIndicator={CustomEmpty}
         />
-        {Platform.OS === 'android' ? (
-          <TouchableOpacity
-            onPress={() => navigation.openDrawer()}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 0,
-              borderRadius: 25,
-              width: 50,
-              height: 50,
-              backgroundColor: colors.dark.secondaryLight,
-              transform: [{ translateY: -25 }, { translateX: -25 }],
-            }}
-          >
-          </TouchableOpacity>
-        ) : null}
     </SafeAreaView>
   );
 };

@@ -1,12 +1,14 @@
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { HEADER_HEIGHT } from '../utils';
 import { CloseModalButton } from './CloseModalButton';
 import { SCText } from './SCText';
 import { Spacer } from './Spacer';
 import {colors} from '../theme'
+import Icon from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const styles = StyleSheet.create({
   centerContent: {
@@ -16,18 +18,19 @@ export const styles = StyleSheet.create({
   },
   channelSubTitle: {
     alignContent: 'center',
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '900',
     marginLeft: 10,
     textAlign: 'center',
+    marginRight: 5
   },
   channelTitle: {
     alignContent: 'center',
-    fontSize: 19,
+    fontSize: 17,
     fontWeight: '700',
     marginLeft: 10,
     textAlign: 'center',
-    marginTop: 10
+    //marginTop: 10
   },
   container: {
     alignItems: 'center',
@@ -58,8 +61,8 @@ export const ModalScreenHeader = (props) => {
   } = props;
   //const { colors } = useTheme();
 
-  const colorTitle = title === 'solved'? "#8E8E" : "#D86F6F";
-
+  const colorTitle = title === 'solved' ? '#8E8E' : '#D86F6F' 
+  const icon = title === 'solved' ? "checkcircle" : "checkcircleo"
   return (
     <View
       style={[
@@ -70,17 +73,20 @@ export const ModalScreenHeader = (props) => {
           borderBottomColor: colors.dark.secondary,
         },
       ]}>
-      <View style={styles.leftContent}>
-        <LeftContent goBack={goBack} />
-      </View>
+      <TouchableOpacity onPress={goBack} style={{padding: 10,}}>
+        <Icon name="close" size={25} color='white' />
+      </TouchableOpacity>
       <View style={styles.centerContent}>
-        <SCText style={[styles.channelTitle, { color: colorTitle }]}>
-          {title}
+        <SCText style={[styles.channelTitle, { color: 'white' }]}>
+         Thread
         </SCText>
         {!!subTitle && (
-          <SCText style={[styles.channelSubTitle, { color: 'white' }]}>
-            {subTitle}
-          </SCText>
+          <View style={{ flexDirection: 'row', justifyContent: 'center',}}>
+              <SCText style={[styles.channelSubTitle, { color:  colorTitle }]}>
+                {subTitle}
+              </SCText>
+              <AntDesign name={icon} size={15} color={colorTitle} />
+          </View>
         )}
       </View>
       <View style={styles.rightContent}>

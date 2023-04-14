@@ -78,6 +78,7 @@ export default ({
   }
 
   const onStartRecord = async () => {
+    messageInputRef.current.focus();
     setRecordingActive(true)
     await audioRecorderPlayer.startRecorder()
     audioRecorderPlayer.addRecordBackListener(e => {

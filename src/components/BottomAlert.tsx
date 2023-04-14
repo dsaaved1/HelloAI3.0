@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {ActionSheetIOS, Modal,StyleSheet,View} from 'react-native';
+import {ActionSheetIOS, Modal, StyleSheet, View, Animated, Easing } from 'react-native';
 import styled from 'styled-components/native';
 import {os_ios} from '../utils/os';
 import {dw} from '../utils/dimension';
@@ -19,6 +19,8 @@ type Props = {
     icon?: ReactNode;
   }[];
   withIcon?: boolean;
+  textSize?: number;
+  
 };
 
 const CustomAlert: React.FC<Props> = ({
@@ -29,7 +31,9 @@ const CustomAlert: React.FC<Props> = ({
   destructiveButtonIndex,
   textColor,
   withIcon,
+  textSize = 15, 
 }) => {
+
   
   return (
     <View style={{
@@ -63,7 +67,7 @@ const CustomAlert: React.FC<Props> = ({
                 destructive={Number(destructiveButtonIndex) - 1 == index}
                 disabled={disabledButtonIndices?.includes(index + 1)}
                 withIcon={withIcon}
-                style={{marginLeft: withIcon ? '5%' : 0}}>
+                style={{fontSize: textSize, color: textColor, marginLeft: withIcon ? '5%' : 0}}>
                 {action.text}
               </Text>
             </OneButton>

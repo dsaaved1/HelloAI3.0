@@ -23,6 +23,7 @@ import {colors} from '../../theme'
 import {sizes} from '../../global'
 import {SVGIcon} from '../SVGIcon'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import userImage from '../../images/userImage.jpeg'
 
 
   function format24Hours(dateString) {
@@ -74,7 +75,8 @@ export default AIMessage = () => {
     const isSolved = message.isSolved
     const classMessage = message.class
     const userName = classMessage === 'AIQuestion' ? message.user.name: message.model;
-    const userImage = classMessage === 'AIQuestion' ? message.user.image: message.modelAIPhoto;
+    const imageUser = message.user.image? { uri: message.user.image} :  userImage
+    const source = classMessage === 'AIQuestion' ? imageUser : { uri: message.modelAIPhoto };
     const date = message.created_at
     const dateString = date && format24Hours(date);
     const isStarred = message.pinned
@@ -85,7 +87,7 @@ export default AIMessage = () => {
         <View style={styles.wrapperStyle}>
           <View style={styles.container}>
               <View style={styles.profileContainer}>
-                  <Image source={{ uri: userImage }} style={styles.profilePicture} />
+                  <Image source={source} style={styles.profilePicture} />
               </View>
 
               <View  style={styles.messageContainer}>

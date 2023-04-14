@@ -110,9 +110,9 @@ export default ({
         size={38}
       />
       {/* <DMAvatar channel={channel}/> */}
-      <View style={{flex: 1, marginHorizontal: sizes.l}}>
-      <CustomChannelPreviewTitle displayName={displayName}/>
-        <View style={{flexDirection: 'row', marginTop: sizes.xs}}>
+      <View style={{flex: 1, marginHorizontal: sizes.l, justifyContent:'center'}}>
+        <CustomChannelPreviewTitle displayName={displayName}/>
+        {/* <View style={{flexDirection: 'row', marginTop: sizes.xs}}>
           <PeekabooView isEnabled={status === 2}>
             <CheckAll pathFill={grey} {...checkAllIcon} />
           </PeekabooView>
@@ -130,27 +130,24 @@ export default ({
               latestMessagePreview={latestMessagePreview}
             />
           </PeekabooView>
-        </View>
+        </View> */}
       </View>
-      <View style={{justifyContent: 'space-between'}}>
-        {/* <Text style={[styles.date, {color: grey}, date]}>
+      {/* <View style={{justifyContent: 'space-between'}}>
+        <Text style={[styles.date, {color: grey}, date]}>
           {formatLatestMessageDate && latestMessageDate
             ? formatLatestMessageDate(latestMessageDate)
             : latestMessagePreview.created_at}
-        </Text> */}
+        </Text>
         <View style={flex.directionRowContentEnd}>
           <PeekabooView isEnabled={isChannelMuted}>
             <View style={{marginRight: 12}}>
               <Muted pathFill={colors.dark.secondaryLight} width={14} />
             </View>
           </PeekabooView>
-          <PeekabooView isEnabled={isPinned}>
-            <Pinned pathFill={colors.dark.secondaryLight} width={14} />
-          </PeekabooView>
-          {/* <CustomChannelPreviewUnreadCount unread={unreadCount} /> */}
+          <CustomChannelPreviewUnreadCount unread={unreadCount} />
           <ChannelPreviewUnreadCount channel={channel} maxUnreadCount={50} unread={unreadCount}/>
         </View>
-      </View>
+      </View> */}
     </Pressable>
   )
 }
@@ -162,7 +159,7 @@ const CustomChannelPreviewTitle = ({ displayName } : {
   return (
     <Text
       numberOfLines={1}
-      style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}
+      style={{ color: colors.dark.text, fontSize: 14, fontWeight: 'bold' }}
     >
       {displayName}
     </Text>

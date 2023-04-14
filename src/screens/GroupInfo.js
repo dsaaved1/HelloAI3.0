@@ -18,7 +18,6 @@ import {useNavigation, useFocusEffect } from '@react-navigation/native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UIDivider from '../components/UIDivider';
 import BottomAlert from '../components/BottomAlert';
-
 import {View, StyleSheet, Text} from 'react-native';
 import { chatClient, user} from '../client'
 import { SCText } from '../components/SCText';
@@ -61,7 +60,6 @@ const GroupInfo = props =>  {
   const [showBlockAlert, setShowBlockAlert] = useState(false);
   const [showMuteAlert, setShowMuteAlert] = useState(false);
   const [showUnmuteAlert, setShowUnmuteAlert] = useState(false);
-  const [showChatAlert, setShowChatAlert] = useState(false);
   const [showMemberAlert, setShowMemberAlert] = useState(false);
 
   const [contacts, setContacts] = useState([]);
@@ -71,9 +69,24 @@ const GroupInfo = props =>  {
   const [isAnyModalVisible, setIsAnyModalVisible] = useState(false);
 
   const channel = props.route?.params?.channel || {};
-  const source = channel.data.image ?  { uri: channel.data.image } : userImage;
   const [isModerator, setIsModerator] = useState(false)
 
+//   const otherMember = channel?.state?.members
+//   ? Object.values(channel.state.members).find(
+//       member => member.user.id !== user.id
+//     )
+//   : null;
+
+// const otherMemberImage = otherMember?.user?.image
+//   ? { uri: otherMember.user.image }
+//   : null;
+
+const source = 
+//channel.data.isGroupChat
+  //? (
+    channel.data.image ? { uri: channel.data.image } : userImage
+    //)
+  //: (otherMemberImage || userImage);
   
 
 
@@ -81,11 +94,11 @@ const GroupInfo = props =>  {
     const objectMembers = await channel.queryMembers({})
     const participantsCount = objectMembers.members.length;
     const currentUser = objectMembers.members.find(member => member.user.id === user.id);
-    const isModerator = currentUser.role === 'moderator' || currentUser.role === 'owner';
+    const isModerator = (currentUser.role === 'moderator' || currentUser.role === 'owner') && channel.data.isGroupChat;
     const fetchedContacts = objectMembers.members.map((member, index) => {
       const role = (member.role === 'moderator' || member.role === 'owner')? '(admin)' : '';
       return {
-        image: { uri: member.user.image }, // Assuming the user has an 'image' property
+        image: member.user.image  ? { uri: member.user.image } : userImage, // Assuming the user has an 'image' property
         name: `${member.user.name} ${role}`,
         about: member.user.id, // Assuming the user has an 'about' property
         id: index,
@@ -99,7 +112,6 @@ const GroupInfo = props =>  {
   }
 
   async function fetchConvos(){
-    console.log(channel.id, "popopo")
     //different channel but somehow the length is always the same
     const filters = { 
       type: 'messaging', 
@@ -118,7 +130,6 @@ const GroupInfo = props =>  {
     setIsAnyModalVisible(anyModalVisible());
   }, [
     showRemoveAlert,
-    showChatAlert,
     showMemberAlert,
     showLeaveAlert,
     showBlockAlert,
@@ -160,70 +171,27 @@ const GroupInfo = props =>  {
             </View>
         ),
         headerTintColor: isAnyModalVisible ? 'rgba(55, 119, 240, 0.3)' : '#3777f0',
-        headerRight: () => {
-            return <HeaderButtons 
-            >
-               
-                    <Item
-                        title={"Edit"}
-                        color={isAnyModalVisible ? 'rgba(55, 119, 240, 0.3)' : '#3777f0'}
-                    />
-            
-            </HeaderButtons>
-        },
+        ...(channel.data.isGroupChat && {
+          headerRight: () => {
+            return (
+              <HeaderButtons>
+                <Item
+                  title={'Edit'}
+                  color={
+                    isAnyModalVisible
+                      ? 'rgba(55, 119, 240, 0.3)'
+                      : '#3777f0'
+                  }
+                 onPress={() => navigation.navigate('EditGroup', { channel: channel})}
+                />
+              </HeaderButtons>
+            );
+          },
+        }),
     })
 }, [isAnyModalVisible]);
 
-  const chatOptions = [
-    {
-      text: 'Cancel',
-      onPress: () => setShowChatAlert(false),
-    },
-    {
-      text: 'Camera',
-      icon: (
-        <IoniconsIcon name="ios-camera-outline" color={colors.blue} size={25} />
-      ),
-      onPress: () => {},
-    },
-    {
-      text: 'Photo & Video Library',
-      icon: <FeatherIcons name="image" color={colors.blue} size={25} />,
-      onPress: () => {},
-    },
-    {
-      text: 'Document',
-      icon: (
-        <IoniconsIcon
-          name="md-document-outline"
-          color={colors.blue}
-          size={25}
-        />
-      ),
-      onPress: () => {},
-    },
-    {
-      text: 'Location',
-      icon: (
-        <IoniconsIcon
-          name="ios-location-outline"
-          color={colors.blue}
-          size={25}
-        />
-      ),
-      onPress: () => {},
-    },
-    {
-      text: 'Contact',
-      icon: <EvilIconsIcons name="user" color={colors.blue} size={25} />,
-      onPress: () => {},
-    },
-    {
-      text: 'Poll',
-      icon: <FontAwesoem5Icons name="poll-h" color={colors.blue} size={25} solid />,
-      onPress: () => {},
-    },
-  ];
+
 
 
   const memberOptions = [
@@ -261,7 +229,7 @@ const GroupInfo = props =>  {
   ];
 
   const anyModalVisible = () =>
-  showDeleteAlert || showRemoveAlert || showChatAlert || showMemberAlert || 
+  showDeleteAlert || showRemoveAlert  || showMemberAlert || 
   showLeaveAlert || showBlockAlert || showMuteAlert || showUnmuteAlert ;
 
 
@@ -277,17 +245,6 @@ const GroupInfo = props =>  {
   showsVerticalScrollIndicator={false}
 >
 
-        {/* <Header
-          headerTitle="Group Info"
-          //onRightButtonPress={() => setShowRemoveAlert(true)}
-          onLeftButtonPress={() => navigation.goBack()}
-          //onLeftButtonPress={() => setShowChatAlert(true)}
-          leftButtonText="Back"
-          rightButtonText="Edit"
-          showBackIcon={true}
-          tiltLeft
-        />
-        <Spacer height={10} /> */}
       
 
         <View style={styles.column}>
@@ -735,12 +692,7 @@ const GroupInfo = props =>  {
           ]}
         />
 
-        <BottomAlert
-          visible={showChatAlert}
-          actions={chatOptions}
-          textColor={colors.white}
-          withIcon={true}
-        />
+        
 
         <BottomAlert
           visible={showMemberAlert}

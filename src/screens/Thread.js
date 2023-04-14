@@ -87,7 +87,7 @@ export const ThreadsBaby = ({route}) => {
           <ModalScreenHeader
             //somehow channel.data.name is not giving the channel name updated
             goBack={navigation.goBack}
-            //subTitle={truncate(channelName, 35)}
+            subTitle={truncate(channelName, 35)}
             title={truncate(channelName, 35)? truncate(channelName, 35) : 'Thread'}
           />
           <ChannelBackgroundWrapper

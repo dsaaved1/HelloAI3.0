@@ -24,6 +24,9 @@ import Settings from '../screens/Settings';
 import AddParticipants from '../screens/AddParticipants';
 import StarredMessages from '../screens/StarredMessages';
 import Account from '../screens/Account';
+import EditGroup from '../screens/EditGroup';
+import Support from '../screens/Support';
+import About from '../screens/About';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -207,6 +210,20 @@ export default ({clientReady}: {clientReady: boolean}) => {
       <Stack.Screen
           component={StarredMessages}
           name={'Starred'}
+      />
+
+      <Stack.Screen
+          component={EditGroup}
+          name={'EditGroup'}
+      />
+
+      <Stack.Screen
+          component={About}
+          name={'About'}
+      />
+       <Stack.Screen
+          component={Support}
+          name={'Support'}
       />
 
 

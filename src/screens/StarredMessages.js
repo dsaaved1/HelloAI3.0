@@ -5,7 +5,6 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import {colors} from '../theme'
 
 const StarredMessages = props => {
-    const navigation = useNavigation();
     const channels =  props.route?.params?.channels || {};
     const [pinnedMessages, setPinnedMessages] = useState([]);
 

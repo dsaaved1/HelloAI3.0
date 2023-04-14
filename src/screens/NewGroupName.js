@@ -66,8 +66,8 @@ const NewGroupName = (props) => {
                             color={isGroupChatDisabled ? colors.lightGrey : '#3777f0'}
                             onPress={async () => {
 
-                                const userIds = Object.values(selectedUsersName); // Get an array of user ids from selectedUsers
-                                const channelInfo =  await createGroupChat(user.id, chatClient, chatName, userIds, true);
+                                const userIds = Object.keys(selectedUsersName); // Get an array of user ids from selectedUsers
+                               await createGroupChat(user.id, chatClient, chatName, userIds, true);
                                 console.log('send invitation to users to create a group chat')
                                 //navigation.navigate(ROOT_STACK.CONVOS, { channelId: channelInfo.id, channelName: channelInfo.name, channelUsers: channelInfo.members});
                                 navigation.navigate('Home');

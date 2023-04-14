@@ -8,6 +8,8 @@ import { SCText } from './SCText';
 import { SlackAppContext } from '../contexts/SlackAppContext';
 import { HEADER_HEIGHT } from '../utils';
 import {colors} from '../theme'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
 export const ScreenHeader = ({ showLogo = false, title }) => {
   const insets = useSafeAreaInsets();
   //const { colors } = useTheme();
+  const navigation = useNavigation();
+  
 
 
 
@@ -57,6 +61,14 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
             />
           </TouchableOpacity>
         )}
+       {
+          title === 'Home' &&
+            (Platform.OS === 'android' ? (
+              <TouchableOpacity style={{marginLeft:7}} onPress={() => navigation.openDrawer()}>
+                <Ionicons name="md-menu" size={30} color={colors.dark.secondaryLight} />
+              </TouchableOpacity>
+            ) : null)
+        }
         <SCText
           style={[
             styles.title,
