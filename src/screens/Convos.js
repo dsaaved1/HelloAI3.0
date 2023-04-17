@@ -18,7 +18,6 @@ const Convos = ({route}) => {
   const {channel} = route.params || {};
   const navigation = useNavigation();
  
-  console.log(channelId, "channelId")
 
   // const [refreshList, setRefreshList] = useState(false);
 
@@ -78,7 +77,7 @@ const Convos = ({route}) => {
   // Define custom filters based on the channelId
   const filters = { 
     type: 'messaging', 
-    members: { $in: [chatClient.user.id] }, 
+    members: { $in: [chatClient?.user?.id] }, 
     chatId: channelId, 
     typeChat: { $eq: 'convo'}
   };

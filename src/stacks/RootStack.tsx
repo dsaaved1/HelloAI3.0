@@ -43,7 +43,7 @@ export enum ROOT_STACK {
   NEW_GROUP_NAME = 'RootStackNewGroupName',
   PROFILE = 'RootStackSettings',
   INVITATIONS = 'invitations',
-  TABS = 'Home',
+  TABS = 'Main',
 }
 
 
@@ -188,13 +188,13 @@ const TabNavigation = () => (
 export default ({clientReady}: {clientReady: boolean}) => {
   if (!clientReady) return null
   return (  <Stack.Navigator
-    initialRouteName={'Home'}
+    initialRouteName={'Main'}
     screenOptions={{
       headerTitleStyle: {alignSelf: 'center', fontWeight: 'bold'},
     }}>
       <Stack.Screen
         component={DrawerNavigator}
-        name={'Home'}
+        name={'Main'}
         options={noHeaderOptions}
       />
       <Stack.Screen

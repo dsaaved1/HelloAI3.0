@@ -13,7 +13,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context'
 import {Chat, OverlayProvider, ThemeProvider} from 'stream-chat-react-native'
-//import {chatClient, user, userToken} from './client'
+//import {user, userToken} from './client'
 import {colors, theme} from './theme'
 import 'moment/min/moment-with-locales'
 import 'moment/min/locales'
@@ -69,13 +69,16 @@ export const AppContext = React.createContext<AppContextType>(
 )
 export const useAppContext = () => React.useContext(AppContext)
 
-const chatClient = StreamChat.getInstance(
-  STREAM_API_KEY,
-) as unknown as ChatContextValue['client']
+const chatClient = StreamChat.getInstance('xnspp5s5ggeu')
+//   STREAM_API_KEY,
+// ) as unknown as ChatContextValue['client']
 
-const App = ({ clientReady }) => {
+const App = (
+  //{ clientReady }
+  ) => {
   const messageInputRef = useRef<TextInput>(null)
   const [channel, setChannel] = useState<StreamChannel>()
+  const [clientReady, setClientReady] = useState<boolean>(true)
   const [selectedChannelsForEditing, setSelectedChannelsForEditing] = useState<StreamChannel[]>([])
   const [selectedMessageIdsEditing, setSelectedMessageIdsEditing] = useState<StreamMessageId[]>([])
   const {bottom} = useSafeAreaInsets()
@@ -91,7 +94,7 @@ const App = ({ clientReady }) => {
     //this makes sure that the user is logged in before connecting to stream chat
     //and not cause that strange channel list bug
     // const setupClient = async () => {
-    //   const connectPromise = chatClient.connectUser(user, userToken)
+    //   const connectPromise = chatClient.connectUser({"id": "steve"}, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoic3RldmUifQ.kKzGDfH7yf8a9TWqmibwsdwvNcPmgG9-ug78uPQfPuc')
     //   setClientReady(true)
     //   await connectPromise
     // }
@@ -152,31 +155,34 @@ export default () => {
   const checkUser = async () => {
     console.log('checkUser')
     try {
+      console.log("ssssss")
       const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
+  
+      console.log("rehrejrh")
       const {name, preferred_username, email} = authUser.attributes;
 
       const tokenResponse = await API.graphql(graphqlOperation(getStreamToken));
+      console.log("tokenResponse", tokenResponse)
       const token = tokenResponse?.data?.getStreamToken;
+
+      console.log("token", token)
 
       if (!token) {
         Alert.alert("Failed to fetch the token");
         return;
       }
 
+      console.log("before connect")
       await chatClient.connectUser(
         {
           id: preferred_username,
           name: name,
- 
         },
         token
       );
   
       console.log("Connected to Stream Chat");
 
-      console.log("name", name)
-      console.log("preferred_username", preferred_username)
-      console.log("email", email)
       setClientReady(true)
       setUser(authUser);
     } catch (e) {

@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
-import {chatClient, user} from '../client'
+import {chatClient} from '../client'
 import colors from '../assets/constants/colors';
 import ProfileImage from '../components/new-chat/ProfileImage';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -67,7 +67,7 @@ const NewGroupName = (props) => {
                             onPress={async () => {
 
                                 const userIds = Object.keys(selectedUsersName); // Get an array of user ids from selectedUsers
-                               await createGroupChat(user.id, chatClient, chatName, userIds, true);
+                               await createGroupChat(chatClient?.user?.id, chatClient, chatName, userIds, true);
                                 console.log('send invitation to users to create a group chat')
                                 //navigation.navigate(ROOT_STACK.CONVOS, { channelId: channelInfo.id, channelName: channelInfo.name, channelUsers: channelInfo.members});
                                 navigation.navigate('Home');

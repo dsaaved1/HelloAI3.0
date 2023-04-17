@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   centerContent: {
     flex: 4,
     justifyContent: 'center',
-    paddingBottom: 15,
+    //paddingBottom: 15,
   },
   channelSubTitle: {
     alignContent: 'center',

@@ -43,6 +43,7 @@ const NewChatScreen = props => {
     const isGroupChatDisabled = Object.keys(selectedUsers).length === 0
     const isNewChat = props.route?.params?.isNewChat
     const channel = props.route?.params?.channel || {};
+    const channels = props.route?.params?.channels || {};
 
 
     useEffect(() => {
@@ -92,7 +93,7 @@ const NewChatScreen = props => {
                 </HeaderButtons>
             },
         })
-    }, [showAddAlert, isGroupChatDisabled]);
+    }, [showAddAlert, isGroupChatDisabled, selectedUsers]);
 
     useEffect(() => {
         const delaySearch = setTimeout(async () => {
@@ -317,7 +318,11 @@ const NewChatScreen = props => {
                 text: 'Add',
                 onPress: async () => {
                     setShowAddAlert(false)
-                    await channel.addMembers(Object.keys(selectedUsers));
+                    //it adds instead of inviting
+                    await Promise.all([
+                        channels.map(channel => channel.addMembers(Object.keys(selectedUsers), 
+                          { text: `${chatClient?.user?.name} added ${getSelectedUserIds()} to this channel!` })),
+                      ]);
                     navigation.navigate('Info', { channel: channel})
                 },
                 },

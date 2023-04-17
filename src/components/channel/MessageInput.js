@@ -53,6 +53,7 @@ import BottomAlert from '../BottomAlert';
 import GPT3 from '../../images/GPT3.png'
 import GPT4 from '../../images/GPT4.png'
 import Bard from '../../images/Bard.png'
+import { chatClient } from '../../client';
 //import { SVGIcon } from '../SVGIcon';
 
 
@@ -440,9 +441,11 @@ export default (props) => {
   )
 
   const clearMemory = async () => {
-    console.log("hereeee!!!!!!")
-    await channel.updatePartial({ set:{ AIMessages: [{"role": "system", "content": "You are a helpful assistant."}] } });
-    console.log("here")
+    console.log("clearMemory")
+    
+    await channel.updatePartial({ set:{ AIMessages: [{"role": "system", "content": "You are a helpful assistant."}] } }),
+    setShowChatAIAlert(false)
+    
   }
 
   const sendTextMessage = async () => {

@@ -34,7 +34,14 @@ export default () => {
   const displayName = useChannelPreviewDisplayName(channel, 30)
   const {setQuotedMessageState, removeMessage, updateMessage} =
     useMessagesContext()
-  const chatName = channel?.data?.chatName
+
+    const otherMember = channel?.state?.members
+    ? Object.values(channel.state.members).find(
+      member => member?.user?.id !== chatClient?.user?.id
+    )
+  : null;
+
+  const chatName = channel?.data?.chatName || 'No name'
 
   const [classMessageEnabled, setClassMessageEnabled] = useState(false);
   const [threadEnabled, setThreadEnabled] = useState(false);

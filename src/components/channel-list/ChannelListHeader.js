@@ -18,12 +18,18 @@ export default (props) => {
   const channel = props.channel
   const navigation = useNavigation();
 
+  const otherMember = channel?.state?.members
+    ? Object.values(channel.state.members).find(
+      member => member.user.id !== chatClient?.user?.id
+    )
+  : null;
 
   const {selectedChannelsForEditing, setSelectedChannelsForEditing} =
     useAppContext()
 
   const isInChannelSelectionMode = !isEmpty(selectedChannelsForEditing)
   const clearSelectedChannelsForEditing = () => setSelectedChannelsForEditing([])
+  const nameChannel = channel.data.isGroupChat ? channel.data.name : otherMember?.user?.name
 
 
   const handleMuteOnPress = async () => {
@@ -47,7 +53,7 @@ export default (props) => {
 
   const handleCreateConvo = async () => {
     try {
-        await createConvo(chatClient, channelUsers, channel.id, channel.data.name);
+        await createConvo(chatClient, channelUsers, channel.id, nameChannel);
     } catch (error) {
       console.error('Error creating convo:', error);
     }
@@ -99,7 +105,9 @@ export default (props) => {
           </TouchableOpacity>
         ) : null}
         <View style={styles.appNameText}>
-          <Text style={styles.titleText}>{channel.data.name}</Text>
+          <Text style={styles.titleText}>
+            {nameChannel}
+            </Text>
         </View>
         <IconButton
           onPress={handleCreateConvo}

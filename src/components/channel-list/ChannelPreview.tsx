@@ -30,8 +30,8 @@ import { DMAvatar } from '../DMAvatar'
 
 export default ({
   channel,
-  latestMessagePreview,
-  formatLatestMessageDate,
+  //latestMessagePreview,
+  //formatLatestMessageDate,
 }: ChannelPreviewMessengerProps) => {
   const {navigate} =
     useNavigation<StackNavigationProp<StackNavigatorParamList>>()
@@ -54,6 +54,7 @@ export default ({
   } = useTheme()
 
   useEffect(() => {
+    console.log(currentChannel, channel.id, "currentChannel, channel.id")
     if (currentChannel === channel.id){
       setColorBackground(colors.dark.secondary)
     } else{
@@ -61,13 +62,6 @@ export default ({
     }
   }, [currentChannel])
 
-  const isChannelMuted = channel.muteStatus().muted
-  const {status, messageObject} = latestMessagePreview
-  const createdAt = latestMessagePreview.messageObject?.created_at
-  const latestMessageDate = messageObject?.createdAt
-    ? new Date(createdAt as string)
-    : new Date()
-  const isPinned = false
 
   const toggleChannelSelectionForEditing = (selectedChannel: StreamChannel) => {
     setSelectedChannelsForEditing(channels => {
@@ -79,13 +73,11 @@ export default ({
   }
   const isSelectedForEditing = selectedChannelsForEditing.includes(channel)
 
-  const isVoiceMessage =
-    get(latestMessagePreview, ['messageObject', 'attachments', 0, 'type']) ===
-    'voice-message'
+
 
   const handleOnPress = () => {
        setChannel(channel)
-       setCurrentChannel(channel.id)
+       setCurrentChannel(channel?.id)
        //navigate(ROOT_STACK.CHANNEL_SCREEN)
 
         const channelMembers = channel.state.members;
@@ -111,7 +103,8 @@ export default ({
       />
       {/* <DMAvatar channel={channel}/> */}
       <View style={{flex: 1, marginHorizontal: sizes.l, justifyContent:'center'}}>
-        <CustomChannelPreviewTitle displayName={displayName}/>
+        <ChannelPreviewTitle channel={channel} displayName={displayName} />
+        {/* <CustomChannelPreviewTitle displayName={displayName}/> */}
         {/* <View style={{flexDirection: 'row', marginTop: sizes.xs}}>
           <PeekabooView isEnabled={status === 2}>
             <CheckAll pathFill={grey} {...checkAllIcon} />

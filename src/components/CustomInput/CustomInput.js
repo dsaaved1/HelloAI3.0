@@ -27,7 +27,7 @@ const CustomInput = ({
               onBlur={onBlur}
               placeholder={placeholder}
               style={styles.input}
-              secureTextEntry={secureTextEntry}
+              //secureTextEntry={secureTextEntry}
               autoCapitalize="none"
             />
           </View>
@@ -40,6 +40,8 @@ const CustomInput = ({
   );
 };
 
+
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -48,8 +50,7 @@ const styles = StyleSheet.create({
     borderColor: '#e8e8e8',
     borderWidth: 1,
     borderRadius: 5,
-
-    padding: 10,
+    padding: Platform.OS === 'android' ? 0 : 10,
     marginVertical: 5,
   },
   input: {},

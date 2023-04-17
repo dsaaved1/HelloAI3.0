@@ -19,7 +19,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UIDivider from '../components/UIDivider';
 import {colors} from '../theme'
-import { chatClient, user} from '../client'
+import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import BottomAlert from '../components/BottomAlert';

@@ -3,25 +3,31 @@ import {ChannelList} from 'stream-chat-react-native'
 import ChannelPreview from '../components/channel-list/ChannelPreview'
 import {useNavigation} from '@react-navigation/native'
 import {ROOT_STACK} from '../stacks/RootStack'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Pressable, ScrollView, FlatList} from 'react-native';
 import {chatClient} from '../client'
 import CustomEmpty from '../components/CustomEmpty';
+import { useFocusEffect } from '@react-navigation/native';
+import { useRef } from 'react'; 
+
 
 const twoMemberFilters = {
-  members: { $in: [chatClient.user.id] },
+  members: { $in: [chatClient?.user?.id] },
   type: 'messaging',
   member_count: 2,
   isGroupChat: { $eq: false },
   typeChat: { $eq: 'chat'},
-  temporary: { $exists: false }
 };
 
 const groupFilters = {
-  members: { $in: [chatClient.user.id] },
+  members: { $in: [chatClient?.user?.id] },
   type: 'messaging',
-  member_count: { $gt: 5 },
-  //isGroupChat: { $eq: true },
-  //typeChat: { $eq: 'chat'}
+  member_count: { $gt: 1 },
+  isGroupChat: { $eq: true },
+  typeChat: { $eq: 'chat'},
+  // $or: [
+  //   { invite: { $exists: false } },
+  //   { invite: 'accepted', },
+  // ],
 };
 
 const sort = { last_message_at: -1 };
@@ -41,37 +47,60 @@ export const List = props => {
   
   const navigation = useNavigation();
   
-  // console.log("List rendered")
+  const [channels, setChannels] = useState([]);
 
-  // const handleChannelUpdate = useCallback((e) => {
-  //   console.log("here")
-  //   console.log('channel updated', e)
-  //   console.log(e.channel.data.typeChat, 'typeChat')
-  //   // Check if the updated channel has typeChat == 'chat'
-  //   if (e.channel.data.typeChat === 'chat') {
-  //     setRefreshList((prev) => !prev);
-  //   }
-  // }, []);
-  
-  // useEffect(() => {
-  //   console.log("useEffect called invitations");
-  
-  //   const logChannelUpdatedEvent = (e) => {
-  //     console.log("channel.updated event:", e);
-  //   };
-  
-  //   chatClient.on("channel.updated", logChannelUpdatedEvent);
-  
-  //   chatClient.on("channel.updated", handleChannelUpdate);
-  //   console.log("useEffect called on mount invitations");
-  //   return () => {
-  //     console.log("useEffect called on unmount invitations");
-  //     chatClient.off("channel.updated", logChannelUpdatedEvent);
-  //     chatClient.off("channel.updated", handleChannelUpdate);
-  //   };
-  // }, [handleChannelUpdate]);
-  
-  
+  const fetchChannels = async () => {
+    try {
+      const channels = await chatClient.queryChannels(memoizedFilters, sort, {
+        watch: true,
+        state: true,
+
+      });
+      setChannels(channels);
+      channels.forEach(channel => {
+        channel.on('channel.deleted', () => fetchChannels());
+        channel.on('channel.created', () => fetchChannels());
+        channel.on('channel.unmuted', () => fetchChannels());
+        channel.on('channel.muted', () => fetchChannels());
+        channel.on('connection.changed', () => fetchChannels());
+        channel.on('connection.recovered', () => fetchChannels());
+        channel.on('user.presence.changed', () => fetchChannels());
+        channel.on('user.watching.start', () => fetchChannels());
+        channel.on('user.watching.stop', () => fetchChannels());
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const channelsRef = useRef(channels);
+  useEffect(() => {
+    channelsRef.current = channels;
+  }, [channels]);
+
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log("here in use effect of channel list");
+      fetchChannels();
+
+      // Clean up event listeners on unmount
+      return () => {
+        channelsRef.current.forEach(channel => {
+          channel.off('channel.deleted');
+          channel.off('channel.created');
+          channel.off('channel.unmuted');
+          channel.off('channel.muted');
+          channel.off('connection.changed');
+          channel.off('connection.recovered');
+          channel.off('user.presence.changed');
+          channel.off('user.watching.start');
+          channel.off('user.watching.stop');
+        });
+      };
+    }, [memoizedFilters, navigation])
+  );
 
   return (
     <View style={{ flex: 1}}>
@@ -86,13 +115,22 @@ export const List = props => {
       </View>
 
       <View style={{ flex: 1 }}>
-        <ChannelList 
+         <FlatList
+          data={channels}
+          keyExtractor={(item) => item.cid}
+          renderItem={({ item }) => (
+            <ChannelPreview
+              channel={item}
+            />
+          )}
+          />
+        {/* <ChannelList 
           //key={refreshList}
           Preview={ChannelPreview} 
           filters={memoizedFilters} 
           sort={sort}  
           EmptyStateIndicator={CustomEmpty}
-        />
+        /> */}
       </View>
 
   </View>

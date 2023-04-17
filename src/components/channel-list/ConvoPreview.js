@@ -12,6 +12,7 @@ import {
   LatestMessagePreview,
   useChannelPreviewDisplayName,
   useTheme,
+  useChatContext,
 } from 'stream-chat-react-native'
 import {StreamChannel, useAppContext} from '../../App'
 import {useNavigation} from '@react-navigation/native'
@@ -35,6 +36,7 @@ import { Swipeable } from 'react-native-gesture-handler'
 import { SVGIcon } from '../SVGIcon';
 
 
+
 export default ({
   channel,
   latestMessagePreview,
@@ -48,6 +50,7 @@ export default ({
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [convoName, setConvoName] = useState('');   
+  const {client} = useChatContext()
    
   //for some reason here the direct messsages are not being displayed the other user name
   //that's why in invitation preview we hard coded the name
@@ -187,7 +190,7 @@ export default ({
   };
 
   const handleDelete = async () => {
-    await channel.delete();
+    await channel.removeMembers([client?.user?.id]);
     setShowModalDelete(false);
   }
 
