@@ -63,6 +63,7 @@ const SignInScreen = () => {
 
         <CustomInput
           name="username"
+          autoCapitalize="none"
           placeholder="Username"
           control={control}
           rules={{required: 'Username is required'}}
@@ -70,6 +71,7 @@ const SignInScreen = () => {
 
         <CustomInput
           name="password"
+          autoCapitalize="none"
           placeholder="Password"
           secureTextEntry
           control={control}
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    marginTop: 100
+    marginTop: Platform.OS === 'android' ? 0 : 100,
   },
   title: {
     fontSize: 56,

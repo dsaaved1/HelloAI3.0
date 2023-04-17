@@ -17,8 +17,8 @@
       },
       "function": {
         "getStreamTokenStream": {
-          "streamKey": "a89tc8x6a9zy",
-          "streamSecret": "qcshmy6q97y989gf2qdg9wxbh9kgcagkaxuwb9fvjdyvb26sh4cgy85yr4rh6374",
+          "streamKey": "xnspp5s5ggeu",
+          "streamSecret": "xncf5hf3jdc63fz6ruae455c9ywvmkdaegvfzr2jaxgk9gvmpwazym59n8hhwxnu",
           "deploymentBucketName": "amplify-helloai30-staging-235436-deployment",
           "s3Key": "amplify-builds/getStreamTokenStream-757556576f672b71507a-build.zip"
         }

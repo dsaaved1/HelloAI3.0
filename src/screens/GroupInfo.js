@@ -19,7 +19,7 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import UIDivider from '../components/UIDivider';
 import BottomAlert from '../components/BottomAlert';
 import {View, StyleSheet, Text} from 'react-native';
-import { chatClient, user} from '../client'
+import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import SuperAvatar from '../components/SuperAvatar';
@@ -28,6 +28,7 @@ import IconButton from '../components/IconButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import {ROOT_STACK} from '../stacks/RootStack'
+import {useAppContext} from '../App'
 
 const formatDate = (date) => {
   if (date == undefined){
@@ -53,6 +54,7 @@ const formatDate = (date) => {
 
 const GroupInfo = props =>  {
   const navigation = useNavigation();
+  const {setChannel} = useAppContext()
 
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const [showLeaveAlert, setShowLeaveAlert] = useState(false);
@@ -71,32 +73,32 @@ const GroupInfo = props =>  {
   const channel = props.route?.params?.channel || {};
   const [isModerator, setIsModerator] = useState(false)
 
-//   const otherMember = channel?.state?.members
-//   ? Object.values(channel.state.members).find(
-//       member => member.user.id !== user.id
-//     )
-//   : null;
+  const otherMember = channel?.state?.members
+  ? Object.values(channel.state.members).find(
+      member => member.user.id !== chatClient?.user?.id
+    )
+  : null;
 
-// const otherMemberImage = otherMember?.user?.image
-//   ? { uri: otherMember.user.image }
-//   : null;
+const otherMemberImage = otherMember?.user?.image
+  ? { uri: otherMember.user.image }
+  : null;
 
 const source = 
-//channel.data.isGroupChat
-  //? (
+channel.data.isGroupChat
+  ? (
     channel.data.image ? { uri: channel.data.image } : userImage
-    //)
-  //: (otherMemberImage || userImage);
+    )
+  : otherMember?.user?.image ? { uri: otherMember?.user?.image } : userImage;
   
-
+  const nameChannel = channel.data.isGroupChat? channel.data.name : otherMember?.user?.name
 
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
     const participantsCount = objectMembers.members.length;
-    const currentUser = objectMembers.members.find(member => member.user.id === user.id);
+    const currentUser = objectMembers.members.find(member => member.user.id === chatClient?.user?.id);
     const isModerator = (currentUser.role === 'moderator' || currentUser.role === 'owner') && channel.data.isGroupChat;
     const fetchedContacts = objectMembers.members.map((member, index) => {
-      const role = (member.role === 'moderator' || member.role === 'owner')? '(admin)' : '';
+      const role =  (member.role === 'moderator' || member.role === 'owner') && channel.data.isGroupChat ? '(admin)' : '';
       return {
         image: member.user.image  ? { uri: member.user.image } : userImage, // Assuming the user has an 'image' property
         name: `${member.user.name} ${role}`,
@@ -115,7 +117,7 @@ const source =
     //different channel but somehow the length is always the same
     const filters = { 
       type: 'messaging', 
-      members: { $in: [chatClient.user.id] }, 
+      members: { $in: [chatClient?.user?.id] }, 
       chatId: channel.id, 
       typeChat: { $eq: 'convo'}
     };
@@ -256,7 +258,7 @@ const source =
             </View>
             <View style={styles.userDetails}>
               <SCText style={styles.userName}>
-                {channel.data.name}
+                {nameChannel}
               </SCText>
               {channel.data.description && 
                   <SCText style={styles.userID}>
@@ -365,7 +367,7 @@ const source =
               <View style={{ marginTop: '5%', flex:1}}>
                 <IconButton
                     style={{ alignSelf: 'flex-end' }}
-                    onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel})}
+                    onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel, channels: channels})}
                     iconName={'CirclePlus'}
                     //pathFill={'grey'}
                   />
@@ -404,7 +406,7 @@ const source =
               <>
               <TouchableOpacity
                 onPress={() => {
-                  if (item?.about !== user.id && isModerator) {
+                  if (item?.about !== chatClient?.user?.id && isModerator) {
                     setShowMemberAlert(true);
                     setMemberAction(item);
                   }
@@ -482,7 +484,7 @@ const source =
                     />
                 </TouchableOpacity>
 
-                {isModerator &&
+                {/* {isModerator &&
                   <>
                       <UIDivider forPlaintext={true} />
                       <TouchableOpacity
@@ -497,7 +499,7 @@ const source =
                         />
                     </TouchableOpacity>
                   </>
-                }
+                } */}
 
             </MenuWrapper>
             :
@@ -541,8 +543,13 @@ const source =
               text: 'Exit Group',
               onPress: async () => {
                 setShowLeaveAlert(false)
-                await channel.removeMembers([user.id]);
-                navigation.navigate('tabs');
+                await Promise.all([
+                  channels.map(channel => channel.removeMembers([chatClient?.user?.id], { text: `${chatClient?.user?.name} left this channel!` })),
+                ]);
+                setParticpants(participants - 1)
+                //not working set channel to own channel
+                // navigation.navigate('Main');
+                navigation.navigate(ROOT_STACK.CONVOS)
               },
             },
           ]}
@@ -561,11 +568,13 @@ const source =
             {
               text: 'Delete Group',
               onPress: async () => {
+                navigation.navigate("invitations")
+                //'currently not working'
                 await Promise.all([
                   channels.map(channel => channel.delete()),
                 ]);
-                setShowDeleteAlert(false)
-                navigation.navigate("Home")
+                //setShowDeleteAlert(false)
+                // navigation.navigate("invitations")
               },
             },
           ]}
@@ -588,7 +597,7 @@ const source =
               text: channel.data.blockedUser ? "Unblock" : "Block",
               onPress: async () => {
                 const otherMembers = Object.values(channel.state.members).filter(
-                  (member) => member.user.id !== user.id
+                  (member) => member.user.id !== chatClient?.user?.id
                 );
                 const otherMemberUserId = otherMembers[0].user.id;
                 if (channel.data.blockedUser) {
@@ -621,7 +630,10 @@ const source =
               text: 'Remove',
               onPress: async () => {
                 setShowRemoveAlert(false)
-                await channel.removeMembers([memberAction?.about]);
+                await Promise.all([
+                  channels.map(channel => channel.removeMembers([memberAction?.about], 
+                    { text: `${chatClient?.user?.name} removed ${memberAction?.about} from this channel!` })),
+                ]);
                 setParticpants(participants - 1)
               },
             },

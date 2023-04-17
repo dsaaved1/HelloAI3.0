@@ -45,11 +45,12 @@ const SignUpScreen = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
-        <Text style={styles.title}>Create an account</Text>
+        <Text style={styles.title}>HelloAI</Text>
 
         <CustomInput
           name="name"
           control={control}
+          autoCapitalize="none"
           placeholder="Name"
           rules={{
             required: 'Name is required',
@@ -82,6 +83,7 @@ const SignUpScreen = () => {
         />
         <CustomInput
           name="email"
+          autoCapitalize="none"
           control={control}
           placeholder="Email"
           rules={{
@@ -91,6 +93,7 @@ const SignUpScreen = () => {
         />
         <CustomInput
           name="password"
+          autoCapitalize="none"
           control={control}
           placeholder="Password"
           secureTextEntry
@@ -104,6 +107,7 @@ const SignUpScreen = () => {
         />
         <CustomInput
           name="password-repeat"
+          autoCapitalize="none"
           control={control}
           placeholder="Repeat Password"
           secureTextEntry
@@ -144,13 +148,13 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    marginTop: 100
+    marginTop: Platform.OS === 'android' ? 0 : 100,
   },
   title: {
-    fontSize: 24,
+    fontSize: 56,
     fontWeight: 'bold',
-    color: '#3B71F3',
-    margin: 10,
+    color: '#3777f0',
+    marginBottom: 15
   },
   text: {
     color: 'gray',

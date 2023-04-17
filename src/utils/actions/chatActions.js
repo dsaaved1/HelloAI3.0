@@ -21,9 +21,9 @@ export const createGroupChat = async (userId, client, chatName, channelMembers, 
         const userArray = [userId]
         
         await channel.create();
-        await channel.addMembers([{user_id:userId, channel_role:"channel_moderator"}]);
+        await channel.addMembers([{user_id: userId, channel_role:"channel_moderator"}]);
+        await channel.inviteMembers(channelMembers);
 
-        await channel.addMembers(channelMembers);
     
         // The channel's unique ID will be available in channel.cid
         console.log("New channel created with ID:", channel.id);
@@ -45,7 +45,6 @@ export const inviteDirectMessage = async (userId, client, channelMember, invitat
 
       const temporaryChannel = client.channel('messaging',  uuid.v4(), {
         invitationMessage: invitationMessage,
-        temporary: true,
         isGroupChat: false,
         typeChat: 'chat',
       });
@@ -152,10 +151,12 @@ export const createConvo = async (client, channelMembers, chatId, chatName) => {
       });
 
       console.log("after create convo", channelMembers, chatId)
-        await convo.create();
+      await convo.create();
 
-        console.log("before add members")
-        await convo.addMembers(channelMembers);
+ 
+      await convo.addMembers(channelMembers, { text: `${client?.user?.name} created this channel!` });
+        
+        
         
         
         // The channel's unique ID will be available in channel.cid

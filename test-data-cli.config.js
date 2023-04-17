@@ -5,8 +5,8 @@ module.exports = {
   //          Set your API key and secret here
   // ============================================================================
 
-  apiKey: 'a89tc8x6a9zy',
-  secret: 'qcshmy6q97y989gf2qdg9wxbh9kgcagkaxuwb9fvjdyvb26sh4cgy85yr4rh6374',
+  apiKey: 'xnspp5s5ggeu',
+  secret: 'xncf5hf3jdc63fz6ruae455c9ywvmkdaegvfzr2jaxgk9gvmpwazym59n8hhwxnu',
 
 
   // ============================================================================

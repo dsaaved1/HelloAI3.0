@@ -25,12 +25,12 @@ export default ({
   if (!channel) return null
 
   const otherMembers = Object.values(channel.state.members).filter(
-    (m) => m.user.id !== chatClient.user.id,
+    (m) => m.user.id !== chatClient?.user?.id,
   );
 
 
   const {image} = useChannelPreviewDisplayAvatar(channel)
-  const name = channel.data.name
+  const name = channel?.data?.name
   return (
     <View style={styles.outerContainer}>
       <Avatar 
@@ -44,7 +44,7 @@ export default ({
             borderColor: 'grey',
           },
         ]}>
-          {otherMembers.length == 1 && !convo &&(
+          {!channel?.data?.isGroupChat && !convo &&(
             <PresenceIndicator
             backgroundTransparent={false}
             online={otherMembers[0].user.online}

@@ -19,7 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UIDivider from '../components/UIDivider';
 import {colors} from '../theme'
-import { chatClient, user} from '../client'
+import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import BottomAlert from '../components/BottomAlert';
@@ -40,14 +40,11 @@ const Account = props => {
     const updateName = async (newName) => {
         try {
             console.log("here account")
-          await chatClient.updateUser(
+          await chatClient.upsertUser(
             {
-              set: {
-                id: chatClient.user.id,
+                id: chatClient?.user?.id,
                 name: newName,
-              },
             },
-            chatClient.user.id
           );
           setName(newName);
         } catch (error) {
@@ -118,9 +115,9 @@ const Account = props => {
         name="logout"
         size={18}
         color="#3777f0" 
-        onPress={logout}
       />
     }
+    onPress={logout}
     mainText="Log Out"
   />
   <UIDivider forMenu={true} />

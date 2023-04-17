@@ -15,6 +15,8 @@ const EditGroup = props => {
     const [source, setSource] = useState(channel.data.image ? { uri: channel.data.image } : userImage)
     const [groupName, setGroupName] = useState(channel.data.name);
 
+    console.log(source, groupName, "source, groupName")
+
     useEffect(() => {
         props.navigation.setOptions({
           headerStyle: {
@@ -36,14 +38,16 @@ const EditGroup = props => {
                     <Item
                       title={'Done'}
                       color= '#3777f0'
-                      //i think you can only update one field per time because you got image:1
-                      //onPress={() => await channel.updatePartial({ set:{ name: groupName, image: source} })}
+                      onPress={async () => {
+                        await channel.updatePartial({ set: { name: groupName } });
+                        props.navigation.goBack();
+                      }}
                     />
                   </HeaderButtons>
                 );
             },
         })
-    }, []);
+    }, [groupName]);
 
     return (
         <View style={styles.container}>

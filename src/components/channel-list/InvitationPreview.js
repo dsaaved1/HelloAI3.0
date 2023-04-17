@@ -28,7 +28,7 @@ import {Pressable, StyleSheet, Text, View,
   import {StackNavigationProp} from '@react-navigation/stack'
   import {StackNavigatorParamList} from '../../types'
   import IconButton from '../IconButton'
-  import { chatClient, user } from '../../client'
+  import { chatClient} from '../../client'
   import { SVGIcon } from '../SVGIcon';
   import { createDirectMessage } from '../../utils/actions/chatActions'
   import {Check} from 'stream-chat-react-native-core/src/icons/index'
@@ -78,10 +78,12 @@ import {Pressable, StyleSheet, Text, View,
           await createDirectMessage(chatClient,userIds,displayName);
           
           const userName = chatClient.user.userChats;
+
+          //for now you can have a lot of user direct messages
           console.log(userName, "user name in invitation preview")
           if (userName && userName.length > 0) { // check if userName field exists
             chatClient.updatePartialUser({
-              id: chatClient.user.id,
+              id: chatClient?.user?.id,
               set: {
                 userChats: {
                   $push: [userIds] // add only if not already present
@@ -90,7 +92,7 @@ import {Pressable, StyleSheet, Text, View,
             });
           } else {
             chatClient.updatePartialUser({
-              id: chatClient.user.id,
+              id: chatClient?.user?.id,
               set: {
                 userChats: [userIds] // create the field and add the first value
               }
@@ -105,6 +107,13 @@ import {Pressable, StyleSheet, Text, View,
       }
     }
 
+    const createGroup= async () => { 
+      //create a group chat
+      console.log("create group chat")
+      console.log(channel.cid, "channel cid")
+      await channel.acceptInvite()
+    }
+
     const ChannelPreviewTitleCustom = ({displayName, style }) => {
       return (
         <Text style={[styles.title, style]}>
@@ -114,7 +123,7 @@ import {Pressable, StyleSheet, Text, View,
     };
   
     //you can user id by chatClient.user.id
-    const userId = chatClient.user.id
+    const userId = chatClient?.user?.id
     const inviter = channel.state.members[userId]?.user;
  
     const members = Object.values(channel.state.members);
@@ -153,7 +162,7 @@ import {Pressable, StyleSheet, Text, View,
               {membersNames()}
             </Text>
             <Text style={[styles.date, {color: grey}, date]}>
-               {formatDate(inviter.created_at)}
+               {formatDate(inviter?.created_at)}
               </Text>
           </View>
          
@@ -162,9 +171,8 @@ import {Pressable, StyleSheet, Text, View,
   
           {(status === 'pending' || status === 'accepted') &&
               <TouchableOpacity
-              onPress={isGroupChat ? async () => await channel.acceptInvite({
-                  message: { text: `${chatClient.user.name} joined this channel!` },
-              }) : async () => isDirectMessage()
+              onPress={
+                createGroup
               }
               >
                    <View style={styles.checkWrap}>

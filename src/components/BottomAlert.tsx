@@ -67,7 +67,7 @@ const CustomAlert: React.FC<Props> = ({
                 destructive={Number(destructiveButtonIndex) - 1 == index}
                 disabled={disabledButtonIndices?.includes(index + 1)}
                 withIcon={withIcon}
-                style={{fontSize: textSize, color: textColor, marginLeft: withIcon ? '5%' : 0}}>
+                style={{fontSize: textSize,  marginLeft: withIcon ? '5%' : 0}}>
                 {action.text}
               </Text>
             </OneButton>
