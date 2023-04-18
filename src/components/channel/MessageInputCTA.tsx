@@ -113,6 +113,7 @@ export default ({
 
     try {
       
+      console.log(uri)
       const response = await openai.createTranslation({
           file: uri,
           model: "whisper-1",

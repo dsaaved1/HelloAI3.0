@@ -1,4 +1,4 @@
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native'
+import {Alert, Platform, SafeAreaView, StyleSheet, Text, View} from 'react-native'
 import {colors} from '../../theme'
 import React, {useMemo, useState, useEffect} from 'react'
 import {useAppContext} from '../../App'
@@ -307,11 +307,13 @@ export default () => {
           iconName={'Call'}
           pathFill={colors.dark.text}
         /> */}
-        <IconButton
-          onPress={handleMenuOnPress}
-          iconName={'Menu'}
-          pathFill={colors.dark.text}
-        />
+        {Platform.OS === 'ios' &&
+          <IconButton
+            onPress={handleMenuOnPress}
+            iconName={'Menu'}
+            pathFill={colors.dark.text}
+          />
+        }
       </PeekabooView>
     </SafeAreaView>
   )

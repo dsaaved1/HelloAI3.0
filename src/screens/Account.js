@@ -38,14 +38,17 @@ const Account = props => {
       };
 
     const updateName = async (newName) => {
+      //when connecting to user it overrides
         try {
-            console.log("here account")
-          await chatClient.upsertUser(
-            {
-                id: chatClient?.user?.id,
+          const update = {
+            id: chatClient.user.id,
+            set: {
                 name: newName,
+              
             },
-          );
+        };
+        // response will contain user object with updated users info
+          await chatClient.partialUpdateUser(update);
           setName(newName);
         } catch (error) {
           console.error('Error updating user name:', error);

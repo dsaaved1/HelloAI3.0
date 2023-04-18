@@ -39,7 +39,7 @@ const Support = props => {
                 <Text style={{ 
                 color: 'white',
                 fontSize: 16, fontWeight: 'bold' }}>
-                    Support
+                    Support Us
                 </Text>
                 </View>
             ),
