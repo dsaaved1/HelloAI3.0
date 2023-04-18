@@ -31,6 +31,7 @@ import {
   useMessagesContext,
 } from 'stream-chat-react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 
 import keys from '../../assets/constants/keys';
@@ -328,12 +329,12 @@ export default (props) => {
         icon: (
           <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
         ),
-        onPress: () => {},
+        onPress: () => {takeAndUploadImage()},
       },
       {
         text: 'Photo & Video Library',
         icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
-        onPress: () => {},
+        onPress: () => {pickImageFromGallery()},
       },
       {
         text: 'Document',
@@ -344,7 +345,7 @@ export default (props) => {
             size={25}
           />
         ),
-        onPress: () => {},
+        onPress: () => {pickFile()},
       },
       // {
       //   text: 'Location',
@@ -399,6 +400,35 @@ export default (props) => {
   }, [closePicker, compressImageQuality, setSelectedImages, setSelectedPicker])
 
 
+
+  const pickImageFromGallery = useCallback(async () => {
+    // console.log('pickImageFromGallery');
+  
+    // const options = {
+    //   mediaType: 'photo',
+    //   quality: compressImageQuality,
+    // };
+  
+    // launchImageLibrary(options, async (response) => {
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     console.log('ImagePicker Error: ', response.error);
+    //   } else {
+    //     const photo = {
+    //       uri: response.assets[0].uri,
+    //       name: response.assets[0].fileName || `image-${Date.now()}.jpg`,
+    //       type: response.assets[0].type || 'image/jpeg',
+    //     };
+  
+    //     console.log(photo, 'photo');
+    //     await uploadNewImage(photo);
+    //     navigation.navigate(CHANNEL_STACK.IMAGE_PREVIEW);
+    //   }
+    // });
+  }, [compressImageQuality]);
+
+
   //image uploads
   useEffect(() => {
     if (numberOfFiles === 0) return
@@ -444,6 +474,7 @@ export default (props) => {
     console.log("clearMemory")
     
     await channel.updatePartial({ set:{ AIMessages: [{"role": "system", "content": "You are a helpful assistant."}] } }),
+    
     setShowChatAIAlert(false)
     
   }

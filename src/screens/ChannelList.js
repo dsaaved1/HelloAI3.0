@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef} from 'react';
 import {ChannelList} from 'stream-chat-react-native'
 import ChannelPreview from '../components/channel-list/ChannelPreview'
 import {useNavigation} from '@react-navigation/native'
@@ -7,36 +7,37 @@ import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Pressable, Scro
 import {chatClient} from '../client'
 import CustomEmpty from '../components/CustomEmpty';
 import { useFocusEffect } from '@react-navigation/native';
-import { useRef } from 'react'; 
+import ConvoPreview from '../components/channel-list/ConvoPreview';
 
 
-const twoMemberFilters = {
-  members: { $in: [chatClient?.user?.id] },
-  type: 'messaging',
-  member_count: 2,
-  isGroupChat: { $eq: false },
-  typeChat: { $eq: 'chat'},
-};
 
-const groupFilters = {
-  members: { $in: [chatClient?.user?.id] },
-  type: 'messaging',
-  member_count: { $gt: 1 },
-  isGroupChat: { $eq: true },
-  typeChat: { $eq: 'chat'},
-  // $or: [
-  //   { invite: { $exists: false } },
-  //   { invite: 'accepted', },
-  // ],
-};
 
-const sort = { last_message_at: -1 };
 
 
 export const List = props => {
+  const twoMemberFilters = {
+    members: { $in: [chatClient?.user?.id] },
+    type: 'messaging',
+    member_count: 2,
+    isGroupChat: { $eq: false },
+    typeChat: { $eq: 'chat'},
+  };
+  
+  const groupFilters = {
+    members: { $in: [chatClient?.user?.id] },
+    type: 'messaging',
+    member_count: { $gt: 1 },
+    isGroupChat: { $eq: true },
+    typeChat: { $eq: 'chat'},
+    // $or: [
+    //   { invite: { $exists: false } },
+    //   { invite: 'accepted', },
+    // ],
+  };
+  
+  const sort = { last_message_at: -1 };
+  
   const showGroups = props.showGroups;
-  const [refreshList, setRefreshList] = useState(false);
-  //this might help me in my invitations bug
   const memoizedFilters = useMemo(() => {
     if (showGroups) {
       return groupFilters;

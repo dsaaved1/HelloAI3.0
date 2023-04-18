@@ -79,10 +79,6 @@ const GroupInfo = props =>  {
     )
   : null;
 
-const otherMemberImage = otherMember?.user?.image
-  ? { uri: otherMember.user.image }
-  : null;
-
 const source = 
 channel.data.isGroupChat
   ? (
@@ -90,7 +86,7 @@ channel.data.isGroupChat
     )
   : otherMember?.user?.image ? { uri: otherMember?.user?.image } : userImage;
   
-  const nameChannel = channel.data.isGroupChat? channel.data.name : otherMember?.user?.name
+  const nameChannel = (channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) ? channel.data.name : otherMember?.user?.name;
 
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
@@ -173,7 +169,7 @@ channel.data.isGroupChat
             </View>
         ),
         headerTintColor: isAnyModalVisible ? 'rgba(55, 119, 240, 0.3)' : '#3777f0',
-        ...(channel.data.isGroupChat && {
+        ...((channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) && {
           headerRight: () => {
             return (
               <HeaderButtons>
@@ -319,39 +315,40 @@ channel.data.isGroupChat
               subText="Message are end-to-end encrypted."
             />
 
-            <UIDivider forMenu={true} />
+            {channel.data.isGroupChat !== undefined && (
+              <>
+                <UIDivider forMenu={true} />
 
-              {channel.data.muteChannel? 
-                    <TouchableOpacity
+                {channel.data.muteChannel ? (
+                  <TouchableOpacity
                     onPress={() => {
                       setShowUnmuteAlert(true);
                     }}
-                    >
-                      
-                      <MenuItem
-                        iconBackgroundColor='#ED2939'
-                        icon={
-                          <Octicons name="unmute" size={18} color={colors.white} />
-                        }
-                        mainText="Unmute"
-                        rightIconText={formatDate(channel.muteStatus().expiresAt)}
-                      />
-                    </TouchableOpacity>
-              : 
-                    <TouchableOpacity
+                  >
+                    <MenuItem
+                      iconBackgroundColor="#ED2939"
+                      icon={<Octicons name="unmute" size={18} color={colors.white} />}
+                      mainText="Unmute"
+                      rightIconText={formatDate(channel.muteStatus().expiresAt)}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
                     onPress={() => {
                       setShowMuteAlert(true);
                     }}
                   >
-                      <MenuItem
-                        iconBackgroundColor='#FF6653'
-                        icon={
-                          <Octicons name="mute" size={18} color={colors.white} />
-                        }
-                        mainText="Mute"
-                      />
-                 </TouchableOpacity>
-              }
+                    <MenuItem
+                      iconBackgroundColor="#FF6653"
+                      icon={<Octicons name="mute" size={18} color={colors.white} />}
+                      mainText="Mute"
+                    />
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
+
+
             
 
          
@@ -549,7 +546,7 @@ channel.data.isGroupChat
                 setParticpants(participants - 1)
                 //not working set channel to own channel
                 // navigation.navigate('Main');
-                navigation.navigate(ROOT_STACK.CONVOS)
+                navigation.navigate(ROOT_STACK.CONVOS, {channelId: chatClient.user.ownChatId, channel: null})
               },
             },
           ]}

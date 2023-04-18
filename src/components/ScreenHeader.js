@@ -9,13 +9,16 @@ import { SlackAppContext } from '../contexts/SlackAppContext';
 import { HEADER_HEIGHT } from '../utils';
 import {colors} from '../theme'
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { ROOT_STACK } from '../stacks/RootStack'
+import { chatClient} from '../client'
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between', // Change this from 'flex-start'
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -79,6 +82,11 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
           ]}>
           {title}
         </SCText>
+        {title === 'Profile' && (
+          <TouchableOpacity style={{marginLeft:7}} onPress={() => navigation.navigate(ROOT_STACK.CONVOS, {channelId: chatClient.user.ownChatId, channel: null})}>
+            <MaterialCommunityIcons name="chat-question" color={colors.dark.secondaryLight} size={30} />
+          </TouchableOpacity>
+        )}
       </View>
     </>
   );

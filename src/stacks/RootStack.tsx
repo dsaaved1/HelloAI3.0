@@ -169,6 +169,15 @@ const SettingsNavigator = ({navigation}) => (
               component={Account}
               name={'Account'}
             />
+
+            <SettingsStack.Screen
+              component={About}
+              name={'About'}
+            />
+            <SettingsStack.Screen
+              component={Support}
+              name={'Support'}
+            />
            
       </SettingsStack.Group>
       
@@ -212,19 +221,13 @@ export default ({clientReady}: {clientReady: boolean}) => {
           name={'Starred'}
       />
 
+
       <Stack.Screen
           component={EditGroup}
           name={'EditGroup'}
       />
 
-      <Stack.Screen
-          component={About}
-          name={'About'}
-      />
-       <Stack.Screen
-          component={Support}
-          name={'Support'}
-      />
+      
 
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>

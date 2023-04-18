@@ -20,6 +20,7 @@ import userImage from '../images/userImage.jpeg'
 
 
 
+
 function Settings({ route }){
   const navigation = useNavigation();
   const source = chatClient.user.image? { uri: chatClient.user.image } : userImage

@@ -35,11 +35,35 @@ import IconButton from '../IconButton'
 import { Swipeable } from 'react-native-gesture-handler'
 import { SVGIcon } from '../SVGIcon';
 
+const formatDate = (date) => {
+  const now = new Date();
+  const inputDate = new Date(date);
+  const isToday = now.toDateString() === inputDate.toDateString();
+  const isYesterday =
+    now.getDate() - 1 === inputDate.getDate() &&
+    now.getMonth() === inputDate.getMonth() &&
+    now.getFullYear() === inputDate.getFullYear();
 
+  if (isToday) {
+    return inputDate.toLocaleString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } else if (isYesterday) {
+    return 'Yesterday';
+  } else {
+    return inputDate.toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  }
+};
 
 export default ({
   channel,
-  latestMessagePreview,
+  //getLatestMessagePreview,
+   latestMessagePreview,
   formatLatestMessageDate,
 }) => {
   const navigation = useNavigation()
@@ -65,11 +89,11 @@ export default ({
     },
   } = useTheme()
 
+ //const latestMessagePreview = getLatestMessagePreview(channel);
   const isChannelMuted = channel.muteStatus().muted
-  const isPinned = false
   const {status, messageObject} = latestMessagePreview
   const createdAt = latestMessagePreview.messageObject?.created_at
-  const latestMessageDate = messageObject?.createdAt ? new Date(createdAt) : new Date()
+  const latestMessageDate = messageObject?.created_at ? new Date(createdAt) : new Date()
 
   const [muted, setMuted] = useState(false);
   const renderRightActionss = useCallback(
@@ -243,8 +267,8 @@ export default ({
         </View>
         <View style={{justifyContent: 'space-between'}}>
           <Text style={[styles.date, {color: grey}, date]}>
-            {formatLatestMessageDate && latestMessageDate
-              ? formatLatestMessageDate(latestMessageDate)
+            {latestMessageDate
+              ? formatDate(latestMessageDate)
               : latestMessagePreview.created_at}
           </Text>
           <View style={flex.directionRowContentEnd}>
@@ -253,9 +277,6 @@ export default ({
               <View style={{marginRight: 12}}>
                 <Muted pathFill={colors.dark.secondaryLight} width={16} />
               </View>
-            </PeekabooView>
-            <PeekabooView isEnabled={isPinned}>
-              <Pinned pathFill={colors.dark.secondaryLight} width={16} />
             </PeekabooView>
             <ChannelPreviewUnreadCount channel={channel} maxUnreadCount={50} unread={unreadCount}/>
           </View>

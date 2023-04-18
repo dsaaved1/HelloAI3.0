@@ -13,10 +13,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
+
+
 export default (props) => {
-  const channelUsers = props.channelUsers
   const channel = props.channel
   const navigation = useNavigation();
+  const channelMembers = channel.state.members;
+  // Extract user IDs from the channel members object
+  const channelUsers = Object.keys(channelMembers);
+
 
   const otherMember = channel?.state?.members
     ? Object.values(channel.state.members).find(
@@ -29,7 +34,8 @@ export default (props) => {
 
   const isInChannelSelectionMode = !isEmpty(selectedChannelsForEditing)
   const clearSelectedChannelsForEditing = () => setSelectedChannelsForEditing([])
-  const nameChannel = channel.data.isGroupChat ? channel.data.name : otherMember?.user?.name
+  const nameChannel = (channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) ? channel.data.name : otherMember?.user?.name;
+
 
 
   const handleMuteOnPress = async () => {
@@ -87,6 +93,14 @@ export default (props) => {
               iconName={'Trash'} 
               pathFill={colors.dark.text} />
             {/* <IconButton iconName={'Pin'} pathFill={colors.dark.text} /> */}
+            {channel.data.isGroupChat === undefined &&
+
+              <IconButton
+              onPress={handleMuteOnPress}
+              iconName={'Muted'}
+              pathFill={colors.dark.text}
+              />
+            }
             <IconButton
               onPress={handleMuteOnPress}
               iconName={'Muted'}
@@ -118,6 +132,7 @@ export default (props) => {
           onPress={() => null}
           iconName={'MagnifyingGlass'}
           pathFill={colors.dark.secondaryLight}
+          () => navigation.navigate(ROOT_STACK.CONVOS)
         /> */}
         <IconButton
           onPress={() => navigation.navigate('Info', { channel: channel})}

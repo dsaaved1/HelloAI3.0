@@ -47,7 +47,7 @@ export default ({
           {!channel?.data?.isGroupChat && !convo &&(
             <PresenceIndicator
             backgroundTransparent={false}
-            online={otherMembers[0].user.online}
+            online={otherMembers[0]?.user?.online}
           />
           )
           }

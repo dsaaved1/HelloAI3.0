@@ -28,6 +28,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {StackNavigatorParamList} from '../../types'
 import { DMAvatar } from '../DMAvatar'
 
+
 export default ({
   channel,
   //latestMessagePreview,
@@ -80,10 +81,8 @@ export default ({
        setCurrentChannel(channel?.id)
        //navigate(ROOT_STACK.CHANNEL_SCREEN)
 
-        const channelMembers = channel.state.members;
-        // Extract user IDs from the channel members object
-        const userIds = Object.keys(channelMembers);
-        navigate(ROOT_STACK.CONVOS, { channel:channel, channelId: channel.id, channelName: channel.data.name, channelUsers: userIds});
+   
+        navigate(ROOT_STACK.CONVOS, { channel:channel, channelId: channel.id});
   }
 
   const handleOnLongPress = () => toggleChannelSelectionForEditing(channel)
