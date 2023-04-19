@@ -174,7 +174,7 @@ const NewChatScreen = props => {
               } else {
                 console.log("chat does not exist")
                 inviteDirectMessage(chatClient.user.id, chatClient, userId, "Join my chat")
-                navigation.navigate('Home');
+                navigation.navigate('Main');
               }
             
 
@@ -311,20 +311,30 @@ const NewChatScreen = props => {
             description={`Add ${getSelectedUserIds()} to ${channel.data.name} group?`}
             actions={[
                 {
-                text: 'Cancel',
-                onPress: () => setShowAddAlert(false),
+                    text: 'Cancel',
+                    onPress: () => setShowAddAlert(false),
                 },
                 {
-                text: 'Add',
-                onPress: async () => {
-                    setShowAddAlert(false)
-                    //it adds instead of inviting
-                    await Promise.all([
-                        channels.map(channel => channel.addMembers(Object.keys(selectedUsers), 
-                          { text: `${chatClient?.user?.name} added ${getSelectedUserIds()} to this channel!` })),
-                      ]);
-                    navigation.navigate('Info', { channel: channel})
-                },
+                    text: 'Add',
+                    onPress: async () => {
+                        setShowAddAlert(false);
+                        const targetChannelId = channel?.id;
+                      
+                        await Promise.all(
+                          channels.map(async (channel) => {
+                            if (channel.id === targetChannelId) {
+                              // Add the member without sending a text
+                              await channel.addMembers(Object.keys(selectedUsers));
+                            } else {
+                              // Add the member and send the text
+                              await channel.addMembers(Object.keys(selectedUsers), {
+                                text: `${chatClient?.user?.name} added ${getSelectedUserIds()} to this channel!`,
+                              });
+                            }
+                          })
+                        );
+                        navigation.navigate('Info', { channel: channel });
+                    },
                 },
             ]}
             />

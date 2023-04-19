@@ -1,4 +1,5 @@
 import uuid from 'react-native-uuid';
+import {chatClient} from '../../client'
 
 
 function getRandomColor() {
@@ -156,7 +157,7 @@ export const createConvo = async (client, channelMembers, chatId, chatName) => {
  
       await convo.addMembers(channelMembers, { text: `${client?.user?.name} created this channel!` });
         
-        
+        console.log("error here")
         
         
         // The channel's unique ID will be available in channel.cid

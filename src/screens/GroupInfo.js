@@ -453,7 +453,7 @@ channel.data.isGroupChat
         </MenuWrapper> */}
 
         
-        {channel.data.isGroupChat ?
+        {channel.data.isGroupChat &&
             <MenuWrapper>
                 {/* <TouchableOpacity
                     onPress={() => {
@@ -499,7 +499,9 @@ channel.data.isGroupChat
                 } */}
 
             </MenuWrapper>
-            :
+       }
+       
+        { channel.data.isGroupChat == false &&
             <MenuWrapper>
                 {/* 
                 <MenuItem
@@ -540,12 +542,22 @@ channel.data.isGroupChat
               text: 'Exit Group',
               onPress: async () => {
                 setShowLeaveAlert(false)
-                await Promise.all([
-                  channels.map(channel => channel.removeMembers([chatClient?.user?.id], { text: `${chatClient?.user?.name} left this channel!` })),
-                ]);
-                setParticpants(participants - 1)
-                //not working set channel to own channel
-                // navigation.navigate('Main');
+                const targetChannelId = channel?.id;
+  
+                await Promise.all(
+                  channels.map(async (channel) => {
+                    if (channel.id === targetChannelId) {
+                      // Remove the member without sending a text
+                      await channel.removeMembers([chatClient?.user?.id]);
+                    } else {
+                      // Remove the member and send the text
+                      await channel.removeMembers([chatClient?.user?.id], {
+                        text: `${chatClient?.user?.name} left this channel!`,
+                      });
+                    }
+                  })
+                );
+                setParticpants(participants - 1);
                 navigation.navigate(ROOT_STACK.CONVOS, {channelId: chatClient.user.ownChatId, channel: null})
               },
             },
@@ -626,12 +638,23 @@ channel.data.isGroupChat
             {
               text: 'Remove',
               onPress: async () => {
-                setShowRemoveAlert(false)
-                await Promise.all([
-                  channels.map(channel => channel.removeMembers([memberAction?.about], 
-                    { text: `${chatClient?.user?.name} removed ${memberAction?.about} from this channel!` })),
-                ]);
-                setParticpants(participants - 1)
+                setShowRemoveAlert(false);
+                const targetChannelId = channel?.id;
+              
+                await Promise.all(
+                  channels.map(async (channel) => {
+                    if (channel.id === targetChannelId) {
+                      // Remove the member without sending a text
+                      await channel.removeMembers([memberAction?.about]);
+                    } else {
+                      // Remove the member and send the text
+                      await channel.removeMembers([memberAction?.about], {
+                        text: `${chatClient?.user?.name} removed ${memberAction?.about} from this channel!`,
+                      });
+                    }
+                  })
+                );
+                setParticpants(participants - 1);
               },
             },
           ]}

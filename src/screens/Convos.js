@@ -36,6 +36,7 @@ const Convos = ({route}) => {
 
   const createPersonalChannel = async () => {
     try {
+      setIsLoading(true); 
       console.log( "chat client user")
       const user = chatClient.user;
       const newChannel = chatClient.channel('messaging',uuid.v4(), {
@@ -60,6 +61,7 @@ const Convos = ({route}) => {
     await chatClient.partialUpdateUser(update);
   
       setChannelId(newChannel.id);
+      setIsLoading(false); 
     } catch (error) {
       console.error('Error creating personal channel:', error);
     }
@@ -67,6 +69,7 @@ const Convos = ({route}) => {
 
   const getChannelById = async (id) => {
     try {
+      console.log("inside get channel by id")
       setIsLoading(true); 
       const channel = chatClient.channel('messaging', id);
       await channel.watch();
@@ -117,7 +120,8 @@ const Convos = ({route}) => {
   // };
 
   useEffect(() => {
-    if (!channelId &&  !chatClient.user.ownChatId) {
+    console.log("before if statement in use effect")
+    if (!channelId &&  chatClient.user.ownChatId === undefined) {
       console.log("before create personal channel")
       createPersonalChannel();
     } 
@@ -130,18 +134,17 @@ const Convos = ({route}) => {
 
 
   useEffect(() => {
-   
+   console.log("before if statement in use effect 2")
     const { channelId: newChannelId, channel: newChannel } = route?.params || {};
-  
     if (newChannelId && newChannelId !== channelId) {
-     
+     console.log("before set channel id in use effect 2")
       setChannelId(newChannelId);
     }
     if (newChannel && newChannel !== channel) {
-   
+   console.log("before set channel convo in use effect 2")
       setChannelConvo(newChannel);
     }else if (!newChannel && newChannelId && channelId !== newChannelId) {
-   
+      console.log("before get channel by id in use effect 2")
       getChannelById(newChannelId);
     }
 
@@ -255,6 +258,36 @@ const Convos = ({route}) => {
   };
   const sort = { last_message_at: -1 };
 
+  const customEventChannel = async (setChannels, event) => {
+    const eventChannel = event.channel;
+    // Check if the current user is a member of the channel
+    const isCurrentUserMember = eventChannel?.state?.members?.[chatClient?.user?.id];
+    console.log((!isCurrentUserMember), "isCurrentUserMember")
+    console.log((eventChannel.typeChat !== 'convo'), "eventChannel.typeChat")
+    console.log((eventChannel.chatId !== channelId), "eventChannel.chatId")
+    console.log(!eventChannel?.id, "eventChannel?.id")
+    //they all should be false so that they are true to filters so that it adds to channels
+    if (!eventChannel?.id || (eventChannel.chatId !== channelId || eventChannel.typeChat !== 'convo' 
+    //if we don't use then for some reason why have duplicated channels
+    || !isCurrentUserMember
+    )){
+      console.log("returning")
+      return;
+    }
+  
+    console.log(chatClient?.user?.id, "chatClient.user?.id")
+  
+    try {
+      console.log("before new channel")
+      const newChannel = chatClient.channel(eventChannel.type, eventChannel.id);
+      console.log("after new channel")
+      await newChannel.watch();
+      setChannels(channels => [newChannel, ...channels]);
+      console.log("after set channels")
+    } catch (error) {
+      console.log(error);
+    }
+  };
  
   return (
     <View style={{flex: 1}}>
@@ -277,6 +310,25 @@ const Convos = ({route}) => {
             filters={filters}
             sort={sort}
             EmptyStateIndicator={CustomEmpty}
+
+            //in order to show the channel plus instantly requires more work as the listener
+            //is update instantly and I'm not a member yet on the new channel
+            //same happens when we leave a channel. it triggers the listener but we are still a member
+            onAddedToChannel={customEventChannel}
+
+            //this takes care of updating name channel correctly
+            onChannelUpdated={customEventChannel}
+
+            //these ones are not triggered for some reason
+            onRemovedFromChannel={customEventChannel}
+            onNewMessageNotification={customEventChannel}
+
+            //onChannelVisible={customEventChannel}
+            //delete channel not leave channel
+            //onChannelDeleted={customEventChannel}
+            //onChannelTruncated={customEventChannel}
+            //onChannelHidden={customEventChannel}
+            //onNewMessage={customEventChannel}
         />
          </>
         )}

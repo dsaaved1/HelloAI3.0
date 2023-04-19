@@ -1,6 +1,6 @@
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native'
 import {colors} from '../../theme'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import {flex, sizes} from '../../global'
 import IconButton from '../IconButton'
 import PeekabooView from '../PeekabooView'
@@ -11,8 +11,8 @@ import {createConvo} from '../../utils/actions/chatActions'
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-
+import {ROOT_STACK} from '../../stacks/RootStack'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 export default (props) => {
@@ -21,7 +21,7 @@ export default (props) => {
   const channelMembers = channel.state.members;
   // Extract user IDs from the channel members object
   const channelUsers = Object.keys(channelMembers);
-
+  const [showRefreshIcon, setShowRefreshIcon] = useState(false);
 
   const otherMember = channel?.state?.members
     ? Object.values(channel.state.members).find(
@@ -31,13 +31,21 @@ export default (props) => {
 
   const {selectedChannelsForEditing, setSelectedChannelsForEditing} =
     useAppContext()
-
+  const {setChannel} = useAppContext()
   const isInChannelSelectionMode = !isEmpty(selectedChannelsForEditing)
   const clearSelectedChannelsForEditing = () => setSelectedChannelsForEditing([])
   const nameChannel = (channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) ? channel.data.name : otherMember?.user?.name;
 
 
 
+  const handleRefreshIconPress = () => {
+    setShowRefreshIcon(true);
+    setTimeout(() => {
+      setShowRefreshIcon(false);
+    }, 3500); // Set the time (in milliseconds) for how long the icon should be visible
+  };
+
+  
   const handleMuteOnPress = async () => {
     selectedChannelsForEditing.map(async channel => {
       console.log(channel.muteStatus().muted, "jey")
@@ -59,7 +67,13 @@ export default (props) => {
 
   const handleCreateConvo = async () => {
     try {
-        await createConvo(chatClient, channelUsers, channel.id, nameChannel);
+      await createConvo(chatClient, channelUsers, channel.id, nameChannel);
+      handleRefreshIconPress();
+        // const newChannel = await createConvo(chatClient, channelUsers, channel.id, nameChannel);
+        // if (newChannel) {
+        //   setChannel(newChannel);
+        //   navigation.navigate(ROOT_STACK.CHANNEL_SCREEN);
+        // }
     } catch (error) {
       console.error('Error creating convo:', error);
     }
@@ -110,19 +124,25 @@ export default (props) => {
         </View>
       </PeekabooView>
       <PeekabooView isEnabled={!isInChannelSelectionMode}>
-      {Platform.OS === 'android' ? (
+     {/* {Platform.OS === 'android' ? ( */}
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
             style={{marginLeft:7}}
           >
             <Ionicons name="md-menu" size={30} color={colors.dark.secondaryLight} />
           </TouchableOpacity>
-        ) : null}
+       {/*  ) : null} */}
         <View style={styles.appNameText}>
           <Text style={styles.titleText}>
             {nameChannel}
             </Text>
         </View>
+        {showRefreshIcon && (
+          <View style={styles.refreshWrapper}>
+            <MaterialIcons name="refresh" size={30} color={colors.dark.secondaryLight} />
+            <Text style={styles.refreshText}>Refresh List</Text>
+          </View>
+        )}
         <IconButton
           onPress={handleCreateConvo}
           iconName={'CirclePlus'}
@@ -156,4 +176,17 @@ const styles = StyleSheet.create({
     fontSize: sizes.xl,
   },
   appNameText: {padding: sizes.m, flex: 1},
+  refreshText: {
+    color: colors.dark.secondaryLight,
+    position: 'absolute',
+    right: -4,
+    top: -9,
+    fontSize: 10
+  },
+  refreshWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    marginRight: 10
+  },
 })
