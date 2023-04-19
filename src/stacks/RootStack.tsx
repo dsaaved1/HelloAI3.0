@@ -28,6 +28,7 @@ import EditGroup from '../screens/EditGroup';
 import Support from '../screens/Support';
 import About from '../screens/About';
 
+
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -223,6 +224,7 @@ export default ({clientReady}: {clientReady: boolean}) => {
 
 
       <Stack.Screen
+      //new channels that you are added are into channel list
           component={EditGroup}
           name={'EditGroup'}
       />

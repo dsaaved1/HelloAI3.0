@@ -730,14 +730,14 @@ export default (props) => {
 
           
 
-              <PeekabooView isEnabled={recordingActive}>
+              {/* <PeekabooView isEnabled={recordingActive}>
                   <RecordingBlinking />
                   <View style={{flex: 1}}>
                     <Text style={{color: colors.dark.secondaryLight}}>
                       {formattedAudioDuration}
                     </Text>
                   </View>
-              </PeekabooView>
+              </PeekabooView> */}
 
               
 
@@ -756,12 +756,12 @@ export default (props) => {
             </PeekabooView>
             
           
-              <MessageInputCTA
+              {/* <MessageInputCTA
                   recordingActive={recordingActive}
                   setRecordingActive={setRecordingActive}
                   recordingDurationInMS={recordingDurationInMS}
                   setRecordingDurationInMS={setRecordingDurationInMS}
-                />
+                /> */}
 
                 <PeekabooView isEnabled={!recordingActive}>
                     {isMessageEmpty?

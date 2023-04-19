@@ -14,7 +14,7 @@ import {
   useTheme,
   useChatContext,
 } from 'stream-chat-react-native'
-import {StreamChannel, useAppContext} from '../../App'
+import {useAppContext} from '../../App'
 import {useNavigation} from '@react-navigation/native'
 import {colors} from '../../theme'
 import {flex, sizes} from '../../global'
@@ -25,7 +25,7 @@ import { TrashCan } from '../../icons/TrashCan'
 import SuperAvatar from '../SuperAvatar'
 import PeekabooView from '../PeekabooView'
 import Mic from '../../icons/Mic'
-import {get} from 'lodash'
+import {conformsTo, get} from 'lodash'
 import moment from 'moment'
 import {parseDurationTextToMs} from '../../utils/conversion'
 import {ROOT_STACK} from '../../stacks/RootStack'
@@ -214,8 +214,12 @@ export default ({
   };
 
   const handleDelete = async () => {
-    await channel.removeMembers([client?.user?.id]);
+    console.log("inside handle delete")
+    await channel.removeMembers([client?.user?.id], {
+      text: `${client?.user?.name} left this channel!`,
+    });
     setShowModalDelete(false);
+    navigation.navigate(ROOT_STACK.CONVOS, {channelId: client?.user?.ownChatId, channel: null})
   }
 
 

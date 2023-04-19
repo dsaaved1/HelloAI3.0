@@ -4,7 +4,7 @@ import {sizes} from './global'
 
 export const colors = {
   dark: {
-    primary: '#035B49FF',
+    primary: '#2c5588',
     primaryLight: '#12a383',
     primaryTransparent: '#859299',
     primaryDark: '#064F40FF',
