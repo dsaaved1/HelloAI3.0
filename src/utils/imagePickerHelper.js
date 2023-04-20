@@ -1,12 +1,14 @@
 import {launchImageLibrary} from 'react-native-image-picker';
 import { Platform } from 'react-native';
+//import { PERMISSIONS, request } from '@react-native-community/permissions';
 import { getFirebaseApp } from './firebaseHelper';
 import uuid from 'react-native-uuid';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
 export const launchImagePicker = () => {
+  console.log('launchImagePicker')
     return new Promise(async (resolve, reject) => {
-      await checkMediaPermissions();
+     //await checkMediaPermissions();
   
       const options = {
         mediaType: 'photo',
@@ -20,7 +22,8 @@ export const launchImagePicker = () => {
         } else if (response.error) {
           reject(`ImagePicker Error: ${response.error}`);
         } else {
-          resolve(response.uri);
+          console.log(response.assets[0].uri, "response.uri")
+          resolve(response.assets[0].uri);
         }
       });
     });
@@ -29,7 +32,12 @@ export const launchImagePicker = () => {
 
 
 export const uploadImageAsync = async (uri, isChatImage = false) => {
+  console.log("uploadImageAsync")
     const app = getFirebaseApp();
+console.log("app", app)
+// Remove the "file://" prefix from the URI
+const fileUri = uri.replace("file://", "");
+console.log("fileUri", fileUri)
 
     const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -43,27 +51,36 @@ export const uploadImageAsync = async (uri, isChatImage = false) => {
         };
 
         xhr.responseType = "blob";
-        xhr.open("GET", uri, true);
+        xhr.open("GET", fileUri, true);
         xhr.send();
     });
 
+
+    console.log("blob", blob)
     const pathFolder = isChatImage ? 'chatImages' : 'profilePics';
     const storageRef = ref(getStorage(app), `${pathFolder}/${uuid.v4()}`);
 
+    console.log("storageRef", storageRef)
     await uploadBytesResumable(storageRef, blob);
 
+    console.log("uploadBytesResumable")
     blob.close();
 
     return await getDownloadURL(storageRef);
 }
 
-const checkMediaPermissions = async () => {
-    if (Platform.OS !== 'web') {
-        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (permissionResult.granted === false) {
-            return Promise.reject("We need permission to access your photos");
-        }
-    }
+// const checkMediaPermissions = async () => {
+//   if (Platform.OS === 'android') {
+//     const status = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+//     if (status !== 'granted') {
+//       return Promise.reject('We need permission to access your photos.');
+//     }
+//   } else if (Platform.OS === 'ios') {
+//     const status = await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
+//     if (status !== 'granted') {
+//       return Promise.reject('We need permission to access your photos.');
+//     }
+//   }
 
-    return Promise.resolve();
-}
+//   return Promise.resolve();
+// };

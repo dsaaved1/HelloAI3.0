@@ -10,7 +10,7 @@ import {Auth} from 'aws-amplify';
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const SignUpScreen = () => {
+const RegisterScreen = () => {
   const {control, handleSubmit, watch} = useForm();
   const pwd = watch('password');
   const navigation = useNavigation();
@@ -132,7 +132,7 @@ const SignUpScreen = () => {
           </Text>
         </Text>
 
-        {/* <SocialSignInButtons /> */}
+        <SocialSignInButtons />
 
         <CustomButton
           text="Have an account? Sign in"
@@ -165,4 +165,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default RegisterScreen;

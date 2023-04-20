@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import MenuItem from '../components/MenuItem';
@@ -24,6 +25,7 @@ import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import BottomAlert from '../components/BottomAlert';
 import { Auth } from "aws-amplify";
+import { launchImagePicker, uploadImageAsync} from '../utils/imagePickerHelper';
 
 
 const Account = props => {
@@ -31,6 +33,10 @@ const Account = props => {
     const [showDeleteAccount, setShowDeleteAccount] = useState(false);
     const [showDeleteUser, setShowDeleteUser] = useState(false);
     const source = chatClient.user.image? { uri: chatClient.user.image } : userImage
+    const [image, setImage] = useState(source);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [tempImageUri, setTempImageUri] = useState("");
 
     const logout = () => {
         chatClient.disconnectUser();
@@ -74,22 +80,62 @@ const Account = props => {
         })
     }, []); 
 
+    const pickImage = useCallback(async () => {
+      try {
+        const tempUri = await launchImagePicker();
+
+        if (!tempUri) return;
+  
+        // Upload the image
+        setIsLoading(true);
+        const uploadUrl = await uploadImageAsync(tempUri);
+        
+
+        if (!uploadUrl) {
+          throw new Error("Could not upload image");
+        }
+        setImage({ uri: uploadUrl });
+        setIsLoading(false);
+
+        // Update the user
+        const update = {
+          id: chatClient.user.id,
+          set: {
+            image: uploadUrl,
+          },
+        };
+        await chatClient.partialUpdateUser(update);
+
+       
+      } catch (error) {
+        console.log(error);
+      }
+    }, [tempImageUri]);
 
     return (
         <View style={{flex:1}}>
      
             <View style={styles.row}>
-                <TouchableOpacity style={styles.imageContainer}>
-                    <Image
-                    source={source}
-                    style={styles.userImage}
-                    />
-                    <MaterialIcons
-                    name="edit"
-                    size={20}
-                    color={colors.dark.secondary}
-                    style={styles.editIconInImage}
-                    />
+                <TouchableOpacity 
+                  onPress={pickImage}
+                  style={styles.imageContainer}
+                >
+                  {isLoading?
+                    <ActivityIndicator size="small" color={colors.dark.secondaryLight} />
+                  : 
+                    <>
+                      <Image
+                      source={source}
+                      style={styles.userImage}
+                      />
+                      <MaterialIcons
+                      name="edit"
+                      size={20}
+                      color={colors.dark.secondary}
+                      style={styles.editIconInImage}
+                      />
+                    </>
+                  }
                 </TouchableOpacity>
                 
                 <View style={styles.userDetails}>

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {Avatar, useChannelPreviewDisplayAvatar} from 'stream-chat-react-native'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ActivityIndicator} from 'react-native'
 import {colors} from '../theme'
 import {Check} from 'stream-chat-react-native-core/src/icons/index'
 import {StreamChannel} from '../App'
@@ -30,7 +30,7 @@ export default ({
 
 
   const {image} = useChannelPreviewDisplayAvatar(channel)
-  const name = channel?.data?.name
+  const name = channel?.data?.name ? channel.data.name : otherMembers[0]?.user?.name;
   return (
     <View style={styles.outerContainer}>
       <Avatar 
