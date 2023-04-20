@@ -36,6 +36,7 @@ import NewPasswordScreen from './screens/NewPasswordScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
+import RegisterScreen from './screens/RegisterScreen/RegisterScreen'
 import {StreamChat} from 'stream-chat'
 import {STREAM_API_KEY, STREAM_USER_TOKEN, STREAM_USER_ID} from '@env'
 import {ChatContextValue} from 'stream-chat-react-native'
@@ -227,10 +228,8 @@ export default () => {
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
                 <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
-                <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPasswordScreen}
-                />
+                <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+                <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
                 <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
               </>
               </Stack.Navigator>
