@@ -27,6 +27,7 @@ import {ROOT_STACK} from '../../stacks/RootStack'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {StackNavigatorParamList} from '../../types'
 import { DMAvatar } from '../DMAvatar'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 export default ({
@@ -140,6 +141,14 @@ export default ({
           <ChannelPreviewUnreadCount channel={channel} maxUnreadCount={50} unread={unreadCount}/>
         </View>
       </View> */}
+      {channel?.data?.isGroupChat && 
+        
+        <View style={flex.directionRowContentEnd}>
+          
+          <Ionicons name="people" size={13} color={colors.dark.secondaryLight} />
+          <Text style={{color:colors.dark.secondaryLight, marginLeft: 4, fontSize:11}}>{Object.keys(channel.state.members).length}</Text>
+        </View>
+      }
     </Pressable>
   )
 }

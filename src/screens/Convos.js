@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, useRef} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Pressable, SafeAreaView, TextInput, FlatList} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Pressable, SafeAreaView, TextInput, FlatList} from 'react-native';
 import {ChannelList} from 'stream-chat-react-native';
 import {chatClient} from '../client'
 import ConvoPreview from '../components/channel-list/ConvoPreview';
@@ -292,7 +292,9 @@ const Convos = ({route}) => {
   return (
     <View style={{flex: 1}}>
       {isLoading ? (
-        <Text>Loading...</Text> // Show a loading indicator when isLoading is true
+          <View style={{justifyContent:'center'}}>
+            <ActivityIndicator size="small" color={colors.dark.secondaryLight} />
+          </View>
       ) : (
         <>
           <ChannelListHeader channel={channel} channelId={channelId} />
