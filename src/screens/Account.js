@@ -27,7 +27,6 @@ import BottomAlert from '../components/BottomAlert';
 import { Auth } from "aws-amplify";
 import { launchImagePicker, uploadImageAsync} from '../utils/imagePickerHelper';
 
-
 const Account = props => {
     const [name, setName] = useState(chatClient.user.name);
     const [showDeleteAccount, setShowDeleteAccount] = useState(false);
@@ -35,7 +34,7 @@ const Account = props => {
     const source = chatClient.user.image? { uri: chatClient.user.image } : userImage
     const [image, setImage] = useState(source);
     const [isLoading, setIsLoading] = useState(false);
-
+    
     const [tempImageUri, setTempImageUri] = useState("");
 
     const logout = () => {
@@ -77,6 +76,16 @@ const Account = props => {
                 </View>
             ),
             headerTintColor: '#3777f0',
+            // headerLeft: () => (
+            //   <TouchableOpacity
+            //     onPress={() => {
+            //       props.navigation.navigate('profile', { updatedImage: true });
+            //     }}
+            //     style={{ marginLeft: 10 }}
+            //   >
+            //     <IoniconsIcon name="arrow-back" size={24} color="#3777f0" />
+            //   </TouchableOpacity>
+            // ),
         })
     }, []); 
 
@@ -125,7 +134,7 @@ const Account = props => {
                   : 
                     <>
                       <Image
-                      source={source}
+                      source={image}
                       style={styles.userImage}
                       />
                       <MaterialIcons
@@ -224,7 +233,7 @@ const Account = props => {
                 ]}
                 />
 
-            </View>
+        </View>
   )
 }
 

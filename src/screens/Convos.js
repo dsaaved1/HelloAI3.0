@@ -290,10 +290,10 @@ const Convos = ({route}) => {
   };
  
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.dark.secondary}}>
       {isLoading ? (
-          <View style={{justifyContent:'center'}}>
-            <ActivityIndicator size="small" color={colors.dark.secondaryLight} />
+         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <ActivityIndicator size="large" color={colors.dark.secondaryLight} />
           </View>
       ) : (
         <>
@@ -334,60 +334,16 @@ const Convos = ({route}) => {
         />
          </>
         )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default Convos;
 
 const styles = StyleSheet.create({
-  bottomContainer: {
-    width: '100%',
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: colors.dark.secondary,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    padding: 10,
-  },
-  button: {
-    borderRadius: 20,
-    paddingRight: 20,
-    paddingVertical: 5,
-    marginBottom: 10,
-  },
+ 
   container: {
     flex: 1,
     backgroundColor: colors.background
-  },
-  header: {
-    backgroundColor: '#3777f0',
-    paddingVertical: 16,
-    alignItems: 'center',
-    marginTop: 100
-  },
-  title: {
-    color: '#fff',
-    fontSize: 34,
-    fontWeight: 'bold',
-  },
-  searchContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 8,
-    paddingBottom: 16,
-    backgroundColor: '#3777f0',
-    //backgroundColor: '#6200EE',
-    alignItems: 'center',
-  },
-  searchInput: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 8,
-    paddingBottom: 8,
-    fontSize: 14,
-    color: '#000',
-    width: '90%',
   },
 })

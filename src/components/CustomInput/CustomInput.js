@@ -26,6 +26,7 @@ const CustomInput = ({
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder={placeholder}
+              placeholderTextColor="grey" 
               style={styles.input}
               secureTextEntry={secureTextEntry}
               autoCapitalize="none"

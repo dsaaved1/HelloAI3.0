@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: 10,
   },
   onlineCircle: {
-    backgroundColor: '#53FF66',
+    backgroundColor: '#32CD32',
     //'#117A58'
     borderRadius: 100 / 2,
     height: 11,

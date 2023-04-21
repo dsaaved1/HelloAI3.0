@@ -60,6 +60,7 @@ const Invitations = () => {
     members: { $in: userId ? [userId] : [] },
     type: 'messaging',
     invite: 'pending',
+    typeChat: { $eq: 'chat'},
   }), [userId]);
 
   const [channels, setChannels] = useState([]);

@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, Text, View,
   Modal, TextInput, TouchableOpacity} from 'react-native'
-  import React, {useMemo, useState} from 'react'
+  import React, {useMemo, useState, useEffect} from 'react'
   import {
     ChannelPreviewMessage,
     ChannelPreviewMessengerProps,
@@ -60,6 +60,9 @@ import {Pressable, StyleSheet, Text, View,
 
   export default InvitationPreview = (props) => {
     const {channel} = props
+    const [channels, setChannels] = useState(null)
+    const [members, setMembers] = useState(Object.values(channel.state.members))
+    const inviter = channel.state.members[chatClient?.user?.id]?.user;
     //we will handle this later
     const status = 'pending';
     //if chat has no name then it takes the name of the other user if member count is 2
@@ -107,11 +110,32 @@ import {Pressable, StyleSheet, Text, View,
       }
     }
 
-    const createGroup= async () => { 
+    useEffect(() => {
+      console.log("here1")
+      fetchConvos();
+    }, [])
+
+    async function fetchConvos(){
+      //different channel but somehow the length is always the same
+      const filters = { 
+        type: 'messaging', 
+        members: { $in: [chatClient?.user?.id] }, 
+        chatId: channel.id, 
+        typeChat: { $eq: 'convo'}
+      };
+      const sort = [{ last_message_at: -1 }];
+      const queriedChannels = await chatClient.queryChannels(filters, sort, {});
+      const channelsWithCurrent = [...queriedChannels, channel];
+      setChannels(channelsWithCurrent);
+    }
+
+
+    const aceeptInvitation = async () => { 
       //create a group chat
-      console.log("create group chat")
-      console.log(channel.cid, "channel cid")
-      await channel.acceptInvite()
+      console.log("accept invitiations")
+      await Promise.all([
+        channels.map(channel => channel.acceptInvite()),
+      ]);
     }
 
     const ChannelPreviewTitleCustom = ({displayName, style }) => {
@@ -122,15 +146,12 @@ import {Pressable, StyleSheet, Text, View,
       );
     };
   
-    //you can user id by chatClient.user.id
-    const userId = chatClient?.user?.id
-    const inviter = channel.state.members[userId]?.user;
  
-    const members = Object.values(channel.state.members);
-    const isGroupChat = members.length > 2;
+   
+ 
   
     const membersNames = () => {
-      if (isGroupChat) {
+      if (channel?.data.isGroupChat) {
         const names = members.map((member) => member.user.name).join(', ');
         const lineLength = 40; // Adjust this to fit the desired line length
         const twoLinesLength = lineLength * 2;
@@ -151,8 +172,8 @@ import {Pressable, StyleSheet, Text, View,
           //backgroundColor: "#1C2340"
         }}>
        
-        
-          <ChannelAvatar channel={channel} />
+         <SuperAvatar channel={channel} size={38}/>
+          {/* <ChannelAvatar channel={channel} /> */}
           <View style={{flex: 1, marginHorizontal: sizes.l}}>
           <ChannelPreviewTitleCustom displayName={displayName} style={styles.previewTitle} />
 
@@ -171,9 +192,7 @@ import {Pressable, StyleSheet, Text, View,
   
           {(status === 'pending' || status === 'accepted') &&
               <TouchableOpacity
-              onPress={
-                createGroup
-              }
+                  onPress={aceeptInvitation}
               >
                    <View style={styles.checkWrap}>
                       <Check

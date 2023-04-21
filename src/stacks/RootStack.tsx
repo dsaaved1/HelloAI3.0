@@ -27,13 +27,14 @@ import Account from '../screens/Account';
 import EditGroup from '../screens/EditGroup';
 import Support from '../screens/Support';
 import About from '../screens/About';
-
+import Subscription from '../screens/Subscription';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator()
 const SettingsStack = createStackNavigator()
+const NewStack = createStackNavigator()
 
 export enum ROOT_STACK {
   CHANNEL_LIST = 'RootStackChannelList',
@@ -50,7 +51,9 @@ export enum ROOT_STACK {
 
 const DrawerNavigator = () => {
 
+  //this works for channel header
   return (
+    
     <Drawer.Navigator drawerContent={CustomDrawerContent}>
       <Drawer.Group>
       <Drawer.Screen
@@ -60,7 +63,6 @@ const DrawerNavigator = () => {
       />
       </Drawer.Group>
     </Drawer.Navigator>
-      
   );
 };
 
@@ -133,8 +135,10 @@ const CustomDrawerContent = () => {
 
 
 
-const HomeStackNavigator = () => (
+const HomeStackNavigator = () => {
   //we need home stack navigator to navigate through tab and mainting convos
+  return (
+    
     <HomeStack.Navigator
       initialRouteName={ROOT_STACK.CONVOS}
       screenOptions={{
@@ -150,7 +154,8 @@ const HomeStackNavigator = () => (
       </HomeStack.Group>
       
     </HomeStack.Navigator>
-)
+  )
+}
 
 const SettingsNavigator = ({navigation}) => (
   //we need home stack navigator to navigate through tab and mainting convos
@@ -180,12 +185,18 @@ const SettingsNavigator = ({navigation}) => (
               name={'Support'}
             />
            
+           <SettingsStack.Screen
+              component={Subscription}
+              name={'Subscription'}
+            />
       </SettingsStack.Group>
       
     </SettingsStack.Navigator>
 )
 
-const TabNavigation = () => (
+const TabNavigation = () => {
+  return (
+    
   <BottomSheetModalProvider>
     <Tab.Navigator tabBar={(props) => <BottomTabs {...props} />}>
       <Tab.Screen component={HomeStackNavigator} name='home'  options={noHeaderOptions} />
@@ -193,15 +204,36 @@ const TabNavigation = () => (
       <Tab.Screen component={SettingsNavigator} name={'profile'} options={noHeaderOptions}/>
     </Tab.Navigator>
   </BottomSheetModalProvider>
-);
+  )
+}
+
+const NewChats = () => {
+  return (
+    <NewStack.Navigator initialRouteName={ROOT_STACK.NEW_SCREEN}>
+      <NewStack.Group>
+        <NewStack.Screen
+          component={NewChatScreen}
+          name={ROOT_STACK.NEW_SCREEN}
+        />
+        <NewStack.Screen
+          component={NewGroupName}
+          name={ROOT_STACK.NEW_GROUP_NAME}
+        />
+      </NewStack.Group>
+    </NewStack.Navigator>
+  );
+};
 
 export default ({clientReady}: {clientReady: boolean}) => {
   if (!clientReady) return null
-  return (  <Stack.Navigator
+  return (  
+    // <SafeAreaView style={{flex: 1, backgroundColor:colors.dark.secondary}}>
+  <Stack.Navigator
     initialRouteName={'Main'}
     screenOptions={{
       headerTitleStyle: {alignSelf: 'center', fontWeight: 'bold'},
     }}>
+       
       <Stack.Screen
         component={DrawerNavigator}
         name={'Main'}
@@ -231,28 +263,32 @@ export default ({clientReady}: {clientReady: boolean}) => {
 
       
 
-
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-            <Stack.Screen
+            {/* <Stack.Screen
+                component={NewChats}
+                name={'NewChats'}
+    
+              /> */}
+             <Stack.Screen
                 component={NewChatScreen}
                 name={ROOT_STACK.NEW_SCREEN}
     
               />
+
               <Stack.Screen
                 component={NewGroupName}
                 name={ROOT_STACK.NEW_GROUP_NAME}
     
               />
-               <Stack.Screen
-                component={AddParticipants}
-                name={"AddParticipants"}
-    
-              />
+              
+
       </Stack.Group>
 
     </Stack.Navigator>
+    // </SafeAreaView>
   )
 }
+
 
 
 const styles = StyleSheet.create({

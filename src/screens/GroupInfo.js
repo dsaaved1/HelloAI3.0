@@ -88,13 +88,20 @@ channel.data.isGroupChat
   
   const nameChannel = (channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) ? channel.data.name : otherMember?.user?.name;
 
+  const acceptedInviteFilter = {
+    invite: 'accepted',
+  };
+
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
     const participantsCount = objectMembers.members.length;
     const currentUser = objectMembers.members.find(member => member.user.id === chatClient?.user?.id);
     const isModerator = (currentUser.role === 'moderator' || currentUser.role === 'owner') && channel.data.isGroupChat;
     const fetchedContacts = objectMembers.members.map((member, index) => {
-      const role =  (member.role === 'moderator' || member.role === 'owner') && channel.data.isGroupChat ? '(admin)' : '';
+    let role =  (member.role === 'moderator' || member.role === 'owner') && channel.data.isGroupChat ? '(admin)' : '';
+    if (role === '' && member.invited  && !member.invite_accepted_at){
+      role = '(pending)'
+    }
       return {
         image: member.user.image  ? { uri: member.user.image } : userImage, // Assuming the user has an 'image' property
         name: `${member.user.name} ${role}`,
@@ -205,6 +212,7 @@ channel.data.isGroupChat
       onPress: async () => {
         //not ideal, let's change it later
         //doesn't work correctly
+        
         await channel.removeMembers([memberAction?.about]);
         await channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}]);
 
@@ -212,8 +220,8 @@ channel.data.isGroupChat
         //   channel.removeMembers([memberAction?.about]),
         //   channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}])
         // ]);
-        setShowRemoveAlert(false);
-        setParticpants(participants)
+        setShowMemberAlert(false);
+        setParticpants(participants - 1)
       },
     },
     {
@@ -500,7 +508,7 @@ channel.data.isGroupChat
 
             </MenuWrapper>
        }
-       
+
         { channel.data.isGroupChat == false &&
             <MenuWrapper>
                 {/* 

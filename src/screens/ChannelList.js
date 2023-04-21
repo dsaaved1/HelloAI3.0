@@ -21,6 +21,14 @@ export const List = props => {
     member_count: 2,
     isGroupChat: { $eq: false },
     typeChat: { $eq: 'chat'},
+    $or: [
+      {
+        invite: 'accepted',
+      },
+      {
+        created_by_id: chatClient?.user?.id,
+      },
+    ],
   };
   
   const groupFilters = {
@@ -29,14 +37,18 @@ export const List = props => {
     member_count: { $gt: 1 },
     isGroupChat: { $eq: true },
     typeChat: { $eq: 'chat'},
-    // $or: [
-    //   { invite: { $exists: false } },
-    //   { invite: 'accepted', },
-    // ],
+    $or: [
+      {
+        invite: 'accepted',
+      },
+      {
+        created_by_id: chatClient?.user?.id,
+      },
+    ],
   };
   
   const sort = { last_message_at: -1 };
-  
+
   const showGroups = props.showGroups;
   const memoizedFilters = useMemo(() => {
     if (showGroups) {

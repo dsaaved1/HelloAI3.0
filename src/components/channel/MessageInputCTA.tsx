@@ -21,11 +21,13 @@ const audioRecorderPlayer = new AudioRecorderPlayer()
 
 type Props = {
   recordingActive: boolean
+  pressable: boolean
   recordingDurationInMS: number
   setRecordingActive(isActive: boolean): void
   setRecordingDurationInMS(ms: number): void
 }
 export default ({
+  pressable,
   recordingActive,
   setRecordingActive,
   recordingDurationInMS,
@@ -99,7 +101,7 @@ export default ({
 
     setRecordingDurationInMS(0)
     await sendVoiceMessage(result)
-    await sendtranscriptWhispers(result)
+    //await sendtranscriptWhispers(result)
   }
 
   const sendtranscriptWhispers = async (uri: string) => {
@@ -129,7 +131,7 @@ export default ({
     return (
       <View style={styles.micWrap}>
         <IconButton
-          usePressable
+          usePressable={pressable}
           onPress={() => null}
           onLongPress={onStartRecord}
           onPressOut={onStopRecord}

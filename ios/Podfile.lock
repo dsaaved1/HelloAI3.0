@@ -80,6 +80,8 @@ PODS:
     - MMKVCore (~> 1.2.15)
   - MMKVCore (1.2.15)
   - OpenSSL-Universal (1.1.1100)
+  - PurchasesHybridCommon (4.14.3):
+    - RevenueCat (= 4.17.11)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -399,6 +401,7 @@ PODS:
     - React-jsi (= 0.70.3)
     - React-logger (= 0.70.3)
     - React-perflogger (= 0.70.3)
+  - RevenueCat (4.17.11)
   - RNAudioRecorderPlayer (3.5.1):
     - React-Core
   - RNAWSCognito (6.2.0):
@@ -423,6 +426,11 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
+  - RNPermissions (3.8.0):
+    - React-Core
+  - RNPurchases (5.13.3):
+    - PurchasesHybridCommon (= 4.14.3)
+    - React-Core
   - RNReactNativeHapticFeedback (1.14.0):
     - React-Core
   - RNReanimated (2.11.0):
@@ -542,6 +550,8 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNPurchases (from `../node_modules/react-native-purchases`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -567,6 +577,8 @@ SPEC REPOS:
     - MMKV
     - MMKVCore
     - OpenSSL-Universal
+    - PurchasesHybridCommon
+    - RevenueCat
     - SocketRocket
     - TOCropViewController
     - YogaKit
@@ -674,6 +686,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
+  RNPurchases:
+    :path: "../node_modules/react-native-purchases"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNReanimated:
@@ -710,6 +726,7 @@ SPEC CHECKSUMS:
   MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
+  PurchasesHybridCommon: be1e0089c51b4ee7b44914fd7a9ede271f96e4f5
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: 5cf7e7d2f12699724b59f90350257a422eaa9492
   RCTTypeSafety: 3f3ead9673d1ab8bb1aea85b0894ab3220f8f06e
@@ -747,6 +764,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: b9a58ffdd18446f43d493a4b0ecd603ee86be847
   React-runtimeexecutor: e9b1f9310158a1e265bcdfdfd8c62d6174b947a2
   ReactCommon: 01064177e66d652192c661de899b1076da962fd9
+  RevenueCat: 0431c28e4d492c0c88d6cc5c89a289cd40a8b7ea
   RNAudioRecorderPlayer: 308940de4f9d1448a064874fd9d83479ae47c7a7
   RNAWSCognito: 100c2a1e21010f4e201d8ac43deb400b8d5e7ba6
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
@@ -755,6 +773,8 @@ SPEC CHECKSUMS:
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
   RNImageCropPicker: ffbba608264885c241cbf3a8f78eb7aeeb978241
+  RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
+  RNPurchases: 832f73ba134e07fb07e34222b7210d95153ae878
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c
   RNReanimated: 7ae522d1d6a8b20b609c0e2f4bc8036f06600d79
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
