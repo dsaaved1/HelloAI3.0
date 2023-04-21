@@ -324,11 +324,11 @@ const NewChatScreen = props => {
                           channels.map(async (channel) => {
                             if (channel.id === targetChannelId) {
                               // Add the member without sending a text
-                              await channel.addMembers(Object.keys(selectedUsers));
+                              await channel.inviteMembers(Object.keys(selectedUsers));
                             } else {
                               // Add the member and send the text
-                              await channel.addMembers(Object.keys(selectedUsers), {
-                                text: `${chatClient?.user?.name} added ${getSelectedUserIds()} to this channel!`,
+                              await channel.inviteMembers(Object.keys(selectedUsers), {
+                                text: `${chatClient?.user?.name} invited ${getSelectedUserIds()} to this channel!`,
                               });
                             }
                           })

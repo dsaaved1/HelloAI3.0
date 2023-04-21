@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    marginTop: Platform.OS === 'android' ? 0 : 100,
+    marginTop: Platform.OS === 'android' ? 40 : 100,
   },
   title: {
     fontSize: 56,

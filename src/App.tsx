@@ -38,8 +38,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 import RegisterScreen from './screens/RegisterScreen/RegisterScreen'
 import {StreamChat} from 'stream-chat'
-import {STREAM_API_KEY, STREAM_USER_TOKEN, STREAM_USER_ID} from '@env'
-import {ChatContextValue} from 'stream-chat-react-native'
+import Purchase from 'react-native-purchases';
 
 Amplify.configure(awsconfig)
 Auth.configure(awsconfig);

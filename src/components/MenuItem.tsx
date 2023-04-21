@@ -19,6 +19,7 @@ type Props = {
   onPress?: () => void;
   icon?: ReactNode;
   iconBackgroundColor?: string;
+  backgroundColor?: string;
   iconColor?: string;
   mainText?: string;
   rightIconText?: string | number;
@@ -42,6 +43,7 @@ function MenuItem({
   onPress,
   icon,
   iconBackgroundColor,
+  backgroundColor,
   iconColor,
   isContact,
   mainText,
@@ -170,10 +172,10 @@ function MenuItem({
 }
 
 export default MenuItem;
-
+//2.5%
 const Wrapper = styled.TouchableOpacity`
   width: 100%;
-  padding: 2.5% 5%;
+  padding: 2% 5%;
   background-color: ${'#1C2337'};
 `;
 

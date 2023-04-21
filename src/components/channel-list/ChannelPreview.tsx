@@ -56,7 +56,6 @@ export default ({
   } = useTheme()
 
   useEffect(() => {
-    console.log(currentChannel, channel.id, "currentChannel, channel.id")
     if (currentChannel === channel.id){
       setColorBackground(colors.dark.secondary)
     } else{
@@ -143,7 +142,7 @@ export default ({
       </View> */}
       {channel?.data?.isGroupChat && 
         
-        <View style={flex.directionRowContentEnd}>
+        <View style={{...flex.directionRowContentEnd, justifyContent:'center', alignItems:'center'}}>
           
           <Ionicons name="people" size={13} color={colors.dark.secondaryLight} />
           <Text style={{color:colors.dark.secondaryLight, marginLeft: 4, fontSize:11}}>{Object.keys(channel.state.members).length}</Text>

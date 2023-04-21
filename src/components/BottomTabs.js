@@ -8,6 +8,7 @@ import { useKeyboard } from '../hooks/useKeaboard';
 import { SCText } from './SCText';
 import { SVGIcon } from './SVGIcon';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ROOT_STACK } from '../stacks/RootStack'
 
 
 const styles = StyleSheet.create({
@@ -33,6 +34,7 @@ export const BottomTabs = ({ navigation, state }) => {
   const { isOpen } = useKeyboard();
   const getTitle = (key) => {
     // eslint-disable-next-line default-case
+    //doesn't work even for root stack
     switch (key) {
       case 'home':
         return {

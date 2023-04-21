@@ -32,6 +32,7 @@ import {
 } from 'stream-chat-react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {launchImageLibrary} from 'react-native-image-picker';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 import keys from '../../assets/constants/keys';
@@ -473,8 +474,16 @@ export default (props) => {
   const clearMemory = async () => {
     console.log("clearMemory")
     
-    await channel.updatePartial({ set:{ AIMessages: [{"role": "system", "content": "You are a helpful assistant."}] } }),
+    await channel.updatePartial({ set:{ AIMessages: [{"role": "system", "content": "You are a helpful assistant."}] } })
     
+    const text = 'Conversation cleared';
+    const message = {
+        text,
+        silent: true,
+        type: 'system'
+    };
+    await channel.sendMessage(message);
+
     setShowChatAIAlert(false)
     
   }
@@ -618,8 +627,13 @@ export default (props) => {
 
   const rightSwipeActions = () => {
     return (
-      <View >
-        <SafeAreaView style={{...styles.outerContainer, backgroundColor: '#E1DFDF'}}>
+      <View style={{...styles.outerContainer, paddingBottom: recordingActive ? 20 : 0, backgroundColor: '#E1DFDF',flex:1}}>
+        {/* <SafeAreaView style={{...styles.outerContainer, paddingBottom: recordingActive ? 20 : 0, backgroundColor: '#E1DFDF'}}> */}
+        <PeekabooView isEnabled={!recordingActive}>
+        <View style={{alignItems:'center',  widht:'100%', marginBottom: -10}}>
+          <AntDesign name="swapleft" size={24} color={colors.dark.secondaryLight} />
+        </View>
+        </PeekabooView>
             <View style={{
               ...styles.innerContainer,
               backgroundColor: '#E1DFDF',
@@ -668,6 +682,7 @@ export default (props) => {
                   </PeekabooView>
 
                   <MessageInputCTA
+                      pressable={true}
                       recordingActive={recordingActive}
                       setRecordingActive={setRecordingActive}
                       recordingDurationInMS={recordingDurationInMS}
@@ -695,7 +710,7 @@ export default (props) => {
 
               
             </View>
-         </SafeAreaView>
+         {/* </SafeAreaView> */}
          <BottomAlert
           visible={showChatAlert}
           actions={chatOption}
@@ -716,6 +731,9 @@ export default (props) => {
           />
       <Container renderRightActions={rightSwipeActions}>
       <SafeAreaView style={{...styles.outerContainer, backgroundColor: colors.dark.secondary}}>
+        <View style={{alignItems:'center',  widht:'100%',  marginBottom: -10}}>
+          <AntDesign name="swapright" size={24} color={colors.dark.secondaryLight} />
+        </View>
         <View
           style={{
            ...styles.innerContainer,
@@ -730,14 +748,14 @@ export default (props) => {
 
           
 
-              {/* <PeekabooView isEnabled={recordingActive}>
+              <PeekabooView isEnabled={recordingActive}>
                   <RecordingBlinking />
                   <View style={{flex: 1}}>
                     <Text style={{color: colors.dark.secondaryLight}}>
                       {formattedAudioDuration}
                     </Text>
                   </View>
-              </PeekabooView> */}
+              </PeekabooView>
 
               
 
@@ -756,12 +774,13 @@ export default (props) => {
             </PeekabooView>
             
           
-              {/* <MessageInputCTA
+              <MessageInputCTA
+                  pressable={false}
                   recordingActive={recordingActive}
                   setRecordingActive={setRecordingActive}
                   recordingDurationInMS={recordingDurationInMS}
                   setRecordingDurationInMS={setRecordingDurationInMS}
-                /> */}
+                />
 
                 <PeekabooView isEnabled={!recordingActive}>
                     {isMessageEmpty?
@@ -807,17 +826,15 @@ export default (props) => {
 
 const styles = StyleSheet.create({
   outerContainer: {
-    ...flex.directionRowItemsEnd,
-    flexDirection: 'row',
+    //...flex.directionRowItemsEnd,
+    flexDirection: 'column',
   },
   innerContainer: {
-    backgroundColor: colors.dark.secondary,
+    //backgroundColor: 'blue',
     //flex: 1,
     alignItems: "center",
-    //marginTop: 15,
     paddingRight: 15,
     width: '100%',
-    paddingTop: 5
   },
   mediaButton: {
     width: 35,

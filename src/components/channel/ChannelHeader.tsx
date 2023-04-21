@@ -307,13 +307,13 @@ export default () => {
           iconName={'Call'}
           pathFill={colors.dark.text}
         /> */}
-        {Platform.OS === 'ios' &&
+        
           <IconButton
-            onPress={handleMenuOnPress}
+            onPress={Platform.OS === 'ios' ? handleMenuOnPress : null}
             iconName={'Menu'}
             pathFill={colors.dark.text}
           />
-        }
+        
       </PeekabooView>
     </SafeAreaView>
   )

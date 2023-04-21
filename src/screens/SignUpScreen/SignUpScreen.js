@@ -61,14 +61,14 @@ const SignUpScreen = () => {
         />
 
         <Text style={styles.text}>
-          By registering, you confirm that you accept our{' '}
+          {/* By registering, you confirm that you accept our{' '}
           <Text style={styles.link} onPress={onTermsOfUsePressed}>
             Terms of Use
           </Text>{' '}
           and{' '}
           <Text style={styles.link} onPress={onPrivacyPressed}>
             Privacy Policy
-          </Text>
+          </Text> */}
         </Text>
 
         <SocialSignInButtons />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    marginTop: Platform.OS === 'android' ? 0 : 100,
+    marginTop: Platform.OS === 'android' ? 40 : 100,
   },
   title: {
     fontSize: 56,

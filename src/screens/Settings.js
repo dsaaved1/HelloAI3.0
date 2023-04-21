@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import styled from 'styled-components/native';
 import {T32} from '../common/Typography/index';
 import MenuWrapper from '../components/MenuWrapper';
@@ -9,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Entypo from 'react-native-vector-icons/Entypo';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+
 import UIDivider from '../components/UIDivider';
 import { useTheme } from '@react-navigation/native';
 import { ScreenHeader } from '../components/ScreenHeader';
@@ -17,14 +18,30 @@ import { chatClient} from '../client'
 import { SCText } from '../components/SCText';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import userImage from '../images/userImage.jpeg'
+import { useFocusEffect } from '@react-navigation/native';
+
 
 
 
 
 function Settings({ route }){
+  const [paywallShown, setPaywallShown] = useState(false);
   const navigation = useNavigation();
   const source = chatClient.user.image? { uri: chatClient.user.image } : userImage
- 
+  const [image, setImage] = useState(source);
+
+
+  useFocusEffect(
+    useCallback(() => {
+      const updateUserImage = () => {
+        const source = chatClient.user.image ? { uri: chatClient.user.image } : userImage;
+        setImage(source); // <-- Add state to manage image in the Settings component
+      };
+  
+      updateUserImage();
+      return () => {}; // Cleanup function
+    }, [])
+  );
   
   return (
     <View style={{flex:1}}>
@@ -35,7 +52,7 @@ function Settings({ route }){
         <View style={styles.row}>
             <View>
               <Image
-                source={source}
+                source={image}
                 style={styles.userImage}
               />
             </View>
@@ -47,21 +64,45 @@ function Settings({ route }){
             </View>
         </View>
         {/* <Spacer height={20} /> */}
-        <MenuWrapper wrapperStyle={{borderRadius: 0}}>
+        {
+          paywallShown ?
+              <MenuWrapper wrapperStyle={{borderRadius: 0}}>
+                <MenuItem
+                  iconBackgroundColor='#FF6'
+                  //iconBackgroundColor={colors.yellow}
+                  icon={
+                    <MaterialCommunityIcons
+                      name="star"
+                      size={18}
+                      color='#859299'
+                      //color={colors.white}
+                    />
+                  }
+                  mainText="Premium"
+                  onPress={()=>navigation.navigate('Subscription')}
+                />
+              </MenuWrapper>
+        :
+        <MenuWrapper wrapperStyle={{
+          borderRadius: 0,
+          backgroundColor: '#2e50',
+          }}>
           <MenuItem
             //iconBackgroundColor={colors.yellow}
-            iconBackgroundColor='#FFFF66'
+            
+            iconBackgroundColor='#FFFF'
             icon={
-              <MaterialCommunityIcons
-                name="star"
+              <IoniconsIcon name="lock-closed"
                 size={18}
                 color='#859299'
                 //color={colors.white}
               />
             }
-            mainText="Subscription"
+            mainText="Upgrade"
+            onPress={()=>navigation.navigate('Subscription')}
           />
         </MenuWrapper>
+      } 
         {/* <Spacer height={20} /> */}
         <MenuWrapper wrapperStyle={{borderRadius: 0}}>
             {/* <TouchableOpacity
