@@ -128,6 +128,8 @@ export const ThreadsBaby = ({route}) => {
                 SendButton={RenderNothing}
                 //onLongPressMessage={handleToggleMessageSelection}
                 MessageContent={MessageContent}
+                InlineUnreadIndicator={RenderNothing}
+                initialScrollToFirstUnreadMessage={true}
                 //{...props}
                 >
               <MessageList

@@ -76,7 +76,7 @@ const EditGroup = props => {
           throw new Error("Could not upload image");
         }
         setImage({ uri: uploadUrl });
-        setTempImageUri(tempUri);
+        setTempImageUri(uploadUrl);
         
        
       } catch (error) {

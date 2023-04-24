@@ -101,7 +101,7 @@ export default ({
           <Pressable
             style={{padding: sizes.s, marginBottom: sizes.l}}
             onPress={handleChangeOnPress}>
-            <Text style={{color: colors.dark.primaryLight}}>CHANGE</Text>
+            <Text style={{color: colors.dark.primaryLight, fontWeight:'bold'}}>CHANGE</Text>
           </Pressable>
         </View>
 

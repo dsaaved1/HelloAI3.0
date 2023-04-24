@@ -44,6 +44,8 @@ import Groups from '../images/svgs/new/groups.svg';
 import Direct from '../images/svgs/new/direct.svg';
 import Direct2 from '../images/svgs/new/direct2.svg';
 import Direct3 from '../images/svgs/new/direct3.svg';
+import apple from '../images/apple.svg';
+import google from '../images/google.svg';
 
 const iconMap = {
   // Tab related icons
@@ -68,6 +70,8 @@ const iconMap = {
   'direct': Direct,
   'direct2': Direct2,
   'direct3': Direct3,
+  'apple': apple,
+  'google': google,
 
   // Profile page icons
   away: AwayIcon,
