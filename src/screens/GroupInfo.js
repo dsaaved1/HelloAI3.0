@@ -88,9 +88,7 @@ channel.data.isGroupChat
   
   const nameChannel = (channel.data.isGroupChat === undefined || channel.data.isGroupChat === true) ? channel.data.name : otherMember?.user?.name;
 
-  const acceptedInviteFilter = {
-    invite: 'accepted',
-  };
+  const [image, setImage] = useState(source);
 
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
@@ -145,14 +143,32 @@ channel.data.isGroupChat
 
   
   useEffect(() => {
-    console.log("here1")
+    
     fetchMembers();
     fetchConvos();
   }, [])
 
   useFocusEffect(
     useCallback(() => {
-      console.log("here2")
+      console.log("update image")
+      const updateUserImage = () => {
+        const source =  channel.data.isGroupChat || channel.data.isGroupChat === undefined
+  ? (
+    channel.data.image ? { uri: channel.data.image } : userImage
+    )
+  : otherMember?.user?.image ? { uri: otherMember?.user?.image } : userImage;
+  console.log(source, "source")
+        setImage(source);
+      };  
+  
+      updateUserImage();
+      return () => {}; // Cleanup function
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      
       fetchMembers();
       fetchConvos();
 
@@ -256,7 +272,7 @@ channel.data.isGroupChat
         <View style={styles.column}>
             <View>
               <Image
-                source={source}
+                source={image}
                 style={styles.userImage}
               />
             </View>
@@ -289,6 +305,7 @@ channel.data.isGroupChat
             iconBackgroundColor='#33FFB3'
               //iconBackgroundColor={colors.darkblue}
               icon={<FontAwesomeIcons name="image" size={18} color={colors.white} />}
+              rightIcon={false}
               mainText="Media, Links, and Docs"
               //rightIconText={721}
             />
@@ -319,6 +336,7 @@ channel.data.isGroupChat
               icon={
                 <IoniconsIcon name="lock-closed" size={18} color={colors.white} />
               }
+              rightIcon={false}
               mainText="Encryption"
               subText="Message are end-to-end encrypted."
             />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,16 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import userImage from '../images/userImage.jpeg'
+import { launchImagePicker, uploadImageAsync} from '../utils/imagePickerHelper';
+import {colors} from '../theme'
 
 const EditGroup = props => {
     const channel =  props.route?.params?.channel || {};
-    const [source, setSource] = useState(channel.data.image ? { uri: channel.data.image } : userImage)
+    const source = channel?.data?.image? { uri: channel?.data?.image } : userImage
+    const [image, setImage] = useState(source);
+    const [isLoading, setIsLoading] = useState(false);
     const [groupName, setGroupName] = useState(channel.data.name);
-
-    console.log(source, groupName, "source, groupName")
+    const [tempImageUri, setTempImageUri] = useState("");
 
     useEffect(() => {
         props.navigation.setOptions({
@@ -39,7 +43,13 @@ const EditGroup = props => {
                       title={'Done'}
                       color= '#3777f0'
                       onPress={async () => {
-                        await channel.updatePartial({ set: { name: groupName } });
+                        //if tempImageUri is not empty, upload image
+                        if (tempImageUri !== "") {
+                          // Upload the image
+                          await channel.updatePartial({ set: { name: groupName, image: tempImageUri } });
+                        } else {
+                          await channel.updatePartial({ set: { name: groupName } });
+                        }
                         props.navigation.goBack();
                       }}
                     />
@@ -47,13 +57,47 @@ const EditGroup = props => {
                 );
             },
         })
-    }, [groupName]);
+    }, [groupName, tempImageUri]);
+
+    const pickImage = useCallback(async () => {
+      try {
+        const tempUri = await launchImagePicker();
+
+        if (!tempUri) return;
+  
+        // Upload the image
+        setIsLoading(true);
+        const uploadUrl = await uploadImageAsync(tempUri);
+        
+
+        setIsLoading(false);
+
+        if (!uploadUrl) {
+          throw new Error("Could not upload image");
+        }
+        setImage({ uri: uploadUrl });
+        setTempImageUri(tempUri);
+        
+       
+      } catch (error) {
+        console.log(error);
+      }
+    }, [tempImageUri]);
 
     return (
         <View style={styles.container}>
           <View style={styles.imageContainer}>
-            <Image source={source} style={styles.userImage} />
-            <TouchableOpacity onPress={() => console.log('Update photo')}>
+           {isLoading?
+                    <ActivityIndicator size="small" color={colors.dark.secondaryLight} />
+                  : 
+                    <>
+                      <Image
+                      source={image}
+                      style={styles.userImage}
+                      />
+                    </>
+                  }
+            <TouchableOpacity  onPress={pickImage}>
               <Text style={styles.updatePhotoText}>Update photo</Text>
             </TouchableOpacity>
           </View>

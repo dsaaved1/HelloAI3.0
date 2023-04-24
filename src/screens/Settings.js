@@ -31,17 +31,17 @@ function Settings({ route }){
   const [image, setImage] = useState(source);
 
 
-  useFocusEffect(
-    useCallback(() => {
-      const updateUserImage = () => {
-        const source = chatClient.user.image ? { uri: chatClient.user.image } : userImage;
-        setImage(source); // <-- Add state to manage image in the Settings component
-      };
-  
-      updateUserImage();
-      return () => {}; // Cleanup function
-    }, [])
-  );
+ useFocusEffect(
+  useCallback(() => {
+    const updateUserImage = () => {
+      const source = chatClient.user.image ? { uri: chatClient.user.image } : userImage;
+      setImage(source); // <-- Add state to manage image in the Settings component
+    };
+
+    updateUserImage();
+    return () => {}; // Cleanup function
+  }, [])
+);
   
   return (
     <View style={{flex:1}}>
@@ -110,7 +110,6 @@ function Settings({ route }){
             > */}
                 <MenuItem
                   iconBackgroundColor='#6653FF'
-                  //iconBackgroundColor={colors.darkblue}
                   icon={
                     <Entypo
                       name="key"
@@ -131,10 +130,10 @@ function Settings({ route }){
           <MenuItem
           iconBackgroundColor='#3F22EC'
           //iconBackgroundColor='#33FFB3'
-            //iconBackgroundColor={colors.blueP}
             icon={
               <IoniconsIcon name="lock-closed" size={18} color='#859299' />
             }
+            rightIcon={false}
             mainText="Privacy"
             //blocked users
             //two factor authentication
@@ -144,15 +143,14 @@ function Settings({ route }){
 
           <MenuItem
           iconBackgroundColor='#FFA500'
-            //iconBackgroundColor={colors.red}
             icon={<Entypo name="notification" size={18} color='#859299' />}
+            rightIcon={false}
             mainText="Notifications"
           />
           <UIDivider forMenu={true} />
 
           <MenuItem
              iconBackgroundColor='#53FF66'
-            //iconBackgroundColor={colors.green}
             icon={
               <MaterialCommunityIcons
                 name="star"
@@ -160,6 +158,7 @@ function Settings({ route }){
                 color='#859299'
               />
             }
+            rightIcon={false}
             mainText="Language"
           />
         </MenuWrapper>

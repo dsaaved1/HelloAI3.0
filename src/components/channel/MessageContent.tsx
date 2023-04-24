@@ -5,8 +5,9 @@ import {
   useMessageContext,
   useMessageInputContext,
   useMessagesContext,
+  useChannelContext,
 } from 'stream-chat-react-native'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, Text} from 'react-native'
 import ReplyArrow from '../../icons/ReplyArrow'
 import {colors} from '../../theme'
 import {sizes} from '../../global'
@@ -64,12 +65,12 @@ export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
           //render another type of messsage which is not a bubble
           <AIMessage 
           />
-         ) : <MessageContent
-         
-        setMessageContentWidth={setMessageContentWidth}
-        MessageFooter={RenderNothing}
-        MessageHeader={RenderNothing}
-      /> 
+         ) : 
+         <MessageContent
+           setMessageContentWidth={setMessageContentWidth}
+           MessageFooter={RenderNothing}
+           MessageHeader={RenderNothing}
+         />
       
       }
     </Swipeable>

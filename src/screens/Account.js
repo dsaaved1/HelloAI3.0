@@ -51,8 +51,8 @@ const Account = props => {
                 name: newName,
               
             },
-        };
-        // response will contain user object with updated users info
+          };
+          // response will contain user object with updated users info
           await chatClient.partialUpdateUser(update);
           setName(newName);
         } catch (error) {

@@ -28,7 +28,7 @@ export default ({
     (m) => m.user.id !== chatClient?.user?.id,
   );
 
-
+    //undefined images make it colored
   const {image} = useChannelPreviewDisplayAvatar(channel)
   const name = channel?.data?.name ? channel.data.name : otherMembers[0]?.user?.name;
   return (

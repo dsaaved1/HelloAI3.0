@@ -26,10 +26,11 @@ import { SCText } from '../components/SCText';
 import userImage from '../images/userImage.jpeg'
 import BottomAlert from '../components/BottomAlert';
 import PaywallScreen from '../components/Paywall';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Subscription = props => {
-   
+    const navigation = useNavigation();
     const [paywallShown, setPaywallShown] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
@@ -67,7 +68,8 @@ const Subscription = props => {
                             color="#3777f0"
                         />
                         }
-                        mainText="Questions Left: 5"
+                        rightIcon={false}
+                        mainText={`Questions Left: ${chatClient?.user?.questionsLeft || 0}`}
                     />
                     <UIDivider forMenu={true} />
                     <MenuItem
@@ -79,11 +81,32 @@ const Subscription = props => {
                         
                             />
                         }
-                        mainText="Friends invited: 0"
+                        rightIcon={false}
+                        mainText={`Friends Invited: ${chatClient?.user?.friendsInvited || 0}`}
                         />
+
+                    <UIDivider forMenu={true} />
                     
+                    <MenuItem
+                        icon={
+                            <Ionicons
+                            name="person-add"
+                            size={20}
+                            color="#3777f0"
+                        
+                            />
+                        }
+                       
+                        onPress={()=>navigation.navigate('InviteFriends')}
+                         mainText="Invite friends, Get Questions"
+                        />
+
+                
+                   
                 </MenuWrapper>
+
                 :
+
                 <MenuWrapper>
                     <MenuItem
                         icon={
@@ -95,6 +118,20 @@ const Subscription = props => {
                         }
                         mainText="Unlimited Questions"
                     />
+                      <MenuItem
+                        icon={
+                            <Ionicons
+                            name="person-add"
+                            size={20}
+                            color="#3777f0"
+                        
+                            />
+                        }
+                       
+                        onPress={()=>navigation.navigate('InviteFriends')}
+                         mainText={!paywallShown? "Invite Friends" : "Invite Friends, Get Questions"}
+                        />
+
                 </MenuWrapper>
             }
 

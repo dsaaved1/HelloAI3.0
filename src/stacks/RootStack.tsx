@@ -28,6 +28,7 @@ import EditGroup from '../screens/EditGroup';
 import Support from '../screens/Support';
 import About from '../screens/About';
 import Subscription from '../screens/Subscription';
+import InviteFriends from '../screens/InviteFriends';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -167,7 +168,7 @@ const SettingsNavigator = ({navigation}) => (
          <SettingsStack.Group>
             <SettingsStack.Screen
               component={Settings}
-              name={'profile'}
+              name={'Profile'}
               options={noHeaderOptions}
               initialParams={{ parentNavigation: navigation }}
             />
@@ -188,6 +189,11 @@ const SettingsNavigator = ({navigation}) => (
            <SettingsStack.Screen
               component={Subscription}
               name={'Subscription'}
+            />
+
+            <SettingsStack.Screen
+              component={InviteFriends}
+              name={'InviteFriends'}
             />
       </SettingsStack.Group>
       

@@ -98,7 +98,7 @@ export default ({
       SendButton={RenderNothing}
       onLongPressMessage={handleToggleMessageSelection}
       MessageContent={MessageContent}
-      //MessageHeader={channel.data.isGroupChat? MessageHeader : RenderNothing}
+      //MessageHeader={Object.keys(channel?.state.members).length > 2 ? MessageHeader: RenderNothing}
       {...props}
 
       MessageFooter={RenderNothing}

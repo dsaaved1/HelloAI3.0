@@ -12,6 +12,7 @@ export const SOLID_COLORS = [
   [94, 79, 7],
   [154, 91, 7],
 ].map(backgroundColor => ({backgroundColor}))
+
 export const BRIGHT_IMAGES = [
   'https://images.unsplash.com/photo-1549125764-91425ca48850?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NjF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
   'https://images.unsplash.com/photo-1549241520-425e3dfc01cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8ODB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',

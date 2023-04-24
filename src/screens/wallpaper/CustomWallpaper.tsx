@@ -13,6 +13,8 @@ import SuperAvatar from '../../components/SuperAvatar'
 import Header from '../../components/Header'
 import Attachment from '../../icons/Attachment'
 import Camera from '../../icons/Camera'
+import Plus from '../../icons/Plus'
+import Send from '../../icons/Send'
 import Smiley from '../../icons/Smiley'
 import Mic from '../../icons/Mic'
 import ChannelBackgroundWrapper from '../../utils/ChannelBackgroundWrapper'
@@ -63,7 +65,7 @@ export default ({
               channelId={channelId}
               style={StyleSheet.absoluteFill}>
               <View style={styles.headerContainer}>
-                <SuperAvatar channel={channel} size={sizes.l} />
+                <SuperAvatar channel={channel} size={sizes.l} convo={true} />
                 <Text style={styles.displayName}>{displayName}</Text>
               </View>
               <View
@@ -81,18 +83,18 @@ export default ({
                   ...flex.directionRowItemsCenter,
                 }}>
                 <View style={styles.messageInputContainer}>
-                  <Smiley {...iconProps} />
+                  <Plus {...iconProps} />
                   <View style={{flexDirection: 'row'}}>
-                    <Attachment
+                    <Mic
                       {...iconProps}
                       style={{marginRight: sizes.ml}}
                     />
-                    <Camera {...iconProps} style={{marginRight: sizes.m}} />
+                    <Send {...iconProps} style={{marginRight: sizes.m}} />
                   </View>
                 </View>
-                <View style={styles.micWrapper}>
+                {/* <View style={styles.micWrapper}>
                   <Mic {...iconProps} pathFill={colors.dark.text} />
-                </View>
+                </View> */}
               </View>
             </ChannelBackgroundWrapper>
           </View>
