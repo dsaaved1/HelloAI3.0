@@ -4,6 +4,8 @@ import { Platform } from 'react-native';
 import { getFirebaseApp } from './firebaseHelper';
 import uuid from 'react-native-uuid';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import ImageResizer from 'react-native-image-resizer';
+
 
 export const launchImagePicker = () => {
   console.log('launchImagePicker')
@@ -32,12 +34,22 @@ export const launchImagePicker = () => {
 
 
 export const uploadImageAsync = async (uri, isChatImage = false) => {
-  console.log("uploadImageAsync")
+    console.log("uploadImageAsync")
     const app = getFirebaseApp();
-console.log("app", app)
-// Remove the "file://" prefix from the URI
-const fileUri = uri.replace("file://", "");
-console.log("fileUri", fileUri)
+      // Resize and compress the image
+    const resizedImage = await ImageResizer.createResizedImage(
+      uri,
+      400, // newWidth
+      400, // newHeight
+      'JPEG', // compressFormat
+      50, // quality
+      0, // rotation
+      undefined, // outputPath
+    );
+    // Use resizedImage.uri instead of the original uri
+    const fileUri = resizedImage.uri.replace("file://", "");
+    
+    console.log("fileUri", fileUri)
 
     const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();

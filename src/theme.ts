@@ -6,6 +6,7 @@ export const colors = {
   dark: {
     primary: '#2c5588',
     primaryLight: '#3777f0',
+    primaryTransparent: '#859299',
     primaryDark: '#222b34',
     //secondary: '#222b34',
     secondary: '#1C2337',
@@ -73,7 +74,7 @@ export const theme: DeepPartial<Theme> = {
   },
   loadingIndicator: {
     container: {
-      backgroundColor: 'grey',
+      backgroundColor: colors.dark.secondaryLight,
     },
   },
   channelListFooterLoadingIndicator: {
@@ -110,7 +111,7 @@ export const theme: DeepPartial<Theme> = {
     container: {
       backgroundColor: 'transparent',
     },
-    inlineUnreadIndicator: {container: {backgroundColor: 'transparent'}},
+    inlineUnreadIndicator: {container: {backgroundColor: colors.dark.secondary}},
   },
   messageInput: {
     container: {

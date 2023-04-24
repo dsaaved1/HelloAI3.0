@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import { SVGIcon } from '../SVGIcon';
 
-const CustomButton = ({onPress, text, type = 'PRIMARY', bgColor, fgColor}) => {
+const CustomButton = ({onPress, text, icon, type = 'PRIMARY', bgColor, fgColor}) => {
   return (
     <Pressable
       onPress={onPress}
@@ -10,6 +11,14 @@ const CustomButton = ({onPress, text, type = 'PRIMARY', bgColor, fgColor}) => {
         styles[`container_${type}`],
         bgColor ? {backgroundColor: bgColor} : {},
       ]}>
+        {icon && 
+        
+          <View style={{justifyContent:'center', marginRight:10}}>
+         
+            <SVGIcon height={18} type={icon} width={18} />
+          
+        </View>
+        }
       <Text
         style={[
           styles.text,
@@ -28,7 +37,8 @@ const styles = StyleSheet.create({
 
     padding: 15,
     marginVertical: 5,
-
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
