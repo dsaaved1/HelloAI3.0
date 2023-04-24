@@ -11,9 +11,6 @@ import ConvoPreview from '../components/channel-list/ConvoPreview';
 
 
 
-
-
-
 export const List = props => {
   const twoMemberFilters = {
     members: { $in: [chatClient?.user?.id] },

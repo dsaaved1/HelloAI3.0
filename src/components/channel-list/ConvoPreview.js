@@ -300,13 +300,13 @@ export default ({
            <View style={styles.modalContainer}>
            <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
              <View style={styles.modalContent}>
-               <Text style={styles.modalTitle}>Rename Convo</Text>
+               <Text style={styles.modalTitle}>Rename Channel</Text>
 
                <TextInput
                  style={styles.modalInput}
                  value={convoName}
                  onChangeText={(text) => setConvoName(text)}
-                 placeholder="Enter convo name"
+                 placeholder="Enter channel name"
                  autoFocus={true}
                  onSubmitEditing={handleRename}
                />
@@ -340,7 +340,7 @@ export default ({
            <View style={styles.modalContainer}>
            <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
              <View style={styles.modalContent}>
-               <Text style={styles.modalTitle}>Delete Convo:</Text>
+               <Text style={styles.modalTitle}>Delete Channel:</Text>
 
                <Text
                 style={{ fontSize: 20,

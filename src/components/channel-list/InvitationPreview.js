@@ -111,7 +111,6 @@ import {Pressable, StyleSheet, Text, View,
     }
 
     useEffect(() => {
-      console.log("here1")
       fetchConvos();
     }, [])
 
@@ -130,12 +129,36 @@ import {Pressable, StyleSheet, Text, View,
     }
 
 
-    const aceeptInvitation = async () => { 
+    const acceptInvitation = async () => { 
       //create a group chat
       console.log("accept invitiations")
+      const targetChannelId = channel?.id;
       await Promise.all([
-        channels.map(channel => channel.acceptInvite()),
+        channels.map(async (channel) => {
+          if (channel.id === targetChannelId) { 
+            // add the member without sending a text
+            await channel.acceptInvite();
+          } else {
+            // add the member and send the text
+            await channel.acceptInvite()
+            const  text =  `${chatClient?.user?.name} joined this channel!`
+            const message = {
+                text,
+                type: 'system'
+            };
+            await channel.sendMessage(message);
+          }
+        })
       ]);
+    }
+
+    const rejectInvitation = async () => {
+      console.log("reject invitiations")
+      channel.rejectInvite();
+   
+      channels.map( async (channel) => {
+        await channel.removeMembers([chatClient?.user?.id]);
+      })
     }
 
     const ChannelPreviewTitleCustom = ({displayName, style }) => {
@@ -192,7 +215,7 @@ import {Pressable, StyleSheet, Text, View,
   
           {(status === 'pending' || status === 'accepted') &&
               <TouchableOpacity
-                  onPress={aceeptInvitation}
+                  onPress={acceptInvitation}
               >
                    <View style={styles.checkWrap}>
                       <Check
@@ -210,7 +233,7 @@ import {Pressable, StyleSheet, Text, View,
 
           {(status === 'pending' || status === 'rejected') && 
               <TouchableOpacity
-                  onPress={async () => await channel.rejectInvite()}>
+                  onPress={rejectInvitation}>
                       <View style={[styles.circleButton, 
                       { backgroundColor: '#3777f0' }
                         // { backgroundColor: '#D94444' }

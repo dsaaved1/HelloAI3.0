@@ -57,140 +57,9 @@ import GPT4 from '../../images/GPT4.png'
 import Bard from '../../images/Bard.png'
 import { chatClient } from '../../client';
 //import { SVGIcon } from '../SVGIcon';
+import PaywallScreen from '../Paywall';
 
 
-
-const ModalPoup = ({visible, onClose, takePhotoAI, pickImageAI, clearMemory}) => {
-  const [showModal, setShowModal] = useState(visible);
-  const [loading, setLoading] = useState(false);
-  const scaleValue = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    toggleModal();
-  }, [visible]);
-
-
-  const onLoading = (value) => {
-    setLoading(value);
-  }
-
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-                 <ScrollView 
-                    horizontal={true} 
-                    showsHorizontalScrollIndicator={false}
-                    indicatorStyle={'white'} >
-                        <View style={{flexDirection: 'row',justifyContent: 'space-evenly'}}>
-                            <View >
-                                <TouchableOpacity style={styles.mediaItem} onPress={takePhotoAI}>
-                                    {loading && 
-                                     <View style={{ ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size={'small'} color={"#3777f0"} />
-                                      </View>
-                                    }{
-                                      <Image
-                                        style={styles.mediImage}
-                                        source={camera}
-                                        onLoadStart={() => onLoading(true)}
-                                        onLoadEnd={() => onLoading(false)}
-                                      /> 
-                                    }
-                                    <Text style={styles.mediaText}>Camera</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.mediaItem} onPress={onClose}>
-                                    {loading && 
-                                       <View style={{ ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size={'small'} color={"#3777f0"} />
-                                      </View>
-                                    }{
-                                      <Image
-                                        style={styles.mediImage}
-                                        source={code}
-                                        onLoadStart={() => onLoading(true)}
-                                        onLoadEnd={() => onLoading(false)}
-                                      />
-                                    }
-                                    <Text style={styles.mediaText}>Code</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <View >
-                                <TouchableOpacity style={styles.mediaItem} onPress={pickImageAI}>
-                                    {loading && 
-                                       <View style={{ ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size={'small'} color={"#3777f0"} />
-                                      </View>
-                                    }{
-                                      <Image
-                                        style={styles.mediImage}
-                                        source={library}
-                                        onLoadStart={() => onLoading(true)}
-                                        onLoadEnd={() => onLoading(false)}
-                                      />
-                                    }
-                                    <Text style={styles.mediaText}>Gallery</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.mediaItem} onPress={onClose}>
-                                    {loading && 
-                                       <View style={{ ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' }}>
-                                        <ActivityIndicator size={'small'} color={"#3777f0"} />
-                                      </View>
-                                    }{
-                                      <Image
-                                        style={styles.mediImage}
-                                        source={youtube}
-                                        onLoadStart={() => onLoading(true)}
-                                        onLoadEnd={() => onLoading(false)}
-                                      />
-                                    }
-                                    <Text style={styles.mediaText}>Youtube</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <View >
-                                <TouchableOpacity style={styles.mediaItem} onPress={clearMemory}>
-                                    <Image style={styles.mediImage} source={file} />
-                                    <Text style={styles.mediaText}>Files</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.mediaItem} onPress={onClose}>
-                                    <Image style={styles.mediImage} source={microphone} />
-                                    <Text style={styles.mediaText}>Voice</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                  </ScrollView>
-                        
-                        <View style={styles.cancelContainer}>
-                            <TouchableOpacity onPress={onClose}>
-                              <Text style={styles.cancelText}>Cancel</Text>
-                            </TouchableOpacity>
-                         </View>
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
 
 
 export default (props) => {
@@ -226,6 +95,8 @@ export default (props) => {
     const [power, setPower] = useState("image");
     const [messageImage, setMessageImage] = useState("");
     const [currentModel, setCurrentModel] = useState("GPT-3.5");
+    const [showPaywall, setShowPaywall] = useState(false);
+    const [hasProAccess, setHasProAccess] = useState(false);
 
     let Container = visibleContainer ? View : Swipeable;
 
@@ -247,7 +118,7 @@ export default (props) => {
         ),
         onPress: () => {
           setCurrentModel("GPT-3.5")
-          setShowAIModel(false)
+          setShowAIModel(false)   
         },
       },
       {
@@ -264,14 +135,22 @@ export default (props) => {
         },
       },
       {
-        text: 'Bard',
+        text: '...',
         icon:(
           <View style={{borderRadius:25}}>
+            {/* {hasProAccess ?
             <Image source={Bard} style={{width:25, height:25}}/>
+            : */}
+            <IoniconsIcon name="lock-closed" size={18} color='#859299' />
+            
           </View>
         ),
         onPress: () => {
-          setShowAIModel(false)
+          if (hasProAccess) {
+          } else {
+            setShowAIModel(false),
+            setShowPaywall(true)
+          }
         },
       },
     ];
@@ -286,27 +165,45 @@ export default (props) => {
         icon: (
           <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
         ),
-        onPress: () => {},
+        onPress: () => {
+          if (hasProAccess) {
+          } else {
+            setShowPaywall(true)
+           setShowChatAIAlert(false)
+            
+          }
+        },
       },
       {
         text: 'Photo & Video Library',
         icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
-        onPress: () => {},
+        onPress: () => {
+          if (hasProAccess) {
+          } else {
+            setShowPaywall(true)
+            setShowChatAIAlert(false)
+           
+          }
+        },
       },
       {
         text: 'Poll',
         icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
-        onPress: () => {},
+        onPress: () => {
+          if (hasProAccess) {
+          } else {
+            setShowPaywall(true)
+            setShowChatAIAlert(false)
+            
+          }
+        },
       },
       {
         text: 'Refresh Conversation',
         icon: (
           <IoniconsIcon name="ios-refresh" color="#3777f0" size={25} />
         ),
-        onPress: () => {
-          clearMemory()
-          
-        },
+        onPress: () => {clearMemory()},
       },
       {
         text: 'Choose AI Model',
@@ -330,12 +227,18 @@ export default (props) => {
         icon: (
           <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
         ),
-        onPress: () => {takeAndUploadImage()},
+        onPress: () => {
+          setShowChatAlert(false),
+          takeAndUploadImage()
+        },
       },
       {
         text: 'Photo & Video Library',
         icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
-        onPress: () => {pickImageFromGallery()},
+        onPress: () => {
+          setShowChatAlert(false),
+          pickImageFromGallery()
+        },
       },
       {
         text: 'Document',
@@ -359,11 +262,11 @@ export default (props) => {
       //   ),
       //   onPress: () => {},
       // },
-      {
-        text: 'Contact',
-        icon: <EvilIconsIcons name="user" color= '#3777f0' size={25} />,
-        onPress: () => {},
-      },
+      // {
+      //   text: 'Contact',
+      //   icon: <EvilIconsIcons name="user" color= '#3777f0' size={25} />,
+      //   onPress: () => {},
+      // },
       // {
       //   text: 'Poll',
       //   icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
@@ -403,30 +306,29 @@ export default (props) => {
 
 
   const pickImageFromGallery = useCallback(async () => {
-    // console.log('pickImageFromGallery');
+    console.log('pickImageFromGallery');
   
-    // const options = {
-    //   mediaType: 'photo',
-    //   quality: compressImageQuality,
-    // };
+    const options = {
+      mediaType: 'photo',
+      quality: compressImageQuality,
+    };
   
-    // launchImageLibrary(options, async (response) => {
-    //   if (response.didCancel) {
-    //     console.log('User cancelled image picker');
-    //   } else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error);
-    //   } else {
-    //     const photo = {
-    //       uri: response.assets[0].uri,
-    //       name: response.assets[0].fileName || `image-${Date.now()}.jpg`,
-    //       type: response.assets[0].type || 'image/jpeg',
-    //     };
+    launchImageLibrary(options, async (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const photo = {
+          uri: response.assets[0].uri,
+          name: response.assets[0].fileName || `image-${Date.now()}.jpg`,
+          type: response.assets[0].type || 'image/jpeg',
+        };
   
-    //     console.log(photo, 'photo');
-    //     await uploadNewImage(photo);
-    //     navigation.navigate(CHANNEL_STACK.IMAGE_PREVIEW);
-    //   }
-    // });
+        await uploadNewImage(response.assets[0].uri);
+        navigation.navigate(CHANNEL_STACK.IMAGE_PREVIEW);
+      }
+    });
   }, [compressImageQuality]);
 
 
@@ -488,23 +390,37 @@ export default (props) => {
     
   }
 
-  const sendTextMessage = async () => {
-    const messageData = {
-      class: 'text',
-      text: messageText,
-    }
-
-    await channel.sendMessage(messageData)
-    setMessageText("");
-  }
 
   const sendQuestionGPT = async (question) => {
-    await sendQuestion()
-    if (currentModel == 'GPT-4'){
-      await sendGPT4(question)
+    if (chatClient?.user?.questionsLeft > 10 || chatClient?.user?.proAccess == true){
+        await sendQuestion()
+        if (currentModel == 'GPT-4'){
+          await sendGPT4(question)
+        } else {
+          await sendGPT3(question)
+        }
+        if (!chatClient?.user?.proAccess){
+          try {
+            const currentQuestions = chatClient?.user?.questionsLeft
+            const update = {
+              id: chatClient.user.id,
+              set: {
+                  questionsLeft: currentQuestions - 1,
+                
+              },
+            };
+            await chatClient.partialUpdateUser(update);
+          } catch (error) {
+            console.error('Error updating questions left:', error);
+          }
+        }
     } else {
-      await sendGPT3(question)
+      console.log("Failed to send question AI")
+      setText("");
+      //que diga este no questions left
+      setShowPaywall(true)
     }
+
    
   }
 
@@ -571,6 +487,7 @@ export default (props) => {
   }
 
   const sendGPT3 = async (question) => {
+    console.log(currentModel, "currentModel")
     const { Configuration, OpenAIApi } = require('openai')
     const configuration = new Configuration({
       apiKey: keys.ai,
@@ -584,21 +501,16 @@ export default (props) => {
         const convoData = channel.data.AIMessages
         convoData.push(questionChat);
 
-        console.log("here in ai during response1")
+        
         const response = await openai.createChatCompletion({
           model: "gpt-3.5-turbo",
           messages: convoData
         });
     
         const answer = response.data.choices[0].message.content
-        
-        console.log(answer)
-        console.log("here in ai after response3")
-        // console.log(answer)
 
         convoData.push({"role": "assistant", "content": answer})
 
-        console.log("updating convo")
         await channel.updatePartial({ set:{ AIMessages: convoData } });
 
 
@@ -630,7 +542,7 @@ export default (props) => {
       <View style={{...styles.outerContainer, paddingBottom: recordingActive ? 20 : 0, backgroundColor: '#E1DFDF',flex:1}}>
         {/* <SafeAreaView style={{...styles.outerContainer, paddingBottom: recordingActive ? 20 : 0, backgroundColor: '#E1DFDF'}}> */}
         <PeekabooView isEnabled={!recordingActive}>
-        <View style={{alignItems:'center',  widht:'100%', marginBottom: -10}}>
+        <View style={{alignItems:'center',  widht:'100%', marginBottom: -11}}>
           <AntDesign name="swapleft" size={24} color={colors.dark.secondaryLight} />
         </View>
         </PeekabooView>
@@ -717,6 +629,8 @@ export default (props) => {
           textColor={colors.dark.text}
           withIcon={true}
         />
+
+        
       </View>
     )
   }
@@ -731,7 +645,7 @@ export default (props) => {
           />
       <Container renderRightActions={rightSwipeActions}>
       <SafeAreaView style={{...styles.outerContainer, backgroundColor: colors.dark.secondary}}>
-        <View style={{alignItems:'center',  widht:'100%',  marginBottom: -10}}>
+        <View style={{alignItems:'center',  widht:'100%',  marginBottom: -11}}>
           <AntDesign name="swapright" size={24} color={colors.dark.secondaryLight} />
         </View>
         <View
@@ -805,7 +719,7 @@ export default (props) => {
            </View>
         
           </SafeAreaView>
-        <ModalPoup visible={visible} onClose={() => setVisible(false)} clearMemory={clearMemory}/>
+        
       </Container>
       <BottomAlert
           visible={showChatAIAlert}
@@ -819,6 +733,15 @@ export default (props) => {
           textColor={colors.dark.text}
           withIcon={true}
         />
+        <Modal
+           visible={showPaywall}
+           animationType="slide"
+           transparent={true}
+        >
+
+           <PaywallScreen onClose={() => setShowPaywall(false)} />
+
+        </Modal>
     </View>
     
   )

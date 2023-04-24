@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import {capitalize, get, isEmpty} from 'lodash'
 import { SCText } from './SCText';
 import { chatClient } from '../client';
+import {colors} from '../theme'
 
 const styles = StyleSheet.create({
   column: {
@@ -41,7 +42,6 @@ const USER_COLORS = [
   // '#a18df6',
   // '#7c64f5',
   // '#00a400',
-  '#F5A623', // Vibrant Orange
   '#50E3C2', // Teal
   '#7ED321', // Lime Green
   '#4A90E2', // Sky Blue
@@ -77,9 +77,8 @@ const calculateUserColor = (userId) => {
 
 
 export const MessageUserBar = React.memo(({ message }) => {
-  const { colors } = useTheme();
+  //const { colors } = useTheme();
   const {user} = message
- 
     return (
       <>
         {user.id !== chatClient.user.id && 
@@ -88,7 +87,8 @@ export const MessageUserBar = React.memo(({ message }) => {
             style={[
               styles.messageUserName,
               {
-                color: calculateUserColor(user.id),
+                color: colors.dark.secondaryLight,
+               //color: calculateUserColor(user.id),
               },
             ]}>
             {message.user.name}

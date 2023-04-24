@@ -42,7 +42,7 @@ export default (props) => {
     setShowRefreshIcon(true);
     setTimeout(() => {
       setShowRefreshIcon(false);
-    }, 3000); // Set the time (in milliseconds) for how long the icon should be visible
+    }, 2500); // Set the time (in milliseconds) for how long the icon should be visible
   };
 
   

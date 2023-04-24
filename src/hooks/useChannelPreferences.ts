@@ -19,7 +19,7 @@ type ReturnValue = {
 }
 
 export const DEFAULT_CHANNEL_PREFERENCES = {
-  imageUri: 'https://i.redd.it/3jfjc53fsyb61.jpg',
+  imageUri: 'https://images.unsplash.com/photo-1598760122223-45f0f18a1bbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2487&q=80',
   backgroundColor: undefined,
   dimValue: 0.25,
 }

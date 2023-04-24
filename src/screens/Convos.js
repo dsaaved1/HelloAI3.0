@@ -12,7 +12,9 @@ import uuid from 'react-native-uuid';
 import { useAppContext} from '../App'
 import { useFocusEffect } from '@react-navigation/native';
 import ChannelPreview from '../components/channel-list/ChannelPreview'
+import ShortUniqueId from 'short-unique-id';
 
+const uid = new ShortUniqueId({ length: 7 });
 
 
 const Convos = ({route}) => {
@@ -54,7 +56,11 @@ const Convos = ({route}) => {
         id: user.id,
         set: {
             ownChatId: newChannel.id,
-          
+            questionsLeft: 10,
+            friendsInvited: 0,
+            proAccess: false,
+            //username: uid(),
+            inviteUsed: false,
         },
     };
     // response will contain user object with updated users info
