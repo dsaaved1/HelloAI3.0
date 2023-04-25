@@ -688,13 +688,15 @@ export default (props) => {
             </PeekabooView>
             
           
-              <MessageInputCTA
-                  pressable={false}
-                  recordingActive={recordingActive}
-                  setRecordingActive={setRecordingActive}
-                  recordingDurationInMS={recordingDurationInMS}
-                  setRecordingDurationInMS={setRecordingDurationInMS}
-                />
+                <MessageInputCTA
+                    pressable={false}
+                    //onPress={() => setShowPaywall(true)}
+                    recordingActive={recordingActive}
+                    setRecordingActive={setRecordingActive}
+                    recordingDurationInMS={recordingDurationInMS}
+                    setRecordingDurationInMS={setRecordingDurationInMS}
+                  />
+    
 
                 <PeekabooView isEnabled={!recordingActive}>
                     {isMessageEmpty?

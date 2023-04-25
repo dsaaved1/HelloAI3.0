@@ -22,12 +22,14 @@ const audioRecorderPlayer = new AudioRecorderPlayer()
 type Props = {
   recordingActive: boolean
   pressable: boolean
+  press: () => void
   recordingDurationInMS: number
   setRecordingActive(isActive: boolean): void
   setRecordingDurationInMS(ms: number): void
 }
 export default ({
   pressable,
+  press,
   recordingActive,
   setRecordingActive,
   recordingDurationInMS,
@@ -132,7 +134,7 @@ export default ({
       <View style={styles.micWrap}>
         <IconButton
           usePressable={pressable}
-          onPress={() => null}
+          onPress={press}
           onLongPress={onStartRecord}
           onPressOut={onStopRecord}
           iconName={'Mic'}
