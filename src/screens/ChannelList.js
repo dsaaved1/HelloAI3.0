@@ -12,6 +12,7 @@ import ConvoPreview from '../components/channel-list/ConvoPreview';
 
 
 export const List = props => {
+  
   const twoMemberFilters = {
     members: { $in: [chatClient?.user?.id] },
     type: 'messaging',
@@ -70,13 +71,9 @@ export const List = props => {
       channels.forEach(channel => {
         channel.on('channel.deleted', () => fetchChannels());
         channel.on('channel.created', () => fetchChannels());
-        channel.on('channel.unmuted', () => fetchChannels());
-        channel.on('channel.muted', () => fetchChannels());
-        channel.on('connection.changed', () => fetchChannels());
-        channel.on('connection.recovered', () => fetchChannels());
         channel.on('user.presence.changed', () => fetchChannels());
-        channel.on('user.watching.start', () => fetchChannels());
-        channel.on('user.watching.stop', () => fetchChannels());
+        // channel.on('user.watching.start', () => fetchChannels());
+        // channel.on('user.watching.stop', () => fetchChannels());
       });
     } catch (error) {
       console.log(error);
@@ -100,17 +97,48 @@ export const List = props => {
         channelsRef.current.forEach(channel => {
           channel.off('channel.deleted');
           channel.off('channel.created');
-          channel.off('channel.unmuted');
-          channel.off('channel.muted');
-          channel.off('connection.changed');
-          channel.off('connection.recovered');
           channel.off('user.presence.changed');
-          channel.off('user.watching.start');
-          channel.off('user.watching.stop');
+          // channel.off('user.watching.start');
+          // channel.off('user.watching.stop');
         });
       };
     }, [memoizedFilters, navigation])
   );
+
+
+  const customEventChannel = async (setChannels, event) => {
+    const eventChannel = event.channel;
+    // Check if the current user is a member of the channel
+    const isCurrentUserMember = eventChannel?.state?.members?.[chatClient?.user?.id];
+    console.log((!isCurrentUserMember), "isCurrentUserMember .... here in channel list")
+    console.log((eventChannel.typeChat !== 'chat'), "eventChannel.typeChat .... here in channel list")
+    console.log((!!(eventChannel.invite === 'accepted' || eventChannel.created_by_id === chatClient?.user?.id)), "eventChannel invited .... here in channel list")
+    console.log(!eventChannel?.id, "eventChannel?.id .... here in channel list")
+    //they all should be false so that they are true to filters so that it adds to channels
+    if (!eventChannel?.id || 
+      (
+        !(
+          eventChannel.invite === 'accepted' || 
+          eventChannel.created_by_id === chatClient?.user?.id
+        )
+      ) || eventChannel.typeChat !== 'chat' 
+    //if we don't use then for some reason why have duplicated channels
+    || !isCurrentUserMember
+    ){
+      console.log("returning .... IN CHANNEL LISSSST")
+      return;
+    }
+  
+    console.log(chatClient?.user?.id, "chatClient.user?.id .... here in channel list")
+  
+    try {
+      const newChannel = chatClient.channel(eventChannel.type, eventChannel.id);
+      await newChannel.watch();
+      setChannels(channels => [newChannel, ...channels]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={{ flex: 1}}>
@@ -140,6 +168,10 @@ export const List = props => {
           filters={memoizedFilters} 
           sort={sort}  
           EmptyStateIndicator={CustomEmpty}
+          
+          onAddedToChannel={customEventChannel}
+            //this takes care of updating name channel correctly
+          onChannelUpdated={customEventChannel}
         /> */}
       </View>
 

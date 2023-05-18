@@ -69,6 +69,8 @@ const GroupInfo = props =>  {
   const [memberAction, setMemberAction] = useState(null)
   const [channels, setChannels] = useState(null)
   const [isAnyModalVisible, setIsAnyModalVisible] = useState(false);
+  const [rightIconMute, setRightIconMute] = useState(null);
+
 
   const channel = props.route?.params?.channel || {};
   const [isModerator, setIsModerator] = useState(false)
@@ -102,7 +104,7 @@ channel.data.isGroupChat
     }
       return {
         image: member.user.image  ? { uri: member.user.image } : userImage, // Assuming the user has an 'image' property
-        name: `${member.user.name} ${role}`,
+        name: chatClient?.user?.name == member.user.name ? 'You' : member.user.name,
         about: member.user.id, // Assuming the user has an 'about' property
         id: index,
         role: role
@@ -175,6 +177,20 @@ channel.data.isGroupChat
     }, [participants])
   );
 
+  useEffect(() => {
+    if (channel) {
+      const muteStatus = channel.muteStatus();
+      //console.log(muteStatus, "mute stt")
+      if (muteStatus && !muteStatus.muted) {
+        // Channel is unmuted, update the rightIconText
+        const formattedDate = formatDate(muteStatus.expiresAt);
+        setRightIconMute(formattedDate);
+      } else {
+        // Channel is muted, set rightIconText to null
+        setRightIconMute(null);
+      }
+    }
+  }, [channel]);
   
  
   useEffect(() => {
@@ -382,19 +398,21 @@ channel.data.isGroupChat
         
         </MenuWrapper>
 
-        {isModerator && 
-          <View style={{ flexDirection: 'row', width: '100%', marginBottom:-24}}>
+        {channel.data.isGroupChat && 
+          <View style={{ flexDirection: 'row', width: '100%', marginBottom:-18}}>
               <T18 style={{ marginTop: '9%', alignSelf: 'flex-start' }}>
                 {participants} Participants
               </T18>
+              {isModerator && 
               <View style={{ marginTop: '5%', flex:1}}>
                 <IconButton
                     style={{ alignSelf: 'flex-end' }}
                     onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel, channels: channels})}
                     iconName={'CirclePlus'}
                     //pathFill={'grey'}
-                  />
+                  />  
               </View>
+              }
           </View>
        }
 
@@ -440,7 +458,7 @@ channel.data.isGroupChat
                   contactProfile={item.image}
                   mainText={item.name}
                   subText={item?.about}
-                  //rightIconText={item.role}
+                  rightIconText={item.role}
                 />
               </TouchableOpacity>
                 {contacts.length - 1 > index && (

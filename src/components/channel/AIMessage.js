@@ -24,6 +24,7 @@ import {sizes} from '../../global'
 import {SVGIcon} from '../SVGIcon'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import userImage from '../../images/userImage.jpeg'
+import {isEmpty, get} from 'lodash'
 
 
   function format24Hours(dateString) {
@@ -46,6 +47,12 @@ export default AIMessage = () => {
       //actionSheetRef.current?.dismiss();
       reactionPickerRef.current?.present();
     };
+
+    const isMessageDeleted = useMemo(
+      () => !isEmpty(message.deleted_at),
+      [message.id],
+    )
+  
     
 
     const handleToggleMessageSelection = ({
@@ -86,15 +93,20 @@ export default AIMessage = () => {
       <TouchableOpacity onLongPress={() => handleToggleMessageSelection({ message })}>
         <View style={styles.wrapperStyle}>
           <View style={styles.container}>
+            {!isMessageDeleted &&
               <View style={styles.profileContainer}>
                   <Image source={source} style={styles.profilePicture} />
               </View>
+            }
 
               <View  style={styles.messageContainer}>
 
+              {!isMessageDeleted && 
                   <View style={styles.nameContainer}>
                 
-                      <Text style={styles.nameText}>{userName}</Text>
+                    
+                       <Text style={styles.nameText}>{userName}</Text>
+                      
                           {
                           dateString && 
                           <View style={styles.timeContainer}>
@@ -104,26 +116,17 @@ export default AIMessage = () => {
                                            <View style={[styles.circleButton, { backgroundColor: '#D94444' }]}>
                                               <SVGIcon height={7} fill={'black'} type={'close-button'} width={7} />
                                            </View>
-                                          // <View style={{ flexDirection: 'row', marginHorizontal:20}}>
-                                              
-                                          //     <Text style={{color:"#D86F6F", marginRight:10}}>Unsolved</Text>
-                                          //     {/* <AntDesign name="checkcircleo" size={15} color="#D86F6F" /> */}
-                                          // </View>
+                                      
                                       ) : (
                                         <View style={styles.checkWrap}>
                                             <Check
-                                                pathFill={colors.dark.background}
+                                               pathFill={colors.dark.background}
                                                 width={sizes.l}
                                                 height={sizes.l}
                                             />
                                         
                                         </View>
-                                          // <View style={{ flexDirection: 'row', marginHorizontal:20}}>
-                                              
-                                          //     <Text style={{color:"#8E8E", marginRight: 10}}>Solved</Text>
-                                          //     {/* <AntDesign name="checkcircle" size={15}  color={'#8E8E'} /> */}
-                                              
-                                          // </View>
+                                       
                                       )}
                                   </>
                               )}
@@ -136,7 +139,7 @@ export default AIMessage = () => {
                         }
 
                   </View>
-
+                }
                   <View style={styles.textContainer}>
                       <Text style={styles.text }>
                               {message.text}
@@ -241,7 +244,7 @@ export default AIMessage = () => {
         borderRadius: 16,
         borderWidth: 2,
         borderColor: colors.dark.highlighted,
-        backgroundColor: colors.dark.primaryLight,
+        backgroundColor: "#8E8E",
         marginRight: 9,
       },
       circleButton: {

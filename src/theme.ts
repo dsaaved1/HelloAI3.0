@@ -134,8 +134,8 @@ export const theme: DeepPartial<Theme> = {
   messageSimple: {
     file: {
       container: {
-        //backgroundColor: '#232B48'
-        backgroundColor: colors.dark.highlighted,
+        backgroundColor: '#232B48'
+        //backgroundColor: colors.dark.highlighted,
       },
       fileSize: {color: colors.dark.primaryTransparent},
       title: {color: colors.dark.text, fontWeight: 'normal'},

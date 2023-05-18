@@ -4,6 +4,7 @@ import {
   Platform,
   SafeAreaView,
   View,
+  TouchableOpacity
 } from 'react-native'
 import {get, isEmpty} from 'lodash'
 import React, {useMemo} from 'react'
@@ -19,6 +20,7 @@ import {sendButtonStyle} from '../components/channel/MessageInputCTA'
 import {messageInputStyle} from '../components/channel/MessageInput'
 import PeekabooView from '../components/PeekabooView'
 import Images from '../icons/Images'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export type ChannelScreenProps = {
   navigation: StackNavigationProp<{}>
@@ -48,13 +50,17 @@ export default ({navigation: {goBack}}: ChannelScreenProps) => {
         backgroundColor: colors.dark.background,
       }}>
       <View style={{...flex.directionRow1}}>
-        <IconButton
+        {/* <IconButton
           style={{alignSelf: 'flex-start'}}
           onPress={resetAndGoBack}
           iconName={'CircleClose'}
           pathFill={colors.dark.text}
-        />
+        /> */}
+         <TouchableOpacity onPress={goBack} style={{padding: 10,}}>
+        <Icon name="close" size={25} color='white' />
+      </TouchableOpacity>
       </View>
+      
       <PeekabooView isEnabled={!isEmpty(uri)}>
         <Image source={{uri}} style={{flex: 3}} />
       </PeekabooView>

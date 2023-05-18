@@ -75,6 +75,10 @@ const MessageText = ({renderText, ...props}: MessageTextProps) => {
     return Object.keys(channel?.state?.members).length > 2
   }
 
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length == 1
+  }
+
   const showSenderName = () => {
     return message?.user?.id !== chatClient?.user?.id;
   };
@@ -100,7 +104,7 @@ const MessageText = ({renderText, ...props}: MessageTextProps) => {
         //color: colors.dark.secondaryLight, 
         color: calculateUserColor(message?.user?.id),
         marginBottom: -6, paddingVertical: 4}}>
-          {message?.user?.name || message?.user?.id}
+          {message?.user?.name}
         </Text>
       )}
     <View style={flex.directionRowItemsEndContentSpaceBetween}>
@@ -129,7 +133,9 @@ const MessageText = ({renderText, ...props}: MessageTextProps) => {
           }}>
           {messageCreationTime}
         </Text>
-        <MessageStatus />
+        {!oneUser() &&
+          <MessageStatus /> 
+        }
       </View>
     </View>
     </View>

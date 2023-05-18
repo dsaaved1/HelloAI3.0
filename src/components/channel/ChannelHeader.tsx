@@ -1,4 +1,4 @@
-import {Alert, Platform, SafeAreaView, StyleSheet, Text, View} from 'react-native'
+import {Alert, Platform, SafeAreaView, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {colors} from '../../theme'
 import React, {useMemo, useState, useEffect} from 'react'
 import {useAppContext} from '../../App'
@@ -20,6 +20,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {StackNavigatorParamList} from '../../types'
 import {createMessageExpanded} from '../../utils/actions/chatActions'
 import { ROOT_STACK } from '../../stacks/RootStack'
+import { SVGIcon } from '../SVGIcon';
+//import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default () => {
   const {navigate, goBack} =
@@ -41,7 +43,13 @@ export default () => {
     )
   : null;
 
-  const chatName = channel?.data?.chatName || 'No name'
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length === 1
+  }
+
+  const chatName = oneUser() ? '' : channel?.data?.chatName 
+  const mainChannelName = !chatName ?  otherMember?.user?.name : chatName
+ 
 
   const [classMessageEnabled, setClassMessageEnabled] = useState(false);
   const [threadEnabled, setThreadEnabled] = useState(false);
@@ -57,17 +65,12 @@ export default () => {
       const messageId = get(selectedMessageIdsEditing, 0, 'id');
       const message = await chatClient.getMessage(messageId);
 
-      if (message.message.class !== 'AIAnswer') {
-        if (message.message.class === 'AIQuestion') {
-          setThreadEnabled(true);
-        } else{ 
-          setThreadEnabled(false);
-        }
-        setClassMessageEnabled(false);
-      } else {
-        message.message.isSolved === 'unsolved' ? setIsSolved(true) : setIsSolved(false)
+      if (message.message.isAI ) {
         setThreadEnabled(true);
         setClassMessageEnabled(true);
+        message.message.isSolved === 'unsolved' ? setIsSolved(true) : setIsSolved(false)
+        
+        
       }
     };
   
@@ -270,11 +273,16 @@ export default () => {
         </View>
       </PeekabooView>
       <PeekabooView isEnabled={!isInMessageSelectionMode}>
-        <IconButton
+        <TouchableOpacity
+        onPress={goBack}
+        style={{padding: 10, marginLeft: 5}}>
+           <SVGIcon height={18} type={'back-button'} width={18}/>
+        </TouchableOpacity>
+        {/* <IconButton
           onPress={goBack}
           iconName={'ArrowLeft'}
           pathFill={colors.dark.text}
-        />
+        /> */}
         {/* <SuperAvatar isSelected={false} channel={channel} size={32} /> */}
         <View style={{padding: sizes.m, flex: 1, alignItems:'center'}}>
           <Text
@@ -286,6 +294,7 @@ export default () => {
             }}>
             {displayName}
           </Text>
+          {mainChannelName !== undefined && 
           <Text
             numberOfLines={1}
             style={{
@@ -293,9 +302,10 @@ export default () => {
               color: colors.dark.secondaryLight,
               //fontWeight: 'bold',
               fontSize: sizes.ml,
-            }}>
-            {chatName}
+            }}>   
+            {mainChannelName}
           </Text>
+          }
         </View>
         {/* <IconButton
           onPress={() => null}

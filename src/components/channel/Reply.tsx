@@ -86,7 +86,7 @@ export default ({
     editing && clearEditingState()
     quotedMessage && clearQuotedMessageState()
   }
-  const {user, attachments, text} = message as MessageType
+  const {user, attachments, text, isAI, model} = message as MessageType
 
   const {
     messageText,
@@ -97,7 +97,7 @@ export default ({
     return {
       userColor: calculateUserColor(user?.id),
       messageText: text || capitalize(get(attachments, [0, 'type'])),
-      authorName: user?.name,
+      authorName: isAI? model: user?.name,
       imageURI:
         get(attachments, [0, 'image_url']) ||
         get(attachments, [0, 'asset_url']) ||

@@ -61,7 +61,7 @@ export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
         </View>
       )}>
         {
-        (message.class === 'AIQuestion' || message.class === 'AIAnswer') ? (
+        (message.class === 'AIQuestion' ||  message.isAI) ? (
           //render another type of messsage which is not a bubble
           <AIMessage 
           />

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   presenceIndicatorContainer: {
     borderRadius: 100 / 2,
     //borderWidth: 3,
-    bottom: 0,
+    bottom: 1,
     position: 'absolute',
     right: -4,
   },

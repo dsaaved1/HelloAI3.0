@@ -58,7 +58,7 @@ export default ({
 
   return (
     <>
-      <Header title={'Custom Wallpaper'} />
+      <Header title={'Choose Wallpaper'} />
       <SafeAreaView
         style={{
           ...flex.contentCenter1,
@@ -80,7 +80,9 @@ export default ({
                   style={styles.image}
                   source={{uri: get(backgroundTypeToImageUri, type)}}
                 />
-                <Text style={{color: colors.dark.text}}>{type}</Text>
+                <View style={{alignItems:'center', marginBottom: sizes.l}}>
+                  <Text style={{color: colors.dark.text}}>{type}</Text>
+                </View>
               </Pressable>
             )
           })}
@@ -96,7 +98,7 @@ export default ({
               }}
             />
             <Text style={{color: colors.dark.danger}}>
-              Remove custom wallpaper
+               Back to default
             </Text>
           </Pressable>
         </View>
@@ -110,16 +112,16 @@ const styles = StyleSheet.create({
     ...flex.directionRow1,
     alignContent: 'stretch',
     flexWrap: 'wrap',
-    padding: sizes.sm,
+    padding: sizes.ml,
   },
   imageButton: {
-    borderRadius: sizes.m,
+    borderRadius: sizes.l,
     margin: sizes.s,
     width: GRID_ITEM_WIDTH,
   },
   image: {
     flex: 1,
-    borderRadius: sizes.m,
-    marginBottom: sizes.m,
+    borderRadius: sizes.xl,
+    marginBottom: sizes.l,
   },
 })

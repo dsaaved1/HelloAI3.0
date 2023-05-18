@@ -6,6 +6,7 @@ import {
   MessageStatus,
   MessageType,
   useMessageContext,
+  useChannelContext,
 } from 'stream-chat-react-native'
 import {colors} from '../../theme'
 import IconButton from '../IconButton'
@@ -31,6 +32,7 @@ const VoiceMessageAttachment = ({
     [audioLength],
   )
   const [currentPositionInSeconds, setCurrentPositionInSeconds] = useState(0)
+  const {channel} = useChannelContext()
   const [paused, setPaused] = useState(false)
   const [currentDurationInSeconds, setCurrentDurationInSeconds] =
     useState<number>(initialAudioLengthInSeconds)
@@ -54,6 +56,10 @@ const VoiceMessageAttachment = ({
         await onStopPlay()
       }
     })
+  }
+
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length == 1
   }
 
   const onPausePlay = async () => {
@@ -145,7 +151,9 @@ const VoiceMessageAttachment = ({
                 />
               </PeekabooView>
               <Text style={styles.progressInfoText}>{durationFormatted}</Text>
-              <MessageStatus />
+              {!oneUser() &&
+                <MessageStatus /> 
+              }
             </View>
           </View>
         </View>

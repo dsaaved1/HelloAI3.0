@@ -34,6 +34,7 @@ import {StackNavigatorParamList} from '../../types'
 import IconButton from '../IconButton'
 import { Swipeable } from 'react-native-gesture-handler'
 import { SVGIcon } from '../SVGIcon';
+import { chatClient } from '../../client'
 
 const formatDate = (date) => {
   const now = new Date();
@@ -141,6 +142,10 @@ export default ({
     },
     [accent_red, channel, muted],
   );
+
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length == 1
+  }
 
   const rightSwipeActions = () => {
     return (
@@ -251,12 +256,18 @@ export default ({
         <View style={{flex: 1, marginHorizontal: sizes.l}}>
           <ChannelPreviewTitle channel={channel} displayName={displayName} />
           <View style={{flexDirection: 'row', marginTop: sizes.xs}}>
-            <PeekabooView isEnabled={status === 2}>
-              <CheckAll pathFill={grey} {...checkAllIcon} />
-            </PeekabooView>
-            <PeekabooView isEnabled={status === 1}>
-              <Check pathFill={grey} {...checkIcon} />
-            </PeekabooView>
+            {!oneUser() &&
+            //IN ANDROID IS DIFFERENT CHECK THAT
+            <>
+          
+              <PeekabooView isEnabled={status === 2}>
+                <CheckAll pathFill={grey} {...checkAllIcon} />
+              </PeekabooView>
+              <PeekabooView isEnabled={status === 1}>
+                <Check pathFill={grey} {...checkIcon} />
+              </PeekabooView>
+            </>
+            }
             <PeekabooView isEnabled={isVoiceMessage}>
               <ChannelVoiceMessagePreview
                 latestMessagePreview={latestMessagePreview}

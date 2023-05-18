@@ -1,3 +1,3 @@
 export default {
-    ai: "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",
+    ai: "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",
 }

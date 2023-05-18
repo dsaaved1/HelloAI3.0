@@ -68,7 +68,7 @@ export default (props) => {
 
   const handleCreateConvo = async () => {
     try {
-      await createConvo(chatClient, channelUsers, channel.id, nameChannel);
+      await createConvo(chatClient, channelUsers, channel.id);
       handleRefreshIconPress();
         // const newChannel = await createConvo(chatClient, channelUsers, channel.id, nameChannel);
         // if (newChannel) {

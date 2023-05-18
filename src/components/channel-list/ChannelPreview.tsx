@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native'
-import React, {useMemo, useState, useEffect, useFocusEffect} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {
   ChannelPreviewMessage,
   ChannelPreviewMessengerProps,
@@ -28,6 +28,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {StackNavigatorParamList} from '../../types'
 import { DMAvatar } from '../DMAvatar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { chatClient} from '../../client'
 
 
 export default ({
@@ -44,9 +45,11 @@ export default ({
     useAppContext()
     
   const displayName = useChannelPreviewDisplayName(channel)
-  const unreadCount = channel.countUnread()
   const [currentChannel, setCurrentChannel] = useState(null)
   const [colorBackground, setColorBackground] = useState(colors.dark.background)
+  const [channels, setChannels] = useState(null)
+  const [unreadCount, setUnreadCount] = useState(0);
+
 
   const {
     theme: {
@@ -55,6 +58,37 @@ export default ({
     },
   } = useTheme()
 
+  
+  useEffect(() => {
+    
+    fetchConvos();
+  }, [])
+
+  async function fetchConvos(){
+    //different channel but somehow the length is always the same
+    const filters = { 
+      type: 'messaging', 
+      members: { $in: [chatClient?.user?.id] }, 
+      chatId: channel.id, 
+      typeChat: { $eq: 'convo'}
+    };
+    const sort = [{ last_message_at: -1 }];
+    const queriedChannels = await chatClient.queryChannels(filters, sort, {});
+    const channelsWithCurrent = [...queriedChannels, channel];
+    setChannels(channelsWithCurrent);
+
+     // Calculate the total unread count
+     const totalUnreadCount = channelsWithCurrent.reduce((sum, chan) => {
+      return sum + chan.countUnread();
+    }, 0);
+
+   
+  // Update the unreadCount state
+  setUnreadCount(totalUnreadCount);
+
+  }
+
+
   useEffect(() => {
     if (currentChannel === channel.id){
       setColorBackground(colors.dark.secondary)
@@ -62,7 +96,6 @@ export default ({
       setColorBackground(colors.dark.background)
     }
   }, [currentChannel])
-
 
   const toggleChannelSelectionForEditing = (selectedChannel: StreamChannel) => {
     setSelectedChannelsForEditing(channels => {
@@ -75,17 +108,19 @@ export default ({
   const isSelectedForEditing = selectedChannelsForEditing.includes(channel)
 
 
+ 
 
-  const handleOnPress = () => {
-       setChannel(channel)
-       setCurrentChannel(channel?.id)
-       //navigate(ROOT_STACK.CHANNEL_SCREEN)
-
-   
+  const handleOnPress = async () => {
+       //setChannel(channel)
+        
         navigate(ROOT_STACK.CONVOS, { channel:channel, channelId: channel.id});
   }
 
+
   const handleOnLongPress = () => toggleChannelSelectionForEditing(channel)
+
+ 
+
   return (
     <Pressable
       style={{
@@ -98,38 +133,14 @@ export default ({
       <SuperAvatar
         channel={channel}
         //isSelected={isSelectedForEditing}
-        size={38}
+        size={32}
       />
       {/* <DMAvatar channel={channel}/> */}
       <View style={{flex: 1, marginHorizontal: sizes.l, justifyContent:'center'}}>
-        <ChannelPreviewTitle channel={channel} displayName={displayName} />
-        {/* <CustomChannelPreviewTitle displayName={displayName}/> */}
-        {/* <View style={{flexDirection: 'row', marginTop: sizes.xs}}>
-          <PeekabooView isEnabled={status === 2}>
-            <CheckAll pathFill={grey} {...checkAllIcon} />
-          </PeekabooView>
-          <PeekabooView isEnabled={status === 1}>
-            <Check pathFill={grey} {...checkIcon} />
-          </PeekabooView>
-          
-          <PeekabooView isEnabled={isVoiceMessage}>
-            <ChannelVoiceMessagePreview
-              latestMessagePreview={latestMessagePreview}
-            />
-          </PeekabooView>
-          <PeekabooView isEnabled={!isVoiceMessage}>
-            <ChannelPreviewMessage
-              latestMessagePreview={latestMessagePreview}
-            />
-          </PeekabooView>
-        </View> */}
+        {/* <ChannelPreviewTitle channel={channel} displayName={displayName} /> */}
+        <CustomChannelPreviewTitle displayName={displayName}/>
       </View>
       {/* <View style={{justifyContent: 'space-between'}}>
-        <Text style={[styles.date, {color: grey}, date]}>
-          {formatLatestMessageDate && latestMessageDate
-            ? formatLatestMessageDate(latestMessageDate)
-            : latestMessagePreview.created_at}
-        </Text>
         <View style={flex.directionRowContentEnd}>
           <PeekabooView isEnabled={isChannelMuted}>
             <View style={{marginRight: 12}}>
@@ -140,14 +151,21 @@ export default ({
           <ChannelPreviewUnreadCount channel={channel} maxUnreadCount={50} unread={unreadCount}/>
         </View>
       </View> */}
-      {channel?.data?.isGroupChat && 
+      
         
         <View style={{...flex.directionRowContentEnd, justifyContent:'center', alignItems:'center'}}>
-          
-          <Ionicons name="people" size={13} color={colors.dark.secondaryLight} />
-          <Text style={{color:colors.dark.secondaryLight, marginLeft: 4, fontSize:11}}>{Object.keys(channel.state.members).length}</Text>
+          <View style={{marginRight:8}}>
+              {/* <CustomChannelPreviewUnreadCount unread={unreadCount} /> */}
+              <ChannelPreviewUnreadCount channel={channel} maxUnreadCount={50} unread={unreadCount}/>
+          </View>
+          {channel?.data?.isGroupChat && 
+            <>
+            <Ionicons name="people" size={13} color={colors.dark.secondaryLight} />
+            <Text style={{color:colors.dark.secondaryLight, marginLeft: 4, fontSize:11}}>{Object.keys(channel.state.members).length}</Text>
+            </>
+          }
         </View>
-      }
+      
     </Pressable>
   )
 }
@@ -158,8 +176,8 @@ const CustomChannelPreviewTitle = ({ displayName } : {
 
   return (
     <Text
-      numberOfLines={1}
-      style={{ color: colors.dark.text, fontSize: 14, fontWeight: 'bold' }}
+      numberOfLines={2}
+      style={{ color: colors.dark.text, fontSize: 16, fontWeight: 'normal' }}
     >
       {displayName}
     </Text>
@@ -171,12 +189,12 @@ const CustomChannelPreviewUnreadCount = ({unread}) => {
     return null;
   }
 
-  const circleSize = 20;
+  const circleSize = 17;
 
   return (
     <View
       style={{
-        backgroundColor: 'rgba(52, 183, 241, 0.5)',
+        backgroundColor: '#3777f0',
         width: circleSize,
         height: circleSize,
         borderRadius: circleSize / 2,
@@ -185,47 +203,14 @@ const CustomChannelPreviewUnreadCount = ({unread}) => {
         justifyContent: 'center',
       }}
     >
-      <Text style={{color: '#0E1528', fontSize: 8, fontWeight: '600'}}>
+      <Text style={{color: '#0E1528', fontSize: 11}}>
         {unread > 99 ? '99+' : unread}
       </Text>
     </View>
   );
 };
 
-const ChannelVoiceMessagePreview = ({
-  latestMessagePreview,
-}: {
-  latestMessagePreview: LatestMessagePreview
-}) => {
-  const firstAttchmentAudioLength = get(latestMessagePreview, [
-    'messageObject',
-    'attachments',
-    0,
-    'audio_length',
-  ])
 
-  const audioLengthInSeconds = useMemo(
-    () => parseDurationTextToMs(firstAttchmentAudioLength),
-    [firstAttchmentAudioLength],
-  )
-
-  if (audioLengthInSeconds === 0) return null
-
-  const formattedAudioDuration = moment(audioLengthInSeconds).format('m:ss')
-
-  return (
-    <View style={styles.voiceMessagePreview}>
-      <Mic
-        pathFill={colors.dark.secondaryLight}
-        width={sizes.ml}
-        height={sizes.ml}
-      />
-      <Text style={styles.voiceMessagePreviewText}>
-        {formattedAudioDuration}
-      </Text>
-    </View>
-  )
-}
 
 const styles = StyleSheet.create({
   container: {

@@ -42,4 +42,5 @@ export const DARK_IMAGES = [
   'https://images.unsplash.com/photo-1553763502-c4aca528d672?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTczfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
   'https://images.unsplash.com/photo-1553414701-7e7de9266721?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTc3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
   'https://images.unsplash.com/photo-1554876269-3045eeb59550?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTg2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+  'https://images.unsplash.com/photo-1682541691129-3935b87f60fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80'
 ].map(imageUri => ({imageUri}))

@@ -20,6 +20,9 @@ import Mic from '../../icons/Mic'
 import ChannelBackgroundWrapper from '../../utils/ChannelBackgroundWrapper'
 import {vh} from 'stream-chat-react-native'
 import {CHANNEL_STACK} from '../../stacks/ChannelStack'
+import Feather from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import {chatClient} from '../../client'
 
 export type CustomWallPaperScreenNavigationProp = StackNavigationProp<
   StackNavigatorParamList,
@@ -51,9 +54,22 @@ export default ({
   const handleChangeOnPress = () =>
     navigate(CHANNEL_STACK.WALLPAPER_TYPES_OVERVIEW, {channelId})
 
+    const otherMember = channel?.state?.members
+    ? Object.values(channel.state.members).find(
+      member => member?.user?.id !== chatClient?.user?.id
+    )
+  : null;
+
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length === 1
+  }
+
+  const chatName = oneUser() ? '' : channel?.data?.chatName 
+  const mainChannelName = !chatName ?  otherMember?.user?.name : chatName
+
   return (
     <>
-      <Header title={'Custom Wallpaper'} />
+      <Header title={'Chat Wallpaper'} onEditPress={handleChangeOnPress}/>
       <View
         style={{
           ...flex.contentCenter1,
@@ -65,8 +81,19 @@ export default ({
               channelId={channelId}
               style={StyleSheet.absoluteFill}>
               <View style={styles.headerContainer}>
-                <SuperAvatar channel={channel} size={sizes.l} convo={true} />
                 <Text style={styles.displayName}>{displayName}</Text>
+                {mainChannelName !== undefined && 
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    //color: colors.dark.transparentPrimary,
+                    color: colors.dark.secondaryLight,
+                    //fontWeight: 'bold',
+                    fontSize: sizes.m,
+                  }}>   
+                  {mainChannelName}
+                </Text>
+                }
               </View>
               <View
                 style={{
@@ -79,7 +106,6 @@ export default ({
               </View>
               <View
                 style={{
-                  padding: sizes.s,
                   ...flex.directionRowItemsCenter,
                 }}>
                 <View style={styles.messageInputContainer}>
@@ -92,29 +118,26 @@ export default ({
                     <Send {...iconProps} style={{marginRight: sizes.m}} />
                   </View>
                 </View>
-                {/* <View style={styles.micWrapper}>
-                  <Mic {...iconProps} pathFill={colors.dark.text} />
-                </View> */}
               </View>
             </ChannelBackgroundWrapper>
           </View>
-          <Pressable
-            style={{padding: sizes.s, marginBottom: sizes.l}}
-            onPress={handleChangeOnPress}>
-            <Text style={{color: colors.dark.primaryLight, fontWeight:'bold'}}>CHANGE</Text>
-          </Pressable>
         </View>
 
-        <View style={styles.footerContainer}>
-          <Text style={styles.dimmingText}>Wallpaper Dimming</Text>
-          <Slider
-            minimumValue={0}
-            thumbTintColor={colors.dark.primaryLight}
-            minimumTrackTintColor={colors.dark.primaryLight}
-            maximumTrackTintColor={colors.dark.text}
-            value={dimValue}
-            onValueChange={handleOnValueChange}
-          />
+        <View style={styles.footContainer}>
+        <Ionicons name="sunny" size={sizes.l} color={colors.dark.primaryLight} />
+          <View style={styles.footerContainer}>
+            
+            <Slider
+              minimumValue={0}
+              thumbTintColor={colors.dark.primaryLight}
+              minimumTrackTintColor={colors.dark.primaryLight}
+              maximumTrackTintColor={colors.dark.text}
+              value={dimValue}
+              onValueChange={handleOnValueChange}
+            />
+            
+          </View>
+        <Ionicons name="moon" size={sizes.l} color={colors.dark.primaryLight} />
         </View>
       </View>
     </>
@@ -148,14 +171,20 @@ const styles = StyleSheet.create({
     margin: sizes.l,
   },
   headerContainer: {
-    ...flex.directionRowItemsCenter,
+    // ...flex.directionRowItemsCenter,
+    flex: 1,
     padding: sizes.m,
     backgroundColor: colors.dark.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    maxHeight: 40
+  
   },
   displayName: {
     color: colors.dark.text,
     fontWeight: 'bold',
-    fontSize: sizes.m,
+    fontSize: sizes.ml,
     marginLeft: sizes.m,
   },
   messageBubble: messageBubble,
@@ -172,8 +201,6 @@ const styles = StyleSheet.create({
   messageInputContainer: {
     backgroundColor: colors.dark.secondary,
     padding: sizes.m,
-    marginRight: sizes.s,
-    borderRadius: sizes.xl,
     ...flex.directionRowItemsCenterContentSpaceBetween1,
   },
   micWrapper: {
@@ -184,6 +211,15 @@ const styles = StyleSheet.create({
   footerContainer: {
     flex: 1,
     padding: sizes.xl,
+  },
+  footContainer: {
+    padding: sizes.xl,
+    paddingBottom: sizes.l,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: -20
   },
   dimmingText: {
     color: colors.dark.text,

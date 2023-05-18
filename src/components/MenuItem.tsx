@@ -154,7 +154,7 @@ function MenuItem({
             </QrIconWrapper>
           ) : (
             <RightIconAndTextWrapper>
-              <T14 style={{marginLeft: 'auto'}}>{rightIconText}</T14>
+              <T12 style={{marginLeft: 'auto'}}>{rightIconText}</T12>
               {rightIcon && (
                 <MaterialIcons
                   name="chevron-right"

@@ -85,9 +85,6 @@ export default (props) => {
   } = useAppContext()
     const navigation = useNavigation()
     //const {navigate} = seNavigation<StackNavigationProp<StackNavigatorParamList>>()
-    const [visible, setVisible] = useState(false);
-    const [visibleContainer, setVisibleContainer] = useState(false);
-    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [messageText, setMessageText] = useState("");
     const {client} = useChatContext()
     const {updateMessage} = useMessagesContext()
@@ -98,7 +95,7 @@ export default (props) => {
     const [showPaywall, setShowPaywall] = useState(false);
     const [hasProAccess, setHasProAccess] = useState(false);
 
-    let Container = visibleContainer ? View : Swipeable;
+    
 
     const [showChatAIAlert, setShowChatAIAlert] = useState(false);
     const [showChatAlert, setShowChatAlert] = useState(false);
@@ -392,7 +389,7 @@ export default (props) => {
 
 
   const sendQuestionGPT = async (question) => {
-    if (chatClient?.user?.questionsLeft > 10 || chatClient?.user?.proAccess == true){
+    if (chatClient?.user?.questionsLeft > 0 || chatClient?.user?.proAccess == true){
         await sendQuestion()
         if (currentModel == 'GPT-4'){
           await sendGPT4(question)
@@ -473,7 +470,8 @@ export default (props) => {
             model: 'GPT-4',
             modelAIPhoto:'https://firebasestorage.googleapis.com/v0/b/mind-4bdad.appspot.com/o/chatImages%2FGPT-4.png?alt=media&token=c9fadfd5-2088-407e-8ec0-b0b6b63bf0b8',
             text: answer,
-            class: "AIAnswer",
+            isAI: true,
+            class: 'AIAnswer'
         };
 
 
@@ -519,7 +517,8 @@ export default (props) => {
             model: 'GPT-3.5',
             modelAIPhoto: 'https://firebasestorage.googleapis.com/v0/b/mind-4bdad.appspot.com/o/chatImages%2Fchatgpt-icon.png?alt=media&token=c48f7085-0a25-4ea0-95a6-a7f3d6ed0cd4',
             text: answer,
-            class: "AIAnswer",
+            isAI: true,
+            class: 'AIAnswer'
         };
 
 
@@ -636,18 +635,28 @@ export default (props) => {
   }
 
 
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length === 1
+  }
+
+  let Container = oneUser() ? View : Swipeable;
+
   return (
     <View>
-      <Reply
-            isPreview
-            isEnabled={isReplyPreviewEnabled}
-            message={quotedMessage}
-          />
+      {!oneUser() &&
+        <Reply
+              isPreview
+              isEnabled={isReplyPreviewEnabled}
+              message={quotedMessage}
+            />
+      }
       <Container renderRightActions={rightSwipeActions}>
       <SafeAreaView style={{...styles.outerContainer, backgroundColor: colors.dark.secondary}}>
-        <View style={{alignItems:'center',  widht:'100%',  marginBottom: -11}}>
-          <AntDesign name="swapright" size={24} color={colors.dark.secondaryLight} />
-        </View>
+        {!oneUser() && 
+          <View style={{alignItems:'center',  widht:'100%',  marginBottom: -11}}>
+            <AntDesign name="swapright" size={24} color={colors.dark.secondaryLight} />
+          </View>
+        }
         <View
           style={{
            ...styles.innerContainer,
@@ -683,6 +692,7 @@ export default (props) => {
                     setInputBoxRef={
                       messageInputRef
                     }
+                    placeholder="Your custom placeholder text"
                   />
 
             </PeekabooView>

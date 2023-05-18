@@ -19,21 +19,12 @@ const uid = new ShortUniqueId({ length: 7 });
 
 const Convos = ({route}) => {
   const {setChannel} = useAppContext()
-  const { channelId: routeChannelId } = route?.params ||  chatClient.user.ownChatId || {};
+  const { channelId: routeChannelId } = route?.params  || {};
   const [channelId, setChannelId] = useState(routeChannelId);
   const {channel: routeChannel } = route?.params || {};
   const [channel, setChannelConvo] = useState(routeChannel);
   const [isLoading, setIsLoading] = useState(true);
 
- //const navigation = useNavigation();
-
-  // const [channels, setChannels] = useState([]);
-
-
-  // const channelsRef = useRef(channels);
-  // useEffect(() => {
-  //   channelsRef.current = channels;
-  // }, [channels]);
 
 
   const createPersonalChannel = async () => {
@@ -47,9 +38,9 @@ const Convos = ({route}) => {
       });
   
       await newChannel.create();
-      await newChannel.watch();
+      //await newChannel.watch();
 
-      setChannel(newChannel)
+      //setChannel(newChannel)
       setChannelConvo(newChannel)
 
       const update = {
@@ -87,43 +78,7 @@ const Convos = ({route}) => {
     }
   };
 
-  // const fetchChannels = async () => {
-  //   try {
-  //     const channels = await chatClient.queryChannels(filters, sort, {
-  //       watch: true,
-  //       state: true,
-  //     });
-  //     setChannels(channels);
-     
-  
-  //     const updateChannels = () => {
-  //       fetchChannels();
-  //     };
 
-  //     channels.forEach(channel => {
-  //       channel.on('message.new', updateChannels);
-  //       channel.on('message.read', updateChannels);
-  //       channel.on('message.updated', updateChannels);
-  //       channel.on('member.removed', updateChannels);
-  //       channel.on('member.updated', updateChannels);
-  //       channel.on('message.deleted', updateChannels);
-  //       channel.on('member.added', updateChannels);
-  //       channel.on('channel.updated', updateChannels);
-  //       channel.on('channel.deleted', updateChannels);
-  //       channel.on('notification.added_to_channel', updateChannels);
-  //       channel.on('notification.channel_deleted', updateChannels);
-  //       channel.on('notification.channel_mutes_updated', updateChannels);
-  //       channel.on('notification.channel_truncated', updateChannels);
-  //       channel.on('notification.mark_read', updateChannels);
-  //       channel.on('notification.message_new', updateChannels);
-  //       channel.on('notification.mutes_updated', updateChannels);
-  //       channel.on('notification.removed_from_channel', updateChannels);
-  //     });
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     console.log("before if statement in use effect")
@@ -140,121 +95,24 @@ const Convos = ({route}) => {
 
 
   useEffect(() => {
-   console.log("before if statement in use effect 2")
+   console.log("before assigning newChannelId and newChannel")
     const { channelId: newChannelId, channel: newChannel } = route?.params || {};
     if (newChannelId && newChannelId !== channelId) {
-     console.log("before set channel id in use effect 2")
+     console.log("if it's new then go to that one id non own chat ai")
       setChannelId(newChannelId);
     }
     if (newChannel && newChannel !== channel) {
-   console.log("before set channel convo in use effect 2")
+      console.log("if it's new then go to that one channel non own chat ai")
       setChannelConvo(newChannel);
     }else if (!newChannel && newChannelId && channelId !== newChannelId) {
       console.log("before get channel by id in use effect 2")
       getChannelById(newChannelId);
     }
 
-    //fetchChannels();
     
   }, [route?.params]);
 
-  // useEffect(() => {
   
-  // // Clean up event listeners on unmount
-  // return () => {
-  //   channelsRef.current.forEach(channel => {
-  //     const eventTypes = [
-  //       'message.new',
-  //       'message.read',
-  //       'message.updated',
-  //       'member.removed',
-  //       'member.updated',
-  //       'message.deleted',
-  //       'member.added',
-  //       'channel.updated',
-  //       'channel.deleted',
-  //       'notification.added_to_channel',
-  //       'notification.channel_deleted',
-  //       'notification.channel_mutes_updated',
-  //       'notification.channel_truncated',
-  //       'notification.mark_read',
-  //       'notification.message_new',
-  //       'notification.mutes_updated',
-  //       'notification.removed_from_channel',
-  //     ];
-
-  //     eventTypes.forEach(eventType => {
-  //       channel.off(eventType);
-  //     });
-  //   });
-  // };
-  // }, []);
-
-
-
-
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     console.log("here in focus effect of convos");
-  //     fetchChannels();
-  //     console.log(channels.length, "channels length")
-      
-  //     // Clean up event listeners on unmount
-  //   return () => {
-  //     channelsRef.current.forEach(channel => {
-  //       const eventTypes = [
-  //         'message.new',
-  //         'message.read',
-  //         'message.updated',
-  //         'member.removed',
-  //         'member.updated',
-  //         'message.deleted',
-  //         'member.added',
-  //         'channel.updated',
-  //         'channel.deleted',
-  //         'notification.added_to_channel',
-  //         'notification.channel_deleted',
-  //         'notification.channel_mutes_updated',
-  //         'notification.channel_truncated',
-  //         'notification.mark_read',
-  //         'notification.message_new',
-  //         'notification.mutes_updated',
-  //         'notification.removed_from_channel',
-  //         'typing.start',
-  //         'typing.stop',
-  //         'user.deleted',
-  //         'user.presence.changed',
-  //         'user.watching.start',
-  //         'user.watching.stop',
-  //       ];
-
-  //       eventTypes.forEach(eventType => {
-  //         channel.off(eventType);
-  //       });
-  //     });
-  //   };
-  //   }, [navigation, channelId])
-  // );
-
-
-
-  // const getLatestMessagePreview = (channel) => {
-  //   const latestMessage = channel.state.messages[channel.state.messages.length - 1];
-  //   return latestMessage
-  //   ? {
-  //       created_at: latestMessage.created_at,
-  //       deleted_at: "", // You can adjust this as needed
-  //       userId: latestMessage.user.id,
-  //       messageObject: latestMessage,
-  //       previews: [
-  //         { bold: false, text: "You: " },
-  //         { bold: false, text: latestMessage.text },
-  //       ],
-  //       status: latestMessage.status  === "received" ? 2: 1,
-  //     }
-  //   : null;
-  // };
   
   const filters = { 
     type: 'messaging', 
@@ -277,19 +135,16 @@ const Convos = ({route}) => {
     //if we don't use then for some reason why have duplicated channels
     || !isCurrentUserMember
     )){
-      console.log("returning")
+      console.log("returning in CONVOSSSS")
       return;
     }
   
     console.log(chatClient?.user?.id, "chatClient.user?.id")
   
     try {
-      console.log("before new channel")
       const newChannel = chatClient.channel(eventChannel.type, eventChannel.id);
-      console.log("after new channel")
       await newChannel.watch();
       setChannels(channels => [newChannel, ...channels]);
-      console.log("after set channels")
     } catch (error) {
       console.log(error);
     }
@@ -313,7 +168,6 @@ const Convos = ({route}) => {
           )}
         /> */}
         <ChannelList
-            //key={refreshList}
             Preview={ConvoPreview}
             filters={filters}
             sort={sort}

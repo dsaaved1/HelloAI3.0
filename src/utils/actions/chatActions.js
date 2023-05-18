@@ -74,7 +74,6 @@ export const createDirectMessage = async (client, channelMembers, nameOtherUser)
       const channel = client.channel('messaging',  uuid.v4(), {
         isGroupChat: false,
         typeChat: 'chat',
-        name: nameOtherUser,
       });
   
   
@@ -137,15 +136,14 @@ export const createMessageExpanded = async (client, messageId, channelMembers, t
 
 
 
-export const createConvo = async (client, channelMembers, chatId, chatName) => {
+export const createConvo = async (client, channelMembers, chatId) => {
 
     try {
         console.log("before create convo", channelMembers, chatId)
         const convo = client.channel('messaging', uuid.v4(), {
-        name: "New Project",
+        name: "New Subchannel",
         chatId: chatId,
         typeChat: 'convo',
-        chatName: chatName,
         //color: color ? color : getRandomColor(),
         AIMessages: [{"role": "system", "content": "You are a helpful assistant."}],
         isMessageConvo: false
