@@ -9,7 +9,7 @@ import {
 import {takePhoto} from 'stream-chat-react-native-core/src/native'
 import {Alert, SafeAreaView, StyleSheet, Text, View,  
 TouchableOpacity, Image, TextInput, Animated,
-Modal, ScrollView, ActivityIndicator} from 'react-native'
+Modal, ScrollView, ActivityIndicator, Pressable} from 'react-native'
 import {flex, sizes, globalStyles} from '../../global'
 import {colors} from '../../theme'
 import IconButton from '../IconButton'
@@ -51,14 +51,16 @@ import FontAwesoem5Icons from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SimpleIcons from 'react-native-vector-icons/SimpleLineIcons'
 import BottomAlert from '../BottomAlert';
+import BottomLoading from '../BottomLoading'
 import GPT3 from '../../images/GPT3.png'
 import GPT4 from '../../images/GPT4.png'
 import Bard from '../../images/Bard.png'
 import { chatClient } from '../../client';
 //import { SVGIcon } from '../SVGIcon';
 import PaywallScreen from '../Paywall';
-
+import { SVGIcon } from '../SVGIcon';
 
 
 
@@ -100,6 +102,10 @@ export default (props) => {
     const [showChatAIAlert, setShowChatAIAlert] = useState(false);
     const [showChatAlert, setShowChatAlert] = useState(false);
     const [showAIModel, setShowAIModel] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
+    const [showErrorAI, setShowErrorAI] = useState(false);
+    const [showFullMemory, setShowFullMemory] = useState(false);
+    const [questionFailed, setQuestionFailed] = useState('')
 
     const optionsModels = [
       {
@@ -158,9 +164,9 @@ export default (props) => {
         onPress: () => setShowChatAIAlert(false),
       },
       {
-        text: 'Camera',
+        text: 'Summary',
         icon: (
-          <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
+          <SimpleIcons name="book-open" color= '#3777f0' size={21} />
         ),
         onPress: () => {
           if (hasProAccess) {
@@ -172,8 +178,13 @@ export default (props) => {
         },
       },
       {
-        text: 'Photo & Video Library',
-        icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
+        text: 'Multiple Choice',
+        icon: <View style={{justifyContent:'center', marginRight: -4}}>
+         
+            <SVGIcon height={28} fill={'#3777f0'} type={'multiple'} width={28} />
+      
+          </View>
+        ,
         onPress: () => {
           if (hasProAccess) {
           } else {
@@ -184,7 +195,7 @@ export default (props) => {
         },
       },
       {
-        text: 'Poll',
+        text: 'Quizzes',
         icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
         onPress: () => {
           if (hasProAccess) {
@@ -387,6 +398,106 @@ export default (props) => {
     
   }
 
+  const optimizeMemory = async () => {
+    const { Configuration, OpenAIApi } = require('openai');
+    const configuration = new Configuration({
+      apiKey: keys.ai,
+    });
+    const openai = new OpenAIApi(configuration);
+  
+    console.log("Here before optimizing");
+    try {
+      const convoData = channel.data.AIMessages;
+  
+      const userQuestions = [];
+      const assistantAnswers = [];
+  
+      // Extract user questions and assistant answers from the conversation data
+      for (const message of convoData) {
+        if (message.role === "user") {
+          userQuestions.push(message.content);
+        } else if (message.role === "assistant") {
+          assistantAnswers.push(message.content);
+        }
+      }
+
+      console.log(userQuestions.join(" "), "User questions")
+      console.log(assistantAnswers.join(" "), "Answer questions")
+
+      const optimizedSummary = [
+        {
+          "content": "You are a helpful assistant.", 
+          "role": "system"
+        },
+        {
+          "role": "user",
+          "content": `give me a summary of max 500 words of these user questions, make sure you don't miss any point in the paragraph: ${userQuestions.join(" ")}`,
+        },
+      ];
+  
+
+      const responseSummary = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: optimizedSummary
+      });
+  
+      const questionsSummary = responseSummary.data.choices[0].message.content
+
+      console.log(questionsSummary, "questions Summary")
+
+      const optimizedSummaryAnswers = [
+        {
+          "content": "You are a helpful assistant.", 
+          "role": "system"
+        },
+        {
+          "role": "user",
+          "content": `give me a summary of max 500 words of this assitant answers to me, make sure you don't miss any point in the paragraph: ${userQuestions.join(" ")}`,
+        },
+      ];
+  
+
+      const responseSummaryAnswers = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: optimizedSummaryAnswers
+      });
+  
+      const answersSummary = responseSummaryAnswers.data.choices[0].message.content
+  
+     console.log(answersSummary, "answers Summary")
+  
+      const optimizedData = [
+        {
+          "content": "You are a helpful assistant.", 
+          "role": "system"
+        },
+        {
+          "role": "user",
+          "content": questionsSummary,
+        },
+        {
+          "role": "assistant",
+          "content": answersSummary,
+        },
+      ];
+  
+  
+      await channel.updatePartial({ set: { AIMessages: optimizedData } });
+  
+      setShowLoading(false);
+    } catch (e) {
+      setShowLoading(false);
+      if (
+        e.message === 'StreamChat error code 22: UpdateChannelPartial failed with error: "channel custom data cannot be bigger than 5KB"'
+      ) {
+        setShowFullMemory(true);
+      } else {
+        console.log("Here in show", e);
+        setQuestionFailed(question);
+        setShowErrorAI(true);
+      }
+    }
+  };
 
   const sendQuestionGPT = async (question) => {
     if (chatClient?.user?.questionsLeft > 0 || chatClient?.user?.proAccess == true){
@@ -394,7 +505,9 @@ export default (props) => {
         if (currentModel == 'GPT-4'){
           await sendGPT4(question)
         } else {
+          setShowLoading(true)
           await sendGPT3(question)
+          
         }
         if (!chatClient?.user?.proAccess){
           try {
@@ -445,6 +558,7 @@ export default (props) => {
         const completeQuestion = question + messageImage
         const questionChat = {"role": "user", "content": completeQuestion}
         const convoData = channel.data.AIMessages
+        console.log(convoData)
         convoData.push(questionChat);
 
         console.log("here in ai gpt-4 during response1")
@@ -461,10 +575,7 @@ export default (props) => {
 
         convoData.push({"role": "assistant", "content": answer})
 
-        console.log("updating convo")
-        await channel.updatePartial({ set:{ AIMessages: convoData } });
-
-
+       
         const messageData = {
             question: question,
             model: 'GPT-4',
@@ -477,8 +588,20 @@ export default (props) => {
 
         await channel.sendMessage(messageData)
 
+        console.log("updating convo")
+        await channel.updatePartial({ set:{ AIMessages: convoData } });
+
+        setShowLoading(false)
     } catch (e) {
-        console.error("Error asking AI GPT-4: ", e);
+      setShowLoading(false)
+      if (
+        e.message === 'StreamChat error code 22: UpdateChannelPartial failed with error: "channel custom data cannot be bigger than 5KB"'
+      ) {
+        optimizeMemory()
+      } else {
+        setQuestionFailed(question)
+        setShowErrorAI(true)
+      }
     }
 
 
@@ -509,8 +632,7 @@ export default (props) => {
 
         convoData.push({"role": "assistant", "content": answer})
 
-        await channel.updatePartial({ set:{ AIMessages: convoData } });
-
+       
 
         const messageData = {
             question: question,
@@ -524,8 +646,22 @@ export default (props) => {
 
         await channel.sendMessage(messageData)
 
+        await channel.updatePartial({ set:{ AIMessages: convoData } });
+
+        setShowLoading(false)
+
     } catch (e) {
-        console.error("Error asking AI: ", e);
+      setShowLoading(false)
+      if (
+        e.message === 'StreamChat error code 22: UpdateChannelPartial failed with error: "channel custom data cannot be bigger than 5KB"'
+      ) {
+        optimizeMemory()
+      } else {
+        console.log("heree in show")
+        setQuestionFailed(question)
+        setShowErrorAI(true)
+      }
+        
     }
 
 
@@ -639,6 +775,19 @@ export default (props) => {
     return Object.keys(channel?.state?.members).length === 1
   }
 
+  const handleTryAgain = async () => {
+    setShowErrorAI(false)
+    if (currentModel === 'GPT-4') {
+      console.log("here before sending gpt4")
+      setShowLoading(true);
+      await sendGPT4(questionFailed);
+    } else {
+      setShowLoading(true);
+      await sendGPT3(questionFailed);
+    }
+  };
+  
+
   let Container = oneUser() ? View : Swipeable;
 
   return (
@@ -745,6 +894,9 @@ export default (props) => {
           textColor={colors.dark.text}
           withIcon={true}
         />
+        <BottomLoading
+          visible={showLoading}
+        />
         <Modal
            visible={showPaywall}
            animationType="slide"
@@ -754,6 +906,81 @@ export default (props) => {
            <PaywallScreen onClose={() => setShowPaywall(false)} />
 
         </Modal>
+
+        <Modal
+           visible={showErrorAI}
+           //animationType="slide"
+           transparent={true}
+       >
+        <Pressable
+            style={{ flex: 1 }}
+            onPress={() => {
+              setShowErrorAI(false);
+            }}
+          >
+           <View style={styles.modalContainer}>
+           <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
+             <View style={styles.modalContent}>
+               <Text style={styles.modalTitle}>{`Error Asking ${currentModel}`}</Text>
+
+              <View style={{flexDirection:'row'}}>
+                <TouchableOpacity
+                onPress={handleTryAgain}>
+                  <Text
+                    style={{ fontSize: 15,
+                      color: colors.dark.secondaryLight,
+                    marginBottom: 10,
+                    marginRight: 5}}
+                  >
+                      Try Again
+                  </Text>
+                </TouchableOpacity>
+                <IoniconsIcon name="ios-refresh" color={colors.dark.secondaryLight} size={15} />
+              </View>
+             </View>
+             </Pressable>
+           </View>
+           </Pressable>
+          </Modal>
+      <Modal
+           visible={showFullMemory}
+           //animationType="slide"
+           transparent={true}
+       >
+        <Pressable
+            style={{ flex: 1 }}
+            onPress={() => {
+              setShowFullMemory(false);
+            }}
+          >
+           <View style={styles.modalContainer}>
+           <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
+             <View style={styles.modalContent}>
+               <Text style={{...styles.modalTitle, color: colors.dark.text}}>Memory Conversation Full!</Text>
+
+              <View style={{flexDirection:'row'}}>
+                <TouchableOpacity
+                onPress={clearMemory}>
+                  <Text
+                    style={{ fontSize: 15,
+                      color: colors.dark.secondaryLight,
+                    marginBottom: 10,
+                    marginRight: 5}}
+                  >
+                      Refresh Conversation
+                  </Text>
+                </TouchableOpacity>
+                <IoniconsIcon name="ios-refresh" color={colors.dark.secondaryLight} size={15} />
+              </View>
+              <Text style={{ fontSize: 12, color: colors.dark.text }}>
+                New questions and answers won't be remembered in this channel, but past ones will be. Press refresh to clear all
+                memory in this channel.
+              </Text>
+             </View>
+             </Pressable>
+           </View>
+           </Pressable>
+          </Modal>
     </View>
     
   )
@@ -859,4 +1086,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  modalContent: {
+    backgroundColor: '#1C2333',
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    borderRadius: 10,
+    elevation: 20,
+    width: '80%',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#D94444',
+    marginBottom: 10,
+  },
+  
 })

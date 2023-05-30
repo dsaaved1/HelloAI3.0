@@ -1,4 +1,4 @@
-import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native'
+import {SafeAreaView, StatusBar, StyleSheet, Text, View, Modal} from 'react-native'
 import {colors} from '../../theme'
 import React, { useState, useEffect } from 'react';
 import {flex, sizes} from '../../global'
@@ -22,6 +22,8 @@ export default (props) => {
   // Extract user IDs from the channel members object
   const channelUsers = Object.keys(channelMembers);
   const [showRefreshIcon, setShowRefreshIcon] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 
   const otherMember = channel?.state?.members
     ? Object.values(channel.state.members).find(
@@ -59,16 +61,28 @@ export default (props) => {
     handleRefreshIconPress();
   }
 
-  const handleDeleteOnPress = async () => {
+  const handleConfirmDelete = async () => {
+    // Perform the delete action here
     const channelCids = selectedChannelsForEditing.map(channel => channel.cid);
     // client-side soft delete
     await chatClient.deleteChannels(channelCids);
-    clearSelectedChannelsForEditing()
+    clearSelectedChannelsForEditing();
+    setShowDeleteModal(false);
+  }
+
+  const handleDeleteOnPress = async () => {
+    // Show the delete confirmation modal
+    setShowDeleteModal(true);
+  }
+
+  const handleCancelDelete = () => {
+    // Cancel the delete action and close the modal
+    setShowDeleteModal(false);
   }
 
   const handleCreateConvo = async () => {
     try {
-      await createConvo(chatClient, channelUsers, channel.id);
+      await createConvo(chatClient, channelUsers, channel.id, channel?.data?.name);
       handleRefreshIconPress();
         // const newChannel = await createConvo(chatClient, channelUsers, channel.id, nameChannel);
         // if (newChannel) {
@@ -108,7 +122,7 @@ export default (props) => {
               iconName={'Trash'} 
               pathFill={colors.dark.text} />
             {/* <IconButton iconName={'Pin'} pathFill={colors.dark.text} /> */}
-            {channel.data.isGroupChat === undefined &&
+            {channel.data.isGroupChat !== undefined &&
 
               <IconButton
               onPress={handleMuteOnPress}
@@ -116,11 +130,7 @@ export default (props) => {
               pathFill={colors.dark.text}
               />
             }
-            <IconButton
-              onPress={handleMuteOnPress}
-              iconName={'Muted'}
-              pathFill={colors.dark.text}
-            />
+           
           </View>
         </View>
       </PeekabooView>
@@ -161,6 +171,38 @@ export default (props) => {
           pathFill={colors.dark.secondaryLight}
         />
       </PeekabooView>
+       {/* Delete Confirmation Modal */}
+    <Modal
+      visible={showDeleteModal}
+      animationType="fade"
+      transparent={true}
+      onRequestClose={handleCancelDelete}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalText}>
+            Are you sure you want to delete this channel(s)?
+          </Text>
+          <Text style={styles.modalTitle}>
+            {/* Display the names of the selected channels */}
+            {selectedChannelsForEditing.map((channel) => channel.data.name).join(", ")}
+          </Text>
+          <Text style={styles.modalText}>
+          This action cannot be undone.
+        {"\n"}
+        Note: Only admins are allowed to perform this action.
+          </Text>
+          <View style={styles.modalButtonContainer}>
+            <TouchableOpacity style={styles.modalButton} onPress={handleCancelDelete}>
+              <Text style={styles.modalButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={handleConfirmDelete}>
+              <Text style={styles.modalButtonText}>Delete</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
     </SafeAreaView>
   )
 }
@@ -189,5 +231,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     marginRight: 10
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#1C2333',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: colors.dark.secondaryLight,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10
+  },
+  modalButton: {
+    marginLeft: 10,
+    padding: 10,
+    backgroundColor: '#3777f0',
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 })

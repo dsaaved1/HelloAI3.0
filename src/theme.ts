@@ -16,7 +16,7 @@ export const colors = {
     highlighted: '#222b34',
     transparentPrimary: 'rgba(255,255,255,0.5)',
     //primaryLightTransparent: 'rgba(3,91,73,0.6)',
-    primaryLightTransparent: 'rgba(28, 35, 49, 0.5)',
+    primaryLightTransparent: 'rgba(28, 35, 79, 0.5)',
     border: '#323b40',
     danger: '#D3514CFF',
     active: '#52b9e3',
@@ -118,7 +118,7 @@ export const theme: DeepPartial<Theme> = {
       flex: 1,
       padding: 0,
       borderWidth: 0,
-      backgroundColor: 'transparent',
+      //backgroundColor: 'transparent',
       marginHorizontal: -24, //todo: 5. replace this ugly hack
     },
     inputBox: {

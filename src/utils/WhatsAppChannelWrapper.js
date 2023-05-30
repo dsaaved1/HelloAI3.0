@@ -102,7 +102,7 @@ export default ({
       {...props}
 
       MessageFooter={RenderNothing}
-      InlineUnreadIndicator={RenderNothing}
+      //InlineUnreadIndicator={RenderNothing}
       initialScrollToFirstUnreadMessage={true}
 
       //message content gets rid message footer and all the other stuff

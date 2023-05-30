@@ -42,8 +42,8 @@ const StarredMessages = props => {
     const renderItem = ({ item }) => {
         return (
         <View style={styles.messageContainer}>
-            <Text style={styles.messageSender}>{item.user.name}:</Text>
-            <Text style={styles.messageText}>{item.text}</Text>
+            <Text style={styles.messageSender}>{item.isAI? item.model : item.user.name}:</Text>
+            <Text style={styles.messageText}>{item.text ? item.text : "voice-message"}</Text>
         </View>
         );
     };

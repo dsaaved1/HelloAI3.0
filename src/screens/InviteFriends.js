@@ -101,6 +101,7 @@ const InviteFriends = props => {
                         placeholder="CODE (e.g. johndoe123)"
                         placeholderTextColor={colors.dark.text}
                         onSubmitEditing={() => updateOtherUserQuestions(inputText)}
+                        autoCapitalize="none" 
                     />
                 </View>
              </>

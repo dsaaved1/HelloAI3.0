@@ -7,7 +7,7 @@ import { CloseModalButton } from './CloseModalButton';
 import { SCText } from './SCText';
 import { Spacer } from './Spacer';
 import {colors} from '../theme'
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const styles = StyleSheet.create({
@@ -74,7 +74,7 @@ export const ModalScreenHeader = (props) => {
         },
       ]}>
       <TouchableOpacity onPress={goBack} style={{padding: 10,}}>
-        <Icon name="close" size={25} color='white' />
+        <Ionicons name="ios-close-outline" size={25} color='white' />
       </TouchableOpacity>
       <View style={styles.centerContent}>
         <SCText style={[styles.channelTitle, { color: 'white' }]}>

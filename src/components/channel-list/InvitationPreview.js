@@ -137,11 +137,17 @@ import {Pressable, StyleSheet, Text, View,
         channels.map(async (channel) => {
           if (channel.id === targetChannelId) { 
             // add the member without sending a text
-            await channel.acceptInvite();
-          } else {
-            // add the member and send the text
             await channel.acceptInvite()
-            const  text =  `${chatClient?.user?.name} joined this channel!`
+          } else {
+            if (channel.data.hideHistory){
+              //reject and then add member for future update
+              //don't do anything
+              await channel.removeMembers([chatClient?.user?.id])
+              await channel.addMembers([chatClient?.user?.id], undefined, {hide_history: true});
+            } else {
+              await channel.acceptInvite()
+            }
+            const  text =  `${chatClient?.user?.id} joined this channel!`
             const message = {
                 text,
                 type: 'system'
@@ -155,6 +161,40 @@ import {Pressable, StyleSheet, Text, View,
     const rejectInvitation = async () => {
       console.log("reject invitiations")
       channel.rejectInvite();
+
+      if (!channel.data.isGroupChat){
+
+          const otherMember = channel?.state?.members
+          ? Object.values(channel.state.members).find(
+              member => member.user.id !== chatClient?.user?.id
+            )
+          : null;
+          const otherMemberId = otherMember?.user?.id
+          const myUserChatsWithoutDeletedMember = chatClient?.user?.userChats.filter(member => member !== otherMemberId);
+          
+          const response = await chatClient.queryUsers({ id: otherMemberId });
+          const theirUserChats = response.users[0]?.userChats;
+
+          const theirUserChatsWithoutDeletedMember = theirUserChats.filter(member => member !== chatClient?.user?.id);
+
+          const updateMy = {
+            id: chatClient?.user?.id,
+            set: {
+              userChats: myUserChatsWithoutDeletedMember,
+            },
+          };
+          
+          const updateOther = {
+            id: otherMemberId,
+            set: {
+                userChats: theirUserChatsWithoutDeletedMember,
+              
+            },
+          };
+    
+          await chatClient.partialUpdateUser(updateMy);
+          await chatClient.partialUpdateUser(updateOther);
+      }
    
       channels.map( async (channel) => {
         await channel.removeMembers([chatClient?.user?.id]);

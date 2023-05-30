@@ -23,17 +23,11 @@ const USER_COLORS = [
   '#50E3C2', // Teal
   '#7ED321', // Lime Green
   '#4A90E2', // Sky Blue
-  '#E95D5D', // Soft Red
-  '#FF6347', // Tomato
-  '#40E0D0', // Turquoise
+  //'#E95D5D', // Soft Red
   '#ADFF2F', // GreenYellow
   '#FF69B4', // HotPink
-  '#1E90FF', // DodgerBlue
   '#FFA500', // Orange
   '#9370DB', // MediumPurple
-  '#48D1CC', // MediumTurquoise
-  '#F0E68C', // Khaki
-  '#FA8072', // Salmon
   '#BA55D3', // MediumOrchid
 ]
 
@@ -83,18 +77,29 @@ const MessageText = ({renderText, ...props}: MessageTextProps) => {
     return message?.user?.id !== chatClient?.user?.id;
   };
 
-  const shouldShowSenderName = () => {
-    if (message?.user?.id === chatClient?.user?.id) {
-      return false;
-    }
+  // const shouldShowSenderName = () => {
+  //   if (message?.user?.id === chatClient?.user?.id) {
+  //     return false;
+  //   }
     
-    // if (index === 0) {
-    //   return true;
-    // }
+  //   // if (index === 0) {
+  //   //   return true;
+  //   // }
     
-    // const previousMessage = messages[index - 1];
-    // return previousMessage?.user?.id !== message?.user?.id;
-  };
+  //   // const previousMessage = messages[index - 1];
+  //   // return previousMessage?.user?.id !== message?.user?.id;
+  // };
+
+  // const shouldShowSenderName = () => {
+  //   const { messages } = message?.state;
+  //   const index = messages.findIndex((msg) => msg.id === message?.id);
+  //   if (index === 0) {
+  //     return true;
+  //   }
+
+  //   const previousMessage = messages[index - 1];
+  //   return previousMessage?.user?.id !== message?.user?.id;
+  // };
 
   return (
     <View style={{flexDirection: 'column'}}>

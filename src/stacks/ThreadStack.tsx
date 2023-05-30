@@ -63,20 +63,17 @@ export default () => {
               name={CHANNEL_STACK.WALLPAPER_TYPE_DETAILS}
               options={noHeaderOptions}
             />
-            <Stack.Screen
-            component={ThreadsBaby}
-            name={CHANNEL_STACK.THREAD_SCREEN}
-            options={noHeaderOptions}
-            />
         </Stack.Group>
         
-        {/* <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen
             component={ThreadsBaby}
             name={CHANNEL_STACK.THREAD_SCREEN}
-            options={noHeaderOptions}
+            options={{
+              header: ChannelHeader,
+            }}
           />
-        </Stack.Group> */}
+        </Stack.Group>
       </Stack.Navigator>
     </WhatsAppChannelWrapper>
   )

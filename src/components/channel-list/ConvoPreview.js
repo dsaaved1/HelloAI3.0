@@ -216,6 +216,12 @@ export default ({
     await channel.updatePartial({ set:{ name: convoName } });
     setShowModal(false);
     setConvoName('');
+    const  text =  `${chatClient?.user?.name} renamed this channel to ${convoName}.`
+    const message = {
+                text,
+                type: 'system'
+            };
+    await channel.sendMessage(message);
   };
 
   const handleDelete = async () => {
@@ -229,6 +235,7 @@ export default ({
 
 
   const handleOnLongPress = () => toggleChannelSelectionForEditing(channel)
+
 
   return (
     <Swipeable
@@ -350,25 +357,27 @@ export default ({
           >
            <View style={styles.modalContainer}>
            <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
-             <View style={styles.modalContent}>
-               <Text style={styles.modalTitle}>Delete Channel:</Text>
+           <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>{oneUser() ? 'Delete Channel:' : 'Leave Channel:'}</Text>
 
-               <Text
-                style={{ fontSize: 20,
+              <Text
+                style={{
+                  fontSize: 20,
                   color: colors.dark.secondaryLight,
-                  marginBottom: 25,}}
-               >
-                  {channel.data.name}
-               </Text>
-               <View style={styles.modalButtonsContainer}>
-                 <TouchableOpacity
-                   style={{...styles.modalButton, backgroundColor: accent_red}}
-                   onPress={() => {handleDelete()}}
-                 >
-                   <Text style={styles.modalButtonText}>Delete</Text>
-                 </TouchableOpacity>
-               </View>
-             </View>
+                  marginBottom: 25
+                }}
+              >
+                {channel.data.name}
+              </Text>
+            <View style={styles.modalButtonsContainer}>
+              <TouchableOpacity
+                style={{ ...styles.modalButton, backgroundColor: accent_red }}
+                onPress={handleDelete}
+              >
+                <Text style={styles.modalButtonText}>{oneUser() ? 'Delete' : 'Leave'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
              </Pressable>
            </View>
            </Pressable>

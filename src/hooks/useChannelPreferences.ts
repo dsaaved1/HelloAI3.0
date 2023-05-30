@@ -19,9 +19,10 @@ type ReturnValue = {
 }
 
 export const DEFAULT_CHANNEL_PREFERENCES = {
-  imageUri: 'https://images.unsplash.com/photo-1638489440786-0ab170d0ae9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+  imageUri: 'https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+  //imageUri: 'https://images.unsplash.com/photo-1638489440786-0ab170d0ae9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
   backgroundColor: undefined,
-  dimValue: 0.25,
+  dimValue: 0.65,
 }
 
 export default (channelId: string): ReturnValue => {

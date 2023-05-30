@@ -9,13 +9,14 @@ function getRandomColor() {
 }
 
 
-export const createGroupChat = async (userId, client, chatName, channelMembers, isGroupChat) => {
+export const createGroupChat = async (userId, client, chatName, channelMembers, isGroupChat, tempImageUri) => {
     try {
 
         const channel = client.channel('messaging',  uuid.v4(), {
           isGroupChat: isGroupChat,
           name: chatName,
           typeChat: 'chat',
+          image: tempImageUri
         });
     
 
@@ -53,12 +54,43 @@ export const inviteDirectMessage = async (userId, client, channelMember, invitat
       const userArray = [userId]
       const memberArray = [channelMember]
       console.log(channelMember, "channelMember")
+    
       await temporaryChannel.create();
       await temporaryChannel.addMembers(userArray);
       await temporaryChannel.inviteMembers(memberArray); 
+
+      const myUserChats = chatClient?.user?.userChats
+      myUserChats.push(channelMember)
+
+      const updateMy = {
+        id: userId,
+        set: {
+          userChats: myUserChats,
+        },
+      };
+
+      await chatClient.partialUpdateUser(updateMy);
+
   
+      const response = await chatClient.queryUsers({ id: channelMember });
+
+      const theirUserChats = response.users[0]?.userChats;
+      theirUserChats.push(userId)
+
+ 
+      const updateOther = {
+        id: channelMember,
+        set: {
+          userChats: theirUserChats,
+        },
+      };
+
+     
+      await chatClient.partialUpdateUser(updateOther);
+
+
       // The channel's unique ID will be available in channel.cid
-      console.log("New temporary channel created");
+      console.log("New direct channel created");
   
   
     } catch (error) {
@@ -97,14 +129,15 @@ export const createDirectMessage = async (client, channelMembers, nameOtherUser)
 
 
 export const createMessageExpanded = async (client, messageId, channelMembers, text, question, 
-  model, modelImage, className, chatName) => {
+  model, modelImage, chatName) => {
   try {
 
       const channel = client.channel('messaging', messageId, {
-        name: chatName? chatName : "Thread",
+        name: "Thread",
         typeChat: 'messageExpanded',
-        AIMessages: [{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": text},{"role": "assistant", "content": question}] ,
+        AIMessages: [{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": question},{"role": "assistant", "content": text}] ,
         isMessageConvo: true,
+        chatName: chatName
       });
   
       await channel.create();
@@ -117,7 +150,7 @@ export const createMessageExpanded = async (client, messageId, channelMembers, t
         model:  model,
         modelAIPhoto: modelImage,
         text: text,
-        class: className,
+        isAI: true,
     };
     
       //now add the message to the channel
@@ -136,7 +169,7 @@ export const createMessageExpanded = async (client, messageId, channelMembers, t
 
 
 
-export const createConvo = async (client, channelMembers, chatId) => {
+export const createConvo = async (client, channelMembers, chatId, chatName) => {
 
     try {
         console.log("before create convo", channelMembers, chatId)
@@ -146,7 +179,8 @@ export const createConvo = async (client, channelMembers, chatId) => {
         typeChat: 'convo',
         //color: color ? color : getRandomColor(),
         AIMessages: [{"role": "system", "content": "You are a helpful assistant."}],
-        isMessageConvo: false
+        isMessageConvo: false,
+        chatName: chatName ? chatName : ''
       });
 
       console.log("after create convo", channelMembers, chatId)

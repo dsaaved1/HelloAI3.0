@@ -19,6 +19,7 @@ import {parseDurationTextToMs} from '../../utils/conversion'
 import PeekabooView from '../PeekabooView'
 import Star from '../../icons/Star'
 import {isEmpty} from 'lodash'
+import SuperAvatar from '../SuperAvatar'
 
 const VoiceMessageAttachment = ({
   audio_length,
@@ -100,16 +101,17 @@ const VoiceMessageAttachment = ({
         flexDirection: isMyMessage ? 'row' : 'row-reverse',
       }}>
       <View>
-        <Avatar image={user?.image} name={user?.name || user?.id} size={48} />
+        <Avatar image={message?.user?.image} name={message?.user?.name || message?.user?.id} size={48} />
         <Mic
           pathFill={
             isMyMessage ? colors.dark.secondaryLight : colors.dark.active
           }
           style={{
             position: 'absolute',
-            bottom: 0,
+            bottom: -2,
             ...(isMyMessage ? {right: -sizes.m} : {left: -sizes.m}),
           }}
+          width={20}
         />
       </View>
 

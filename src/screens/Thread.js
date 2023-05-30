@@ -29,6 +29,7 @@ import { truncate } from '../utils';
 import { chatClient } from "../client";
 import MessageInput from '../components/channel/MessageInput'
 import { colors } from '../theme';
+import ChannelHeader from '../components/channel/ChannelHeader';
 
 
 const styles = StyleSheet.create({
@@ -68,7 +69,8 @@ export const ThreadsBaby = ({route}) => {
 
   const {channel} = route?.params || {};
   const {channelId} = route?.params || {};
-  const {channelName} = route?.params || {};
+  const {solved} = route?.params || {};
+  const {mainChannel} = route?.params || {};
 
 
   if (!channel) return <RenderNothing />
@@ -82,14 +84,15 @@ export const ThreadsBaby = ({route}) => {
   return (
   
       
-    
+      ///this is the CORRECT ONE!!!!!
         <View style={styles.channelScreenContainer}>
-          <ModalScreenHeader
+          {/* <ModalScreenHeader
             //somehow channel.data.name is not giving the channel name updated
             goBack={navigation.goBack}
             subTitle={truncate(channelName, 35)}
             title={truncate(channelName, 35)? truncate(channelName, 35) : 'Thread'}
-          />
+          /> */}
+          <ChannelHeader oldChannel={mainChannel} solved={solved} />
           <ChannelBackgroundWrapper
             channelId={channelId}
             style={{flex:1}}

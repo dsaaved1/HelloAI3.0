@@ -12,7 +12,7 @@ interface Props extends ViewProps {
 
 export default ({channelId, ...props}: Props) => {
   const {channelPreferences} = useChannelPreferences(channelId)
-  const {dimValue = 0.75, backgroundColor, imageUri} = channelPreferences
+  const {dimValue = 0.40, backgroundColor, imageUri} = channelPreferences
   let uri: string | undefined = DEFAULT_CHANNEL_PREFERENCES.imageUri
   if (!isEmpty(backgroundColor)) {
     uri = undefined

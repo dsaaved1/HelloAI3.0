@@ -21,9 +21,10 @@ import {StackNavigatorParamList} from '../../types'
 import {createMessageExpanded} from '../../utils/actions/chatActions'
 import { ROOT_STACK } from '../../stacks/RootStack'
 import { SVGIcon } from '../SVGIcon';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 //import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export default () => {
+export default ({ oldChannel, solved }) => {
   const {navigate, goBack} =
     useNavigation<StackNavigationProp<StackNavigatorParamList>>()
   const {
@@ -34,6 +35,7 @@ export default () => {
     setChannel
   } = useAppContext()
   const displayName = useChannelPreviewDisplayName(channel, 30)
+  const [mainChannel, setMainChannel] = useState(oldChannel || null);
   const {setQuotedMessageState, removeMessage, updateMessage} =
     useMessagesContext()
 
@@ -48,12 +50,22 @@ export default () => {
   }
 
   const chatName = oneUser() ? '' : channel?.data?.chatName 
-  const mainChannelName = !chatName ?  otherMember?.user?.name : chatName
+  const mainChannelName =  !chatName ?  otherMember?.user?.name : chatName
  
 
   const [classMessageEnabled, setClassMessageEnabled] = useState(false);
   const [threadEnabled, setThreadEnabled] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
+
+  const colorTitle = solved ? '#8E8E' : '#D94444' 
+  const icon = solved ? "checkcircle" : "closecircle"
+
+  const handleBackButtonPress = () => {
+    if (mainChannel) {
+      setChannel(mainChannel);
+    }
+    goBack();
+  };
   
   useEffect(() => {
     const updateClassMessageEnabled = async () => {
@@ -65,7 +77,7 @@ export default () => {
       const messageId = get(selectedMessageIdsEditing, 0, 'id');
       const message = await chatClient.getMessage(messageId);
 
-      if (message.message.isAI ) {
+      if (message.message.isAI && !channel?.data?.isMessageConvo) {
         setThreadEnabled(true);
         setClassMessageEnabled(true);
         message.message.isSolved === 'unsolved' ? setIsSolved(true) : setIsSolved(false)
@@ -112,7 +124,7 @@ export default () => {
       // Extract user IDs from the channel members object
       const userIds = Object.keys(channelMembers);
       await createMessageExpanded(chatClient, messageId, userIds, message.message.text,
-        message.message.question, message.message.model, message.message.modelAIPhoto, message.message.class, message.message.isSolved)
+        message.message.question, message.message.model, message.message.modelAIPhoto, chatName)
       await chatClient.partialUpdateMessage(messageId, {
           set: {
              'isMessageExpanded': true
@@ -123,21 +135,26 @@ export default () => {
 
     console.log("about to navigate to message expanded")
 
+
     const channelToWatch = chatClient.channel('messaging', messageId)
     clearSelectedMessageIdsEditing()
     
+
+    setChannel(channelToWatch)
+    //navigate(ROOT_STACK.THREAD_SCREEN)
    
     navigate(CHANNEL_STACK.THREAD_SCREEN, {
       channel: channelToWatch,
       channelId: messageId,
-      channelName: message.message.isSolved
+      solved: message.message.isSolved === 'solved' ? true : message.message.isSolved === 'unsolved' ? false : undefined,
+      mainChannel: channel
     });
   }
 
   const handleIsSolved = async () => {
     const messageId = get(selectedMessageIdsEditing, 0, 'id')
     const message = await chatClient.getMessage(messageId); 
-    const channelToUpdate = chatClient.channel('messaging', messageId)
+    //const channelToUpdate = chatClient.channel('messaging', messageId)
     const text = message.message.isSolved === 'unsolved' ? 'solved' : 'unsolved'
 
     if (text === 'solved') {
@@ -154,7 +171,7 @@ export default () => {
     });
     //messageInputRef?.current?.focus()
    
-    channelToUpdate && await channelToUpdate.updatePartial({ set:{ name: text } });
+    //channelToUpdate && await channelToUpdate.updatePartial({ set:{ name: text } });
   }
 
 
@@ -274,7 +291,7 @@ export default () => {
       </PeekabooView>
       <PeekabooView isEnabled={!isInMessageSelectionMode}>
         <TouchableOpacity
-        onPress={goBack}
+        onPress={handleBackButtonPress}
         style={{padding: 10, marginLeft: 5}}>
            <SVGIcon height={18} type={'back-button'} width={18}/>
         </TouchableOpacity>
@@ -285,6 +302,8 @@ export default () => {
         /> */}
         {/* <SuperAvatar isSelected={false} channel={channel} size={32} /> */}
         <View style={{padding: sizes.m, flex: 1, alignItems:'center'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center',}}>
+          
           <Text
             numberOfLines={1}
             style={{
@@ -294,6 +313,12 @@ export default () => {
             }}>
             {displayName}
           </Text>
+          {mainChannel && solved !== undefined && 
+             <View style={{marginLeft: 8, paddingTop: 5}}>
+             <AntDesign name={icon} size={15} color={colorTitle} />
+             </View>
+          }
+           </View>
           {mainChannelName !== undefined && 
           <Text
             numberOfLines={1}

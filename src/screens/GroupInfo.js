@@ -63,6 +63,7 @@ const GroupInfo = props =>  {
   const [showMuteAlert, setShowMuteAlert] = useState(false);
   const [showUnmuteAlert, setShowUnmuteAlert] = useState(false);
   const [showMemberAlert, setShowMemberAlert] = useState(false);
+  const [showHideAlert, setShowHideAlert] = useState(false);
 
   const [contacts, setContacts] = useState([]);
   const [participants, setParticpants] = useState(0);
@@ -70,6 +71,7 @@ const GroupInfo = props =>  {
   const [channels, setChannels] = useState(null)
   const [isAnyModalVisible, setIsAnyModalVisible] = useState(false);
   const [rightIconMute, setRightIconMute] = useState(null);
+  const [arrayIdsMembers, setArrayIdsMembers] = useState([])
 
 
   const channel = props.route?.params?.channel || {};
@@ -95,6 +97,7 @@ channel.data.isGroupChat
   async function fetchMembers() {
     const objectMembers = await channel.queryMembers({})
     const participantsCount = objectMembers.members.length;
+    const tempIdsMembers = [];
     const currentUser = objectMembers.members.find(member => member.user.id === chatClient?.user?.id);
     const isModerator = (currentUser.role === 'moderator' || currentUser.role === 'owner') && channel.data.isGroupChat;
     const fetchedContacts = objectMembers.members.map((member, index) => {
@@ -102,6 +105,13 @@ channel.data.isGroupChat
     if (role === '' && member.invited  && !member.invite_accepted_at){
       role = '(pending)'
     }
+
+    
+    const memberId = member.user.id;
+    if (!tempIdsMembers.includes(memberId)) {
+      tempIdsMembers.push(memberId); // Add unique member ID to the temporary array
+    }
+    arrayIdsMembers.push(member.user.id)
       return {
         image: member.user.image  ? { uri: member.user.image } : userImage, // Assuming the user has an 'image' property
         name: chatClient?.user?.name == member.user.name ? 'You' : member.user.name,
@@ -114,6 +124,7 @@ channel.data.isGroupChat
     setIsModerator(isModerator)
     setContacts(fetchedContacts);
     setParticpants(participantsCount)
+    setArrayIdsMembers(tempIdsMembers)
   }
 
   async function fetchConvos(){
@@ -236,26 +247,27 @@ channel.data.isGroupChat
       text: 'Cancel',
       onPress: () => setShowMemberAlert(false),
     },
-    {
-      text: 'Make Admin',
-      icon: (
-        <MaterialIcons name="admin-panel-settings" color={colors.blue} size={25} />
-      ),
-      onPress: async () => {
-        //not ideal, let's change it later
-        //doesn't work correctly
-        
-        await channel.removeMembers([memberAction?.about]);
-        await channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}]);
-
-        // await Promise.all([
-        //   channel.removeMembers([memberAction?.about]),
-        //   channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}])
-        // ]);
-        setShowMemberAlert(false);
-        setParticpants(participants - 1)
-      },
-    },
+    // {
+    //   text: 'Make Admin',
+    //   icon: (
+    //     <MaterialIcons name="admin-panel-settings" color={colors.blue} size={25} />
+    //   ),
+    //   onPress: async () => {
+    //     //not ideal, let's change it later
+    //     //doesn't work correctly
+    //     try {
+    //     await channel.removeMembers([memberAction?.about]);
+    //     await channel.addMembers([{user_id:memberAction?.about, channel_role:"channel_moderator"}]);
+    //     //await channel.addModerators([memberAction?.about]);
+    //     }catch(e){
+    //       console.log("error moderator: ", e)
+    //     }
+    //     // LOG  error moderator:  [Error: StreamChat error code 17: 
+    //     //UpdateChannel failed with error: "changing channel member roles is not allowed client-side"]
+    //     setShowMemberAlert(false);
+    //     setParticpants(participants - 1)
+    //   },
+    // },
     {
       text: 'Remove Member',
       icon: <MaterialCommunityIconsIcon name="account-remove" color={colors.blue} size={25} />,
@@ -317,6 +329,8 @@ channel.data.isGroupChat
 
         <MenuWrapper>
           
+          {channel.data.id !== chatClient?.user?.ownChatId && 
+          <>
             <MenuItem
             iconBackgroundColor='#33FFB3'
               //iconBackgroundColor={colors.darkblue}
@@ -326,6 +340,8 @@ channel.data.isGroupChat
               //rightIconText={721}
             />
             <UIDivider forMenu={true} />
+            </>
+          }
 
             <TouchableOpacity
               onPress={() => navigation.navigate('Starred', { channels: channels})}
@@ -347,7 +363,7 @@ channel.data.isGroupChat
 
         <MenuWrapper>
 
-            <MenuItem
+            {/* <MenuItem
               iconBackgroundColor='#3F22EC'
               icon={
                 <IoniconsIcon name="lock-closed" size={18} color={colors.white} />
@@ -355,11 +371,39 @@ channel.data.isGroupChat
               rightIcon={false}
               mainText="Encryption"
               subText="Message are end-to-end encrypted."
-            />
+            />  */}
+            
+            {isModerator && (
+              <>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowHideAlert(true);
+                    }}
+                  >
+                    <MenuItem
+                    iconBackgroundColor='#3F22EC'
+                    icon={
+                      <IoniconsIcon name={channel.data.hideHistory ? "lock-closed" :  "lock-open"} size={18} color={colors.white} />
+                    }
+                    
+                    mainText={channel.data.hideHistory ? "History Hidden" : "History Visible"}
+                    subText={channel.data.hideHistory ? "New channel members are not able to see chat history." : "New channel members have access to chat history."}
+                  /> 
+                  </TouchableOpacity>
+                
+                <UIDivider forMenu={true} />
+                </>
+            )
+            }
+
+            
+            
+            
+           
 
             {channel.data.isGroupChat !== undefined && (
               <>
-                <UIDivider forMenu={true} />
+                
 
                 {channel.data.muteChannel ? (
                   <TouchableOpacity
@@ -407,7 +451,7 @@ channel.data.isGroupChat
               <View style={{ marginTop: '5%', flex:1}}>
                 <IconButton
                     style={{ alignSelf: 'flex-end' }}
-                    onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel, channels: channels})}
+                    onPress={() => navigation.navigate(ROOT_STACK.NEW_SCREEN, { isNewChat: false, isGroupChat: true, channel: channel, channels: channels, idsMembers: arrayIdsMembers})}
                     iconName={'CirclePlus'}
                     //pathFill={'grey'}
                   />  
@@ -525,7 +569,7 @@ channel.data.isGroupChat
                     />
                 </TouchableOpacity>
 
-                {/* {isModerator &&
+                {isModerator &&
                   <>
                       <UIDivider forPlaintext={true} />
                       <TouchableOpacity
@@ -540,7 +584,7 @@ channel.data.isGroupChat
                         />
                     </TouchableOpacity>
                   </>
-                } */}
+                }
 
             </MenuWrapper>
        }
@@ -621,13 +665,11 @@ channel.data.isGroupChat
             {
               text: 'Delete Group',
               onPress: async () => {
-                navigation.navigate("invitations")
-                //'currently not working'
-                await Promise.all([
-                  channels.map(channel => channel.delete()),
-                ]);
+                const channelCids = channels.map(channel => channel.cid);
+                // client-side soft delete
+                await chatClient.deleteChannels(channelCids);
+                navigation.navigate(ROOT_STACK.CONVOS, {channelId: chatClient.user.ownChatId, channel: null})
                 //setShowDeleteAlert(false)
-                // navigation.navigate("invitations")
               },
             },
           ]}
@@ -673,7 +715,7 @@ channel.data.isGroupChat
         <BottomAlert
           visible={showRemoveAlert}
           destructiveButtonIndex={1}
-          description={`Remove ${memberAction?.name}from ${channel.data.name} group?`}
+          description={`Remove ${memberAction?.name} from ${channel.data.name} group?`}
           actions={[
             {
               text: 'Cancel',
@@ -762,6 +804,39 @@ channel.data.isGroupChat
                   [channels.map(channel => channel.unmute()),
                   channel.updatePartial({ set:{ muteChannel: false } })]);
                 setShowUnmuteAlert(false)
+              },
+              
+            },
+          ]}
+        />
+
+       <BottomAlert
+          visible={showHideAlert}
+         //description={"Members of this channel won't know you muted this channel."}
+          actions={[
+            {
+              text: 'Cancel',
+              onPress: () => setShowHideAlert(false),
+            },
+            {
+              text: channel.data.hideHistory ? "Show History" : 'Hide History',
+              onPress: async () => {
+                const targetChannelId = channel?.id;
+  
+                await Promise.all(
+                  channels.map(async (channel) => {
+                   
+                      const newHideHistory = !channel.data.hideHistory
+                      console.log(newHideHistory, "newHideHistory")
+                      
+                      await channel.updatePartial({ set: { hideHistory: newHideHistory } });
+                      
+                    
+                  })
+                );
+
+                setShowHideAlert(false);
+                
               },
               
             },

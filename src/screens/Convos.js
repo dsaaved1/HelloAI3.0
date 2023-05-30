@@ -52,6 +52,7 @@ const Convos = ({route}) => {
             proAccess: false,
             //username: uid(),
             inviteUsed: false,
+            userChats: [user.id]
         },
     };
     // response will contain user object with updated users info
@@ -82,14 +83,14 @@ const Convos = ({route}) => {
 
   useEffect(() => {
     console.log("before if statement in use effect")
-    if (!channelId &&  chatClient.user.ownChatId === undefined) {
+    if (!channelId &&  chatClient?.user?.ownChatId === undefined) {
       console.log("before create personal channel")
       createPersonalChannel();
     } 
-    if (!channel && chatClient.user.ownChatId) {
+    if (!channel && chatClient?.user?.ownChatId) {
       console.log("before get channel by id")
-      setChannelId(chatClient.user.ownChatId)
-      getChannelById(chatClient.user.ownChatId);
+      setChannelId(chatClient?.user?.ownChatId)
+      getChannelById(chatClient?.user?.ownChatId);
     }
   }, []);
 
@@ -112,7 +113,6 @@ const Convos = ({route}) => {
     
   }, [route?.params]);
 
-  
   
   const filters = { 
     type: 'messaging', 
@@ -185,12 +185,12 @@ const Convos = ({route}) => {
             onRemovedFromChannel={customEventChannel}
             onNewMessageNotification={customEventChannel}
 
-            //onChannelVisible={customEventChannel}
+            onChannelVisible={customEventChannel}
             //delete channel not leave channel
             //onChannelDeleted={customEventChannel}
             //onChannelTruncated={customEventChannel}
             //onChannelHidden={customEventChannel}
-            //onNewMessage={customEventChannel}
+           // onNewMessage={customEventChannel}
         />
          </>
         )}

@@ -1,4 +1,5 @@
 import ChannelScreen from './ChannelStack'
+import ThreadScreen from './ThreadStack'
 import React from 'react'
 import {noHeaderOptions} from '../App'
 import {createStackNavigator} from '@react-navigation/stack'
@@ -40,6 +41,7 @@ const NewStack = createStackNavigator()
 export enum ROOT_STACK {
   CHANNEL_LIST = 'RootStackChannelList',
   CHANNEL_SCREEN = 'RootStackChannelScreen',
+  THREAD_SCREEN = 'RootStackThreadScreen',
   HOME = 'home',
   CONVOS = 'RootStackConvos',
   NEW_SCREEN = 'RootStackNewScreen',
@@ -250,6 +252,11 @@ export default ({clientReady}: {clientReady: boolean}) => {
           name={ROOT_STACK.CHANNEL_SCREEN}
           options={noHeaderOptions}
         />
+        <Stack.Screen
+          component={ThreadScreen}
+          name={ROOT_STACK.THREAD_SCREEN}
+          options={noHeaderOptions}
+        />
       <Stack.Screen
           component={GroupInfo}
           name={'Info'}
@@ -267,6 +274,18 @@ export default ({clientReady}: {clientReady: boolean}) => {
           name={'EditGroup'}
       />
 
+
+        <Stack.Screen
+                component={NewChatScreen}
+                name={ROOT_STACK.NEW_SCREEN}
+    
+              />
+
+        <Stack.Screen
+                component={NewGroupName}
+                name={ROOT_STACK.NEW_GROUP_NAME}
+    
+              />
       
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -275,17 +294,9 @@ export default ({clientReady}: {clientReady: boolean}) => {
                 name={'NewChats'}
     
               /> */}
-             <Stack.Screen
-                component={NewChatScreen}
-                name={ROOT_STACK.NEW_SCREEN}
-    
-              />
+             
 
-              <Stack.Screen
-                component={NewGroupName}
-                name={ROOT_STACK.NEW_GROUP_NAME}
-    
-              />
+              
               
 
       </Stack.Group>

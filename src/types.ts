@@ -27,7 +27,7 @@ export type StreamChatGenerics = {
 export enum BackgroundTypes {
   bright = 'Bright',
   dark = 'Dark',
-  solidColors = 'Solid Colours',
+  solidColors = 'Solid Colors',
 }
 
 export type StackNavigatorParamList = {

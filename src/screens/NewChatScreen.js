@@ -44,6 +44,7 @@ const NewChatScreen = props => {
     const isNewChat = props.route?.params?.isNewChat
     const channel = props.route?.params?.channel || {};
     const channels = props.route?.params?.channels || {};
+    const idsMembers = props.route?.params?.idsMembers || [];
 
 
     useEffect(() => {
@@ -107,9 +108,9 @@ const NewChatScreen = props => {
       
           try {
             //take care if you are searching for your own user id
-            const usersResult = (searchTerm === chatClient.user.id) ? [] : await searchUsers(chatClient, searchTerm);
+            const usersResult = (searchTerm === chatClient.user.id|| (idsMembers && idsMembers.includes(searchTerm)) ) ? [] : await searchUsers(chatClient, searchTerm);
             setUsers(usersResult);
-      
+            setChatExists(false)
             // Update noResultsFound based on search results
             if (usersResult.length === 0) {
               console.log("No results found");
@@ -326,10 +327,16 @@ const NewChatScreen = props => {
                               // Add the member without sending a text
                               await channel.inviteMembers(Object.keys(selectedUsers));
                             } else {
-                              // Add the member and send the text
-                              await channel.inviteMembers(Object.keys(selectedUsers), {
-                                text: `${chatClient?.user?.name} invited ${getSelectedUserIds()} to this channel!`,
-                              });
+                                if (channel.data.hideHistory){
+                                    await channel.addMembers(Object.keys(selectedUsers), {
+                                        text: `${chatClient?.user?.name} invited ${getSelectedUserIds()} to this channel!`,
+                                      }, {hide_history: true});
+                                } else {
+                                    await channel.inviteMembers(Object.keys(selectedUsers), {
+                                        text: `${chatClient?.user?.name} invited ${getSelectedUserIds()} to this channel!`,
+                                      });
+                                }
+                             
                             }
                           })
                         );

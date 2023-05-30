@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   FlatList,
   ActivityIndicator,
   SafeAreaView,
+  Image
 } from 'react-native';
 import {chatClient} from '../client'
 import colors from '../assets/constants/colors';
@@ -17,6 +18,7 @@ import { createGroupChat, inviteDirectMessage } from '../utils/actions/chatActio
 import { SVGIcon } from '../components/SVGIcon';
 import { ROOT_STACK } from '../stacks/RootStack';
 import { useNavigation } from '@react-navigation/native';
+import { launchImagePicker, uploadImageAsync} from '../utils/imagePickerHelper';
 
 
 const NewGroupName = (props) => {
@@ -25,8 +27,9 @@ const NewGroupName = (props) => {
     const { route } = props;
     const {selectedUsers} = route?.params || {};
     const [selectedUsersName, setSelectedUsersName] = useState(selectedUsers);
-
-
+    const [image, setImage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [tempImageUri, setTempImageUri] = useState("");
     const [chatName, setChatName] = useState("");
     const isGroupChatDisabled = Object.keys(selectedUsersName).length === 0   || chatName.length === 0;
 
@@ -67,7 +70,7 @@ const NewGroupName = (props) => {
                             onPress={async () => {
 
                                 const userIds = Object.keys(selectedUsersName); // Get an array of user ids from selectedUsers
-                               await createGroupChat(chatClient?.user?.id, chatClient, chatName, userIds, true);
+                                await createGroupChat(chatClient?.user?.id, chatClient, chatName, userIds, true, tempImageUri);
                                 console.log('send invitation to users to create a group chat')
                                 //navigation.navigate(ROOT_STACK.CONVOS, { channelId: channelInfo.id, channelName: channelInfo.name, channelUsers: channelInfo.members});
                                 navigation.navigate('Main');
@@ -95,6 +98,31 @@ const NewGroupName = (props) => {
             console.log(newSelectedUsers, 'newSelectedUsers after adding')
         
     }
+
+    const pickImage = useCallback(async () => {
+        try {
+          const tempUri = await launchImagePicker();
+  
+          if (!tempUri) return;
+    
+          // Upload the image
+          setIsLoading(true);
+          const uploadUrl = await uploadImageAsync(tempUri);
+          
+  
+          setIsLoading(false);
+  
+          if (!uploadUrl) {
+            throw new Error("Could not upload image");
+          }
+          setImage({ uri: uploadUrl });
+          setTempImageUri(uploadUrl);
+          
+         
+        } catch (error) {
+          console.log(error);
+        }
+      }, [tempImageUri]);
     
   return (
             <View style={styles.container}>
@@ -102,10 +130,16 @@ const NewGroupName = (props) => {
                 <View style={styles.centeredContainer}>
                 <View style={styles.chatNameContainer}>
 
-                            <View style={styles.iconWrapper}>
-                                <SVGIcon height={28} type='image-attachment' width={28} />
-                            </View>
-                        
+                <TouchableOpacity onPress={pickImage} style={styles.iconWrapper}>
+                {isLoading ? (
+                    <ActivityIndicator size="small" color={'#859299'} />
+                ) : image === "" ? (
+                    <SVGIcon height={28} type="image-attachment" width={28} />
+                ) : (
+                    <Image source={image} style={styles.userImage} />
+                )}
+                </TouchableOpacity>
+                                        
                             <TextInput 
                                 style={styles.textbox}
                                 placeholder="Group Name"
@@ -195,5 +229,10 @@ const styles = StyleSheet.create({
     selectedUserStyle: {
         marginRight: 10,
         marginBottom: 10
-    }
+    },
+    userImage: {
+        borderRadius: 35, // Half of the width and height to create a circle
+        width: '100%',
+        height: '100%',
+      },
 })

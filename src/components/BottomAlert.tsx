@@ -55,7 +55,6 @@ const CustomAlert: React.FC<Props> = ({
               onPress={action.onPress}
               style={{
                 flexDirection: 'row',
-                backgroundColor: colors.black,
                 borderTopWidth: index == 0 && !description ? 0 : 1,
                 borderTopColor: colors.deepGray,
               }}
