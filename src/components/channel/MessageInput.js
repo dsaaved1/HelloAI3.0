@@ -9,7 +9,7 @@ import {
 import {takePhoto} from 'stream-chat-react-native-core/src/native'
 import {Alert, SafeAreaView, StyleSheet, Text, View,  
 TouchableOpacity, Image, TextInput, Animated,
-Modal, ScrollView, ActivityIndicator, Pressable} from 'react-native'
+Modal, ScrollView, ActivityIndicator, Pressable, KeyboardAvoidingView} from 'react-native'
 import {flex, sizes, globalStyles} from '../../global'
 import {colors} from '../../theme'
 import IconButton from '../IconButton'
@@ -20,7 +20,7 @@ import RecordingBlinking from '../../icons/RecordingBlinking'
 import PeekabooView from '../PeekabooView'
 import MessageInputCTA from './MessageInputCTA'
 import {useNavigation} from '@react-navigation/native'
-import {get, isEmpty, size, values} from 'lodash'
+import {get, isEmpty, size, transform, values} from 'lodash'
 import {ChannelState} from 'stream-chat'
 import {StackNavigatorParamList, StreamChatGenerics} from '../../types'
 import {CHANNEL_STACK} from '../../stacks/ChannelStack'
@@ -54,6 +54,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import SimpleIcons from 'react-native-vector-icons/SimpleLineIcons'
 import BottomAlert from '../BottomAlert';
 import BottomLoading from '../BottomLoading'
+import QuizzesAlert from '../QuizzesAlert';
 import GPT3 from '../../images/GPT3.png'
 import GPT4 from '../../images/GPT4.png'
 import Bard from '../../images/Bard.png'
@@ -61,6 +62,8 @@ import { chatClient } from '../../client';
 //import { SVGIcon } from '../SVGIcon';
 import PaywallScreen from '../Paywall';
 import { SVGIcon } from '../SVGIcon';
+
+import { launchImagePickerAI, openCameraAI, launchImagePicker} from '../../utils/imagePickerHelper';
 
 
 
@@ -76,7 +79,8 @@ export default (props) => {
     compressImageQuality,
     pickFile,
     sendMessage,
-    setText
+    setText,
+    clearQuotedMessageState,
   } = useMessageInputContext()
   const [recordingActive, setRecordingActive] = useState(false)
   const [recordingDurationInMS, setRecordingDurationInMS] = useState(0)
@@ -97,16 +101,17 @@ export default (props) => {
     const [showPaywall, setShowPaywall] = useState(false);
     const [hasProAccess, setHasProAccess] = useState(false);
 
-    
-
     const [showChatAIAlert, setShowChatAIAlert] = useState(false);
     const [showChatAlert, setShowChatAlert] = useState(false);
     const [showAIModel, setShowAIModel] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
+    const [showQuizzesAlert, setShowQuizzesAlert] = useState(false);
     const [showErrorAI, setShowErrorAI] = useState(false);
     const [showFullMemory, setShowFullMemory] = useState(false);
+    const [showReplyError, setShowReplyError] = useState(false);
     const [questionFailed, setQuestionFailed] = useState('')
 
+  
     const optionsModels = [
       {
         text: 'Cancel',
@@ -163,20 +168,20 @@ export default (props) => {
         text: 'Cancel',
         onPress: () => setShowChatAIAlert(false),
       },
-      {
-        text: 'Summary',
-        icon: (
-          <SimpleIcons name="book-open" color= '#3777f0' size={21} />
-        ),
-        onPress: () => {
-          if (hasProAccess) {
-          } else {
-            setShowPaywall(true)
-           setShowChatAIAlert(false)
+      // {
+      //   text: 'Summary',
+      //   icon: (
+      //     <SimpleIcons name="book-open" color= '#3777f0' size={21} />
+      //   ),
+      //   onPress: () => {
+      //     if (hasProAccess) {
+      //     } else {
+      //       setShowPaywall(true)
+      //      setShowChatAIAlert(false)
             
-          }
-        },
-      },
+      //     }
+      //   },
+      // },
       {
         text: 'Multiple Choice',
         icon: <View style={{justifyContent:'center', marginRight: -4}}>
@@ -188,8 +193,16 @@ export default (props) => {
         onPress: () => {
           if (hasProAccess) {
           } else {
-            setShowPaywall(true)
-            setShowChatAIAlert(false)
+
+            // setShowPaywall(true)
+            
+            //multipleChoice("k");
+            (async () => {
+             
+              //const tempUri = await launchImagePicker();
+              const transcript = await pickImageAI();
+              multipleChoice(transcript);
+            })();
            
           }
         },
@@ -200,8 +213,13 @@ export default (props) => {
         onPress: () => {
           if (hasProAccess) {
           } else {
-            setShowPaywall(true)
+            //setShowPaywall(true)
             setShowChatAIAlert(false)
+  
+            navigation.navigate('Quiz', { onSubmit: onSubmitQuiz });
+
+      
+            //setShowQuizzesAlert(true)
             
           }
         },
@@ -312,7 +330,6 @@ export default (props) => {
   }, [closePicker, compressImageQuality, setSelectedImages, setSelectedPicker])
 
 
-
   const pickImageFromGallery = useCallback(async () => {
     console.log('pickImageFromGallery');
   
@@ -339,6 +356,34 @@ export default (props) => {
     });
   }, [compressImageQuality]);
 
+  const pickImageAI = useCallback(async () => {
+    try {
+      
+      const result = await launchImagePickerAI();
+      if (!result || result.text === "This image doesn't contain any text!") return "";
+
+
+      return result.text
+
+    } catch (error) {
+      console.log(error);
+      return ""; 
+    }
+  }, []);
+
+  const openImageAI = useCallback(async () => {
+    try {
+      
+      const result = await openCameraAI();
+      if (!result) return "";
+
+      return result.text
+
+    } catch (error) {
+      console.log(error);
+      return ""; 
+    }
+  }, []);
 
   //image uploads
   useEffect(() => {
@@ -396,6 +441,342 @@ export default (props) => {
 
     setShowChatAIAlert(false)
     
+  }
+
+  const onSubmitQuiz = async (prompt, question, optionValues) => {
+    setShowQuizzesAlert(false)
+    setShowLoading(true)
+    const { Configuration, OpenAIApi } = require('openai')
+    const configuration = new Configuration({
+      apiKey: keys.ai,
+    })
+    const openai = new OpenAIApi(configuration)
+    console.log("here in quiz on submit before response")
+    try {
+          const promptExists = prompt !== "AI Generate"
+          const questionExists = question !== "AI Generate"
+          const optionValuesExists = optionValues[0] !== "AI Generate"
+
+          let completePrompt;
+          let questionResponse
+          let options
+          let answer;
+
+          if (questionExists && optionValuesExists){
+            let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            let optionsPrompt = optionValues.map((option, index) => `${alphabet[index]}: ${option}`).join('\n');
+        
+            completePrompt = `Give me the answer to this question ${question}\n${optionsPrompt}\n${alphabet[optionValues.length]}: None of the above\n\nPlease answer with a single letter corresponding to the correct option. For example, if the answer is the second option, you should reply with The answer is C`;
+        
+            options = [...optionValues, "None of the above"]
+            console.log(optionValues, options, "options")
+            questionResponse = question
+        
+            const messages = [
+                {
+                    "content": "You are a helpful assistant.", 
+                    "role": "system"
+                },
+                {
+                    "role": "user",
+                    "content": completePrompt
+                },
+            ];
+                
+            const responseSimilar = await openai.createChatCompletion({
+                model: "gpt-3.5-turbo",
+                messages: messages
+            });
+        
+            const answerSimilar = responseSimilar.data.choices[0].message.content
+        
+            let letter = answerSimilar.split(" ")[3].trim(); 
+            letter = letter.replace(/[^A-Z]/g, '');
+            
+            console.log(answerSimilar, letter, "letter in A")
+        
+            // Check if letter is valid
+            if (alphabet.includes(letter)) {
+          
+                let letterToIndexMap = {};
+                for(let i = 0; i < alphabet.length; i++){
+                    letterToIndexMap[alphabet[i]] = i;
+                }
+
+                answer = letterToIndexMap[letter.trim()]; 
+            } else {
+              throw new Error("Invalid letter response.");
+            }
+         
+        } else if (promptExists && questionExists) {
+            completePrompt = `Given this prompt ${prompt} and this question ${question} provide me four multiple-choice options and label them as A, B, C, and D. Lastly, indicate the correct answer among A, B, C, D. For example: 
+            Question: What is the color of the sky?
+            A: Blue
+            B: Green
+            C: Yellow
+            D: Red
+            Answer: A
+            `
+            questionResponse = question
+
+            const messages = [
+              {
+                "content": "You are a helpful assistant.", 
+                "role": "system"
+              },
+              {
+                "role": "user",
+                "content": completePrompt
+              },
+            ];
+            const responseSimilar = await openai.createChatCompletion({
+              model: "gpt-3.5-turbo",
+              messages: messages
+            });
+
+            const answerSimilar = responseSimilar.data.choices[0].message.content
+
+            console.log(answerSimilar, "wilis B")
+
+            // Split the response into lines
+            let lines = answerSimilar.trim().split("\n");
+    
+            // Remove empty lines
+            lines = lines.filter(line => line.trim() !== '');
+    
+    
+            // The next 4 lines should be the options
+            options = lines.slice(1, 5).map(line => line.split(": ")[1]);
+    
+            let letter = lines[5].split(": ")[1].trim();
+            console.log(lines[5].split(": ")[1], "letter in B")
+
+            let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            if (!alphabet.includes(letter) || options[0] === undefined) {
+              throw new Error("Invalid letter response."); 
+            }
+            answer = null;
+            switch (letter) {
+                case 'A': answer = 0; break;
+                case 'B': answer = 1; break;
+                case 'C': answer = 2; break;
+                case 'D': answer = 3; break;
+            }
+
+        } else if (promptExists) {
+          console.log("here in prompt")
+            completePrompt = `Given this prompt ${prompt}. Give me a question with four multiple-choice options and label them as A, B, C, and D. Lastly, indicate the correct answer among A, B, C, D. For example: 
+            Question: What is the color of the sky?
+            A: Blue
+            B: Green
+            C: Yellow
+            D: Red
+            Answer: A
+            `
+            const messages = [
+              {
+                "content": "You are a helpful assistant.", 
+                "role": "system"
+              },
+              {
+                "role": "user",
+                "content": completePrompt
+              },
+            ];
+
+            console.log(completePrompt, "complete prompt")
+
+            const responseSimilar = await openai.createChatCompletion({
+              model: "gpt-3.5-turbo",
+              messages: messages
+            });
+    
+            console.log(responseSimilar, "response")
+            const answerSimilar = responseSimilar.data.choices[0].message.content
+
+            console.log(answerSimilar, "wilis C")
+    
+            // Split the response into lines
+            let lines = answerSimilar.trim().split("\n");
+    
+            // Remove empty lines
+            lines = lines.filter(line => line.trim() !== '');
+    
+            // The first line should be the question
+            questionResponse = lines[0].split(": ")[1];
+    
+            // The next 4 lines should be the options
+            options = lines.slice(1, 5).map(line => line.split(": ")[1]);
+    
+            let letter = lines[5].split(": ")[1].trim();
+            console.log(lines[5].split(": ")[1], "letter in C")
+            let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            if (!alphabet.includes(letter) || options[0] === undefined) {
+              throw new Error("Invalid letter response."); 
+            }
+            answer = null;
+            switch (letter) {
+                case 'A': answer = 0; break;
+                case 'B': answer = 1; break;
+                case 'C': answer = 2; break;
+                case 'D': answer = 3; break;
+            }
+
+        } else if (questionExists) {
+           completePrompt = `Given this question ${question} provide me four multiple-choice options and label them as A, B, C, and D. Lastly, indicate the correct answer among A, B, C, D. For example: 
+            Question: What is the color of the sky?
+            A: Blue
+            B: Green
+            C: Yellow
+            D: Red
+            Answer: A
+            `
+            questionResponse = question
+
+            const messages = [
+              {
+                "content": "You are a helpful assistant.", 
+                "role": "system"
+              },
+              {
+                "role": "user",
+                "content": completePrompt
+              },
+            ];
+            const responseSimilar = await openai.createChatCompletion({
+              model: "gpt-3.5-turbo",
+              messages: messages
+            });
+
+            const answerSimilar = responseSimilar.data.choices[0].message.content
+
+            console.log(answerSimilar, "wilis D")
+
+            // Split the response into lines
+            let lines = answerSimilar.trim().split("\n");
+    
+            // Remove empty lines
+            lines = lines.filter(line => line.trim() !== '');
+    
+    
+            // The next 4 lines should be the options
+            options = lines.slice(1, 5).map(line => line.split(": ")[1]);
+    
+            let letter = lines[5].split(": ")[1].trim();
+            console.log(lines[5].split(": ")[1], "letter in D")
+            let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            if (!alphabet.includes(letter) || options[0] === undefined) {
+              throw new Error("Invalid letter response."); 
+            }
+            answer = null;
+            switch (letter) {
+                case 'A': answer = 0; break;
+                case 'B': answer = 1; break;
+                case 'C': answer = 2; break;
+                case 'D': answer = 3; break;
+            }
+        }
+       
+       
+      
+        setShowLoading(false)
+
+          //multiple choice question
+          const messageData = {
+            question: questionResponse,
+            options: options,
+            answer: answer,
+            isMultipleChoice: true,
+            isQuiz: true,
+            quizAnsweredUsers: ["someone"],
+            model: "HelloAI",
+            text: "Multiple Choice"
+          };
+
+          await channel.sendMessage(messageData);
+          
+    } catch (e) {
+        setShowLoading(false)
+        console.log(e.response ? e.response.data : e);
+        setCurrentModel("HelloAI")
+        setShowErrorAI(true)
+      
+    }
+  }
+
+  const multipleChoice = async (transcript) => {
+    if (transcript === "" || transcript === "This image doesn't contain any text!") {
+      console.log("Empty transcript received");
+      return;  // return early from the function if transcript is empty
+    }
+    setShowChatAIAlert(false)
+    setShowLoading(true)
+    const { Configuration, OpenAIApi } = require('openai')
+    const configuration = new Configuration({
+      apiKey: keys.ai,
+    })
+    const openai = new OpenAIApi(configuration)
+  
+    console.log("here in multiple choice before response")
+    try {
+       
+        console.log(transcript, "transcript")
+        console.log("here in ai fine tuned during response1")
+        const response = await openai.createCompletion({
+          model: "davinci:ft-personal-2023-06-01-21-41-13",
+          prompt: transcript + "\n\n###\n\n",
+          max_tokens: 300,  // Adjust this value as needed
+          stop: ["###"]
+        });
+    
+        const answer = response.data.choices[0].text.trim();
+        
+        console.log("here in ai ai fine tuned after response2")
+        console.log(answer, "answer fine tuned")
+
+    
+        setShowLoading(false)
+        //const input = "1. Sign tracking is also called&sign monitoring#autotracking#autoshaping#autotrack&c*2. The first person to use counterconditioning to treat a phobia was probably&Rosalie Rayner#Carl Rogers#Mary Cover Jones#John B. Watson&c*3. When a behaviour is defined by the procedure used to measure it, the definition is said to be&mechanistic#lexicographic#procedura#operational&d*4. Of the following, the schedule that is most likely to produce a superstitious behaviour is the&FD#VD#DRH#VT&b*5. The time between conditioning trials is called the&inter-stimulus interval#inter-trial interval#contiguity gap#trace period&b*6. If, following conditioning, a CS is repeatedly presented without the US, the procedure is&higher-order conditioning#latent inhibition#extinction.#preconditioning&c"
+
+        const questions = answer.split('*');
+        console.log(questions, " questions!!")
+
+        for (let i = 0; i < questions.length - 1; i++) {
+          console.log(i, "number i")
+          const parts = questions[i].split('&');
+          console.log(parts, "parts")
+          const question = parts[0];
+          const options = parts[1].split('#');
+          console.log(parts[2], "answer letter")
+          const answer = parts[2].charCodeAt(0) - 97; // Convert the answer from 'a', 'b', 'c', 'd' to 0, 1, 2, 3
+
+          const messageData = {
+            question: question,
+            options: options,
+            answer: answer,
+            isMultipleChoice: true,
+            model: "HelloAI",
+            text: "Multiple Choice"
+          };
+
+          if (parts[3]) {
+            messageData.explanation = parts[3];
+          }
+
+          if (parts[4]) {
+            messageData.answerExplanation = parts[4];
+          }
+
+          await channel.sendMessage(messageData);
+        }
+    } catch (e) {
+      setShowLoading(false)
+      console.log(e.response ? e.response.data : e);
+      setCurrentModel("HelloAI")
+      setShowErrorAI(true)
+      
+    
+    }
   }
 
   const optimizeMemory = async () => {
@@ -503,6 +884,7 @@ export default (props) => {
     if (chatClient?.user?.questionsLeft > 0 || chatClient?.user?.proAccess == true){
         await sendQuestion()
         if (currentModel == 'GPT-4'){
+          setShowLoading(true)
           await sendGPT4(question)
         } else {
           setShowLoading(true)
@@ -534,7 +916,32 @@ export default (props) => {
    
   }
 
+  const sendReplyGPT = async (question) => {
+
+    console.log("here in send reply gpt")
+
+    if (quotedMessage.class !== "AIQuestion"){
+      await sendQuestion()
+      if (currentModel == 'GPT-4'){
+        setShowLoading(true)
+        await sendGPT4(question)
+      } else {
+        setShowLoading(true)
+        await replyGPT3(question)
+      }
+    } else {
+    
+      messageInputRef?.current?.blur()
+      setText("");
+      clearQuotedMessageState()
+      setShowReplyError(true)
+      
+    }
+   
+  }
+  
   const sendQuestion = async () => {
+
     const messageData = {
       class: "AIQuestion",
       text: text,
@@ -608,7 +1015,6 @@ export default (props) => {
   }
 
   const sendGPT3 = async (question) => {
-    console.log(currentModel, "currentModel")
     const { Configuration, OpenAIApi } = require('openai')
     const configuration = new Configuration({
       apiKey: keys.ai,
@@ -667,10 +1073,118 @@ export default (props) => {
 
   }
 
+  const replyGPT3 = async (question) => {
+  
+    const { Configuration, OpenAIApi } = require('openai')
+    const configuration = new Configuration({
+      apiKey: keys.ai,
+    })
+    const openai = new OpenAIApi(configuration)
+
+    console.log("here in reply AI before response")
+    try {
+
+        const AIMessages = [{"role": "system", "content": "You are a helpful assistant."}]
+
+        let optionsString = '';
+
+        if (quotedMessage.options) {
+          // Create an array of options with a., b., c. etc prepended
+          let formattedOptions = quotedMessage.options.map((option, index) => 
+            String.fromCharCode(97 + index) + '. ' + option
+          );
+          // Join all options into a single string
+          optionsString = ' ' + formattedOptions.join(' ');
+        }
+
+
+        const questionUser = quotedMessage.question + optionsString;
+
+
+        const questionChat = {"role": "user", "content": questionUser}
+  
+        AIMessages.push(questionChat);
+
+        let explanationString = quotedMessage.explanation ? ' ' + quotedMessage.explanation : '';
+
+        let answerAI = '';
+
+        if (quotedMessage.answer) {
+          answerAI = 'The answer is ' + quotedMessage.answer + ' because ' + explanationString;
+        } else if (quotedMessage.answerExplanation) {
+          answerAI = quotedMessage.answerExplanation;
+        } else { 
+          answerAI = quotedMessage.text
+        }
+        
+
+        const answerChat = {"role": "assistant", "content": answerAI}
+
+        AIMessages.push(answerChat);
+
+
+        const questionReply = {"role": "user", "content": question}
+  
+        AIMessages.push(questionReply);
+
+        const response = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: AIMessages
+        });
+    
+        const answer = response.data.choices[0].message.content
+
+        const messageData = {
+            question: question,
+            model: 'GPT-3.5',
+            modelAIPhoto: 'https://firebasestorage.googleapis.com/v0/b/mind-4bdad.appspot.com/o/chatImages%2Fchatgpt-icon.png?alt=media&token=c48f7085-0a25-4ea0-95a6-a7f3d6ed0cd4',
+            text: answer,
+            isAI: true,
+            class: 'AIAnswer'
+        };
+
+        clearQuotedMessageState()
+
+        await channel.sendMessage(messageData)
+
+
+        setShowLoading(false)
+
+    } catch (e) {
+      setShowLoading(false)
+      if (
+        e.message === 'StreamChat error code 22: UpdateChannelPartial failed with error: "channel custom data cannot be bigger than 5KB"'
+      ) {
+        optimizeMemory()
+      } else {
+        console.log(e, "heree in show")
+        setQuestionFailed(question)
+        setShowErrorAI(true)
+      }
+        
+    }
+  }
+
   const handleSendOnPress = async () => {
     messageInputRef?.current?.blur()
     await sendMessage()
   }
+
+  const oneUser = () => {
+    return Object.keys(channel?.state?.members).length === 1
+  }
+
+  const handleTryAgain = async () => {
+    setShowErrorAI(false)
+    if (currentModel === 'GPT-4') {
+      console.log("here before sending gpt4")
+      setShowLoading(true);
+      await sendGPT4(questionFailed);
+    } else {
+      setShowLoading(true);
+      await sendGPT3(questionFailed);
+    }
+  };
 
   const rightSwipeActions = () => {
     return (
@@ -706,10 +1220,12 @@ export default (props) => {
                           iconName={'Attachment'}
                           pathFill={colors.dark.secondaryLight}
                         /> */}
+
                         <IconButton
-                          onPress={() => setShowChatAlert(true)}
+                          //onPress={() => setShowChatAlert(true)}
+                          pressable={false}
                           iconName={'Plus'}
-                          pathFill={colors.dark.secondaryLight}
+                          pathFill={'#E1DFDF'}
                         />
 
                         <AutoCompleteInput
@@ -770,35 +1286,17 @@ export default (props) => {
     )
   }
 
-
-  const oneUser = () => {
-    return Object.keys(channel?.state?.members).length === 1
-  }
-
-  const handleTryAgain = async () => {
-    setShowErrorAI(false)
-    if (currentModel === 'GPT-4') {
-      console.log("here before sending gpt4")
-      setShowLoading(true);
-      await sendGPT4(questionFailed);
-    } else {
-      setShowLoading(true);
-      await sendGPT3(questionFailed);
-    }
-  };
-  
-
   let Container = oneUser() ? View : Swipeable;
 
   return (
+    
     <View>
-      {!oneUser() &&
+      
         <Reply
               isPreview
               isEnabled={isReplyPreviewEnabled}
               message={quotedMessage}
             />
-      }
       <Container renderRightActions={rightSwipeActions}>
       <SafeAreaView style={{...styles.outerContainer, backgroundColor: colors.dark.secondary}}>
         {!oneUser() && 
@@ -866,7 +1364,7 @@ export default (props) => {
                         />
                     :
                       <IconButton
-                          onPress={() => sendQuestionGPT(text)}
+                          onPress={() => isReplyPreviewEnabled ? sendReplyGPT(text) : sendQuestionGPT(text)}
                           iconName={'Send'}
                           pathFill={colors.dark.text}
                           style={styles.send}
@@ -882,7 +1380,7 @@ export default (props) => {
           </SafeAreaView>
         
       </Container>
-      <BottomAlert
+        <BottomAlert
           visible={showChatAIAlert}
           actions={chatOptionAI}
           textColor={colors.dark.text}
@@ -897,6 +1395,12 @@ export default (props) => {
         <BottomLoading
           visible={showLoading}
         />
+        {/* <QuizzesAlert
+           visible={showQuizzesAlert}
+           onPress={() => setShowQuizzesAlert(false)}
+           onSubmit={onSubmitQuiz}
+        /> */}
+
         <Modal
            visible={showPaywall}
            animationType="slide"
@@ -916,6 +1420,7 @@ export default (props) => {
             style={{ flex: 1 }}
             onPress={() => {
               setShowErrorAI(false);
+              setCurrentModel("GPT-3.5")
             }}
           >
            <View style={styles.modalContainer}>
@@ -923,6 +1428,7 @@ export default (props) => {
              <View style={styles.modalContent}>
                <Text style={styles.modalTitle}>{`Error Asking ${currentModel}`}</Text>
 
+              {(currentModel === "GPT-3.5" || currentModel === "GPT-4") && 
               <View style={{flexDirection:'row'}}>
                 <TouchableOpacity
                 onPress={handleTryAgain}>
@@ -937,12 +1443,38 @@ export default (props) => {
                 </TouchableOpacity>
                 <IoniconsIcon name="ios-refresh" color={colors.dark.secondaryLight} size={15} />
               </View>
+              }
              </View>
              </Pressable>
            </View>
            </Pressable>
-          </Modal>
-      <Modal
+        </Modal>
+
+       <Modal
+           visible={showReplyError}
+           //animationType="slide"
+           transparent={true}
+       >
+        <Pressable
+            style={{ flex: 1 }}
+            onPress={() => {
+              setShowReplyError(false);
+            }}
+          >
+           <View style={styles.modalContainer}>
+           <Pressable onPress={() => {}} style={{width: '100%', alignItems:'center'}}>
+             <View style={styles.modalContent}>
+               <Text style={{...styles.modalTitle, color: colors.dark.text}}>Error replying to non AI answer!</Text>
+              <Text style={{ fontSize: 12, color: colors.dark.text }}>
+                You can only reply to an AI answer, not an AI question.
+              </Text>
+             </View>
+             </Pressable>
+           </View>
+           </Pressable>
+        </Modal>
+
+        <Modal
            visible={showFullMemory}
            //animationType="slide"
            transparent={true}
@@ -980,7 +1512,7 @@ export default (props) => {
              </Pressable>
            </View>
            </Pressable>
-          </Modal>
+        </Modal>
     </View>
     
   )

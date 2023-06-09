@@ -1,0 +1,697 @@
+  [{
+    "prompt": "The final exam will consist of 100 multiple choice questions. The exam is cumulative,\nbut about two-thirds of the questions will be taken from material covered after the midterm.\nQuestions can be taken from any and all material assigned in the textbook and covered in\nlectures.\nBelow are some sample questions. Pick the best answer from those provided. Answers\nare at the very bottom of the document.\n1. Sign tracking is also called\na. sign monitoring.\nb. autotracking\nc. autoshaping\nd.\nautotrack\n2. The first person to use counterconditioning to treat a phobia was probably\na. Rosalie Rayner\nb. Carl Rogers\nc. Mary Cover Jones\nd. John B. Watson\n3. When a behaviour is defined by the procedure used to measure it, the definition is said to be\na. mechanistic\nb. lexicographic\nc. procedural\nd. operational\n4. Of the following, the schedule that is most likely to produce a superstitious behaviour is the\na. FD\nb. VD\nc. DRH\nd. VT\n5. The time between conditioning trials is called the\na. inter-stimulus interval\nb. inter-trial interval\nc. contiguity gap\nd. trace period\n6. If, following conditioning, a CS is repeatedly presented without the US, the procedure is\ncalled\na. higher-order conditioning\nb. latent inhibition\nc. extinction.\nd. preconditioning \n\n###\n\n",
+    "completion": "1. Sign tracking is also called&sign monitoring#autotracking#autoshaping#autotrack&c*2. The first person to use counterconditioning to treat a phobia was probably&Rosalie Rayner#Carl Rogers#Mary Cover Jones#John B. Watson&c*3. When a behaviour is defined by the procedure used to measure it, the definition is said to be&mechanistic#lexicographic#procedura#operational&d*4. Of the following, the schedule that is most likely to produce a superstitious behaviour is the&FD#VD#DRH#VT&b*5. The time between conditioning trials is called the&inter-stimulus interval#inter-trial interval#contiguity gap#trace period&b*6. If, following conditioning, a CS is repeatedly presented without the US, the procedure is&higher-order conditioning#latent inhibition#extinction.#preconditioning&c*###"
+  }
+  ,
+  {
+    "prompt": "13) The Earth is flat.\na. True\nb. False\n\n14) The Great Wall of China is visible from space.\na. True\nb. False\n\n15) The Mona Lisa was painted by Pablo Picasso.\na. True\nb. False\n\n16) Cheetahs are the fastest land animals.\na. True\nb. False\n\n17) The Pacific Ocean is the smallest ocean on Earth.\na. True\nb. False \n\n###\n\n",
+    "completion": "13. The Earth is flat.&True#False&b*14. The Great Wall of China is visible from space.&True#False&b*15. The Mona Lisa was painted by Pablo Picasso.&True#False&b*16. Cheetahs are the fastest land animals.&True#False&a*17. The Pacific Ocean is the smallest ocean on Earth.&True#False&b*###"
+  }
+  ,
+  {
+  "prompt": "6. What is the chemical symbol for iron? a.Fe b.Ag c.Cu\n7. What is the largest planet in our solar system? a.Jupiter b.Saturn c.Mars\n8. Who is the author of the Harry Potter book series? a.J.K. Rowling b.Stephen King c.George R.R. Martin\n\n\n###\n\n",
+  "completion": "6. What is the chemical symbol for iron?&Fe#Ag#Cu&a*7. What is the largest planet in our solar system?&Jupiter#Saturn#Mars&a*8. Who is the author of the Harry Potter book series?&J.K. Rowling#Stephen King#George R.R. Martin&a*###"
+  },
+  {
+  "prompt": "9. What is the chemical symbol for sodium? a.Na b.Si c.Ca 10. Who painted the famous artwork 'The Starry Night'? a.Vincent van Gogh b.Pablo Picasso c.Leonardo da Vinci\n\n###\n\n",
+  "completion": "9. What is the chemical symbol for sodium?&Na#Si#Ca&a*10. Who painted the famous artwork 'The Starry Night'?&Vincent van Gogh#Pablo Picasso#Leonardo da Vinci&a*###"
+  },
+  {
+  "prompt": "11. What is the capital of France? a.Paris b.Madrid c.Rome d.London\n12. Who wrote the play 'Romeo and Juliet'? a.William Shakespeare b.Oscar Wilde c.Jane Austen d.Charles Dickens\n13. Which planet is known as the 'Red Planet'? a.Mars b.Venus c.Jupiter d.Saturn\n14. What is the chemical symbol for silver? a.Ag b.Si c.Cu d.Fe\n\n###\n\n",
+  "completion": "11. What is the capital of France?&Paris#Madrid#Rome#London&a*12. Who wrote the play 'Romeo and Juliet'?&William Shakespeare#Oscar Wilde#Jane Austen#Charles Dickens&a*13. Which planet is known as the 'Red Planet'?&Mars#Venus#Jupiter#Saturn&a*14. What is the chemical symbol for silver?&Ag#Si#Cu#Fe&a*###"
+  },
+  {
+  "prompt": "15. Who is credited with inventing the telephone? a.Thomas Edison\nb.Alexander Graham Bell\nc.Nikola Tesla\nd.Michael Faraday\ne.Isaac Newton\n16. What is the largest organ in the human body? a.Liver\nb.Heart\nc.Skin\nd.Lungs\ne.Brain\n17. Which continent is the largest by land area? a.Asia\nb.Africa\nc.North America\nd.South America\ne.Europe\n18. Who painted the Mona Lisa? a.Vincent van Gogh\nb.Pablo Picasso\nc.Leonardo da Vinci\nd.Michelangelo\ne.Claude Monet\n19. What is the chemical symbol for potassium? a.Pa\nb.K\nC.Pt\nd.Kr\ne.Po\n\n###\n\n",
+  "completion": "15. Who is credited with inventing the telephone?&Thomas Edison#Alexander Graham Bell#Nikola Tesla#Michael Faraday#Isaac Newton&b*16. What is the largest organ in the human body?&Liver#Heart#Skin#Lungs#Brain&c*17. Which continent is the largest by land area?&Asia#Africa#North America#South America#Europe&a*18. Who painted the Mona Lisa?&Vincent van Gogh#Pablo Picasso#Leonardo da Vinci#Michelangelo#Claude Monet&c*19. What is the chemical symbol for potassium?&Pa#K#Pt#Kr#Po&b*###"
+  },
+  {
+  "prompt": "20. Who discovered the theory of general relativity? a.Isaac Newton b.Albert Einstein c.Nikola Tesla\n21. What is the largest ocean on Earth? a.Atlantic Ocean b.Indian Ocean c.Pacific Ocean\n22. Which country is home to the Great Barrier Reef? a.Australia b.Brazil c.Canada\n23. Who wrote the novel 'To Kill a Mockingbird'? a.Harper Lee b.Jane Austen c.F. Scott Fitzgerald\n24. What is the chemical symbol for oxygen? a.O b.Au c.Hg\n\n###\n\n",
+  "completion": "20. Who discovered the theory of general relativity?&Isaac Newton#Albert Einstein#Nikola Tesla&b*21. What is the largest ocean on Earth?&Atlantic Ocean#Indian Ocean#Pacific Ocean&c*22. Which country is home to the Great Barrier Reef?&Australia#Brazil#Canada&a*23. Who wrote the novel 'To Kill a Mockingbird'?&Harper Lee#Jane Austen#F. Scott Fitzgerald&a*24. What is the chemical symbol for oxygen?&O#Au#Hg&a*###"
+  },
+  {
+  "prompt": "25. Which planet is closest to the Sun? a.Mercury\nb.Venus\nc.Mars\n26. Who painted the famous artwork 'The Scream'? a.Vincent van Gogh\nb.Edvard Munch\nc.Pablo Picasso\n27. What is the chemical symbol for helium? a.He\nb.H\nC.Hl\n\n###\n\n",
+  "completion": "25. Which planet is closest to the Sun?&Mercury#Venus#Mars&a*26. Who painted the famous artwork 'The Scream'?&Vincent van Gogh#Edvard Munch#Pablo Picasso&b*27. What is the chemical symbol for helium?&He#H#Hl&a*###"
+  },
+  {
+  "prompt": "28. Who wrote the novel 'Pride and Prejudice'? a.Jane Austen b.Emily Brontë c.Charles Dickens\n29. What is the capital of Japan? a.Tokyo b.Beijing c.Seoul\n30. What is the chemical symbol for gold? a.G b.Au c.Ag\n\n###\n\n",
+  "completion": "28. Who wrote the novel 'Pride and Prejudice'?&Jane Austen#Emily Brontë#Charles Dickens&a*29. What is the capital of Japan?&Tokyo#Beijing#Seoul&a*30. What is the chemical symbol for gold?&G#Au#Ag&b*###"
+  },
+  
+  {
+  "prompt": "31. Which renowned physicist formulated the theory of general relativity, revolutionizing our understanding of gravity and the nature of space and time? a. Isaac Newton\nb. Albert Einstein\nc. Nikola Tesla\nd. Marie Curie\ne. Max Planck\n32. What is the name of the famous ancient Greek philosopher who was a student of Plato and the tutor of Alexander the Great? a. Socrates\nb. Aristotle\nc. Pythagoras\nd. Confucius\ne. Archimedes\n33. In literature, which novel by Leo Tolstoy explores themes of love, marriage, and societal norms in 19th-century Russian society? a. War and Peace\nb. Anna Karenina\nc. Crime and Punishment\nd. The Great Gatsby\ne. Pride and Prejudice\n\n###\n\n",
+  "completion": "31. Which renowned physicist formulated the theory of general relativity, revolutionizing our understanding of gravity and the nature of space and time?&Isaac Newton#Albert Einstein#Nikola Tesla#Marie Curie#Max Planck&b*32. What is the name of the famous ancient Greek philosopher who was a student of Plato and the tutor of Alexander the Great?&Socrates#Aristotle#Pythagoras#Confucius#Archimedes&b*33. In literature, which novel by Leo Tolstoy explores themes of love, marriage, and societal norms in 19th-century Russian society?&War and Peace#Anna Karenina#Crime and Punishment#The Great Gatsby#Pride and Prejudice&b*###"
+  },
+  {
+  "prompt": "34. What is the chemical name for table salt? a. Sodium chloride\nb. Calcium carbonate\nc. Potassium hydroxide\nd. Aluminum sulfate\ne. Iron oxide\n35. Who is the legendary singer known as the 'King of Rock and Roll'? a. Elvis Presley\nb. Frank Sinatra\nc. Michael Jackson\nd. Bob Dylan\ne. Johnny Cash\n36. Which river is considered the longest in the world, stretching approximately 6,650 kilometers across several countries in Africa? a. Nile River\nb. Amazon River\nc. Mississippi River\nd. Yangtze River\ne. Ganges River\n\n###\n\n",
+  "completion": "34. What is the chemical name for table salt?&Sodium chloride#Calcium carbonate#Potassium hydroxide#Aluminum sulfate#Iron oxide&a*35. Who is the legendary singer known as the 'King of Rock and Roll'?&Elvis Presley#Frank Sinatra#Michael Jackson#Bob Dylan#Johnny Cash&a*36. Which river is considered the longest in the world, stretching approximately 6,650 kilometers across several countries in Africa?&Nile River#Amazon River#Mississippi River#Yangtze River#Ganges River&a*###"
+  }
+  ,
+  {
+  "prompt": "1. According to quantum physics, the uncertainty principle, formulated by Werner Heisenberg, makes a specific claim about the limits of our measurement abilities. In its simplest form, what does the uncertainty principle state? a. It is impossible to simultaneously measure the exact position and momentum of a particle. b. It is possible to simultaneously measure the exact position and momentum of a particle.\n\n2. Ludwig van Beethoven, a pivotal figure in the transition from the Classical period to the Romantic era in Western music, composed numerous iconic works. Which one of these two compositions is considered his defining masterpiece, in which he introduced choral forces to the symphonic form on an unprecedented scale? a. Symphony No. 5 in C minor b. Symphony No. 9 in D minor\n\n3. The discovery of DNA structure is a cornerstone of modern biology. James Watson and Francis Crick are credited with this discovery, presenting the double helix model. Rosalind Franklin's work was instrumental for this discovery. What was her major contribution? a. She determined the number of chromosomes in a human cell. b. She produced clear X-ray diffraction images of DNA, which helped in determining the double helix structure.\n\n###\n\n",
+  "completion": "1. According to quantum physics, the uncertainty principle, formulated by Werner Heisenberg, makes a specific claim about the limits of our measurement abilities. In its simplest form, what does the uncertainty principle state?&It is impossible to simultaneously measure the exact position and momentum of a particle.#It is possible to simultaneously measure the exact position and momentum of a particle.&a*2. Ludwig van Beethoven, a pivotal figure in the transition from the Classical period to the Romantic era in Western music, composed numerous iconic works. Which one of these two compositions is considered his defining masterpiece, in which he introduced choral forces to the symphonic form on an unprecedented scale?&Symphony No. 5 in C minor#Symphony No. 9 in D minor&b*3. The discovery of DNA structure is a cornerstone of modern biology. James Watson and Francis Crick are credited with this discovery, presenting the double helix model. Rosalind Franklin's work was instrumental for this discovery. What was her major contribution?&She determined the number of chromosomes in a human cell.#She produced clear X-ray diffraction images of DNA, which helped in determining the double helix structure.&b*###"
+  },
+  {
+  "prompt": "1. Black holes are regions of spacetime exhibiting gravitational acceleration so strong that nothing—no particles or even electromagnetic radiation such as light—can escape from them. The boundary beyond which the gravitational pull becomes so great as to make escape impossible is called what? a. An event horizon, which represents the point of no return b. A singularity, which is the center of a black hole where the matter is thought to be infinitely dense c. A photon sphere, where photons of light move in circular orbits.\n\n2. Pablo Picasso, a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France, was one of the most dominant and influential artists of the first half of the 20th century. Associated most of all with pioneering Cubism, alongside Georges Braque, he also invented collage as an artistic process and developed a variety of styles throughout his long career. Which of the following movements is he particularly known for co-founding? a. Surrealism, a cultural movement which developed in Europe in the aftermath of World War I and was largely influenced by Dada b. Cubism, an early-20th-century avant-garde art movement that revolutionized European painting and sculpture c. Expressionism, a modernist movement, initially in poetry and painting, originating in Germany at the beginning of the 20th century\n\n###\n\n",
+  "completion": "1. Black holes are regions of spacetime exhibiting gravitational acceleration so strong that nothing—no particles or even electromagnetic radiation such as light—can escape from them. The boundary beyond which the gravitational pull becomes so great as to make escape impossible is called what?&An event horizon, which represents the point of no return#A singularity, which is the center of a black hole where the matter is thought to be infinitely dense#A photon sphere, where photons of light move in circular orbits.&a*2. Pablo Picasso, a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France, was one of the most dominant and influential artists of the first half of the 20th century. Associated most of all with pioneering Cubism, alongside Georges Braque, he also invented collage as an artistic process and developed a variety of styles throughout his long career. Which of the following movements is he particularly known for co-founding?&Surrealism, a cultural movement which developed in Europe in the aftermath of World War I and was largely influenced by Dada#Cubism, an early-20th-century avant-garde art movement that revolutionized European painting and sculpture#Expressionism, a modernist movement, initially in poetry and painting, originating in Germany at the beginning of the 20th century&b*###"
+  },
+  {
+  "prompt": "1. A black hole is a region of spacetime where gravity is so strong that nothing can escape from it, including light. The boundary of no return is called: a. An event horizon b. A singularity c. A photon sphere\n\n2. Pablo Picasso, a Spanish painter, sculptor, printmaker, ceramicist and stage designer, spent most of his adult life in France and is one of the most influential artists of the 20th century. He is best known for co-founding which art movement? a. Surrealism b. Cubism c. Expressionism\n\n###\n\n",
+  "completion": "1. A black hole is a region of spacetime where gravity is so strong that nothing can escape from it, including light. The boundary of no return is called:&An event horizon#A singularity#A photon sphere&a*2. Pablo Picasso, a Spanish painter, sculptor, printmaker, ceramicist and stage designer, spent most of his adult life in France and is one of the most influential artists of the 20th century. He is best known for co-founding which art movement?&Surrealism#Cubism#Expressionism&b*###"
+  }
+  ,
+  { 
+   "prompt": "1) What is the difference between a jungle and a rain forest?\na) No difference. Simply two different ways in referring to the same thing.\nOb) A jungle in general receives less rain than a rain forest.\nOc) A jungle refers to the thickest area of a rain forest\nOd) A jungle and a rain forest each contain their own group of distinct plants and animals.\n\n2) What is the world's most common religion?\nO a) Christianity\nOb) Buddhism\nHinduism\nc)\nd) Muslim.\n\n3) Which city ranks as the world's most populous city (2002)?\na) New York (US)\nb) Mexico City (Mexico)\nc) Tokyo (Japan)\nOd) Shanghai (China)\n\n4) What is the second largest country (in size) in the world?\na) USA\nb) China\nc) Canada\nd) Russia\n\n###\n\n",
+  "completion": "1) What is the difference between a jungle and a rain forest?&No difference. Simply two different ways in referring to the same thing.#A jungle in general receives less rain than a rain forest.#A jungle refers to the thickest area of a rain forest.#A jungle and a rain forest each contain their own group of distinct plants and animals.&c*2) What is the world's most common religion?&Christianity#Buddhism#Hinduism#Muslim.&a*3) Which city ranks as the world's most populous city (2002)?&New York (US)#Mexico City (Mexico)#Tokyo (Japan)#Shanghai (China)&c*4) What is the second largest country (in size) in the world?&USA#China#Canada#Russia&c*###"
+  },
+  {
+  "prompt": "5) Who is the author of the novel 'Pride and Prejudice'?\na) Jane Austen\nb) Emily Brontë\nc) Charlotte Brontë\nd) Virginia Woolf\n\n6) What is the chemical symbol for gold?\na) Au\nb) Ag\nc) Fe\nd) Hg\n\n7) Which planet is known as the 'Red Planet'?\na) Mars\nb) Venus\nc) Jupiter\nd) Saturn\n\n8) What is the largest ocean on Earth?\na) Pacific Ocean\nb) Atlantic Ocean\nc) Indian Ocean\nd) Arctic Ocean\n\n9) Who painted the famous artwork 'Mona Lisa'?\na) Leonardo da Vinci\nb) Vincent van Gogh\nc) Pablo Picasso\nd) Michelangelo\n\n###\n\n",
+  "completion": "5) Who is the author of the novel 'Pride and Prejudice'?&Jane Austen#Emily Brontë#Charlotte Brontë#Virginia Woolf&a*6) What is the chemical symbol for gold?&Au#Ag#Fe#Hg&a*7) Which planet is known as the 'Red Planet'?&Mars#Venus#Jupiter#Saturn&a*8) What is the largest ocean on Earth?&Pacific Ocean#Atlantic Ocean#Indian Ocean#Arctic Ocean&a*9) Who painted the famous artwork 'Mona Lisa'?&Leonardo da Vinci#Vincent van Gogh#Pablo Picasso#Michelangelo&a*###"
+  }
+  ,
+  {
+  "prompt": "18) The sun rises in the west. \nA. True \nB. False\n\n19) Which of the following is a primary color? \nA. Red \nB. Green \nC. Orange \nD. Blue\n\n20) The capital of Australia is Sydney. \nA. True \nB. False\n\n21) Which planet is known as the 'Red Planet'? \nA. Mars \nB. Venus \nC. Jupiter \nD. Saturn\n\n###\n\n",
+  "completion": "18) The sun rises in the west.&True#False&b*19) Which of the following is a primary color?&Red#Green#Orange#Blue&d*20) The capital of Australia is Sydney.&True#False&b*21) Which planet is known as the 'Red Planet'?&Mars#Venus#Jupiter#Saturn&a*###"
+  }
+  ,
+  {
+  "prompt": "10) What is the capital city of France?\na. Paris\nb. London\nc. Rome\n\n11) Which country is famous for the Taj Mahal?\na. India\nOb) Bangladesh\nc. Nepal\nd. Sri Lanka\n\n12) Who wrote the play 'Romeo and Juliet'?\na. William Shakespeare\nb. Oscar Wilde\nc. George Orwell\nOd) Jane Austen\n\n###\n\n",
+  "completion": "10) What is the capital city of France?&Paris#London#Rome&a*11) Which country is famous for the Taj Mahal?&India#Bangladesh#Nepal#Sri Lanka&a*12) Who wrote the play 'Romeo and Juliet'?&William Shakespeare#Oscar Wilde#George Orwell#Jane Austen&a*###"
+  }
+  ,
+  {
+  "prompt": "Q 18-20 In a multiple-choice quiz, there are 5 questions and 4 choices for each question (a, b, c, d). Robin has not studied for the quiz at all and decides to randomly guess the answers.\n18. What is the probability that the first question she gets right is the 3rd question?\na. 0.1187\nb. 0.1406\nc. 0.1689\nd. 0.2148\n19. What is the probability that she gets exactly 3 or exactly 4 questions right?\na. 0.1025\nb. 0.1158\nc. 0.1478\nd. 0.1899\n20. What is the probability that she gets the majority of the questions right?\na. 0.0544\nb. 0.0789\nc. 0.0987\nd. 0.1035\n\n###\n\n",
+  "completion": "18. What is the probability that the first question she gets right is the 3rd question?&0.1187#0.1406#0.1689#0.2148&d*19. What is the probability that she gets exactly 3 or exactly 4 questions right?&0.1025#0.1158#0.1478#0.1899&b*20. What is the probability that she gets the majority of the questions right?&0.0544#0.0789#0.0987#0.1035&b*###"
+  },
+  {
+  "prompt": "5. Suppose that the observational units in a study are the purchases that I made on amazon.com in the past 12 months. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the purchase shipped to me or to someone else?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do I tend to spend more on purchases sent to others than on purchases sent to me?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How much did I spend on the purchase?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the purchase include at least one book?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average price of these purchases?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+  "completion": "a) Was the purchase shipped to me or to someone else?&Categorical variable#Numerical variable#Not a variable&a*b) Do I tend to spend more on purchases sent to others than on purchases sent to me?&Categorical variable#Numerical variable#Not a variable&c*c) How much did I spend on the purchase?&Categorical variable#Numerical variable#Not a variable&b*d) Did the purchase include at least one book?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average price of these purchases?&Categorical variable#Numerical variable#Not a variable&b*###"
+  }
+  ,
+  
+  {
+    "prompt": "1. I'm very happy _____ in India. I really miss being there. to live to have lived to be lived to be living \n\n###\n\n",
+    "completion": "1. I'm very happy _____ in India. I really miss being there.&to live#to have lived#to be lived#to be living&b&The phrase \"to have lived\" is used here because it refers to an action that has been completed in the past. It's an example of a perfect infinitive (to have + past participle). The person is expressing their happiness about the completed action of living in India, and they currently miss being there. The other options don't correctly express this completed past action.*###"
+  }
+  ,
+  {
+  "prompt": "Question 3\nAnswer at these sentences:\nA\nIn the french revolution of 1789, was sentenced to death and guillotined the king Louis XVI? Is the statement true or not?\nTrue\nFalse\n\n###\n\n",
+  "completion": "3. Answer at these sentences: In the French Revolution of 1789, was sentenced to death and guillotined the king Louis XVI? Is the statement true or not? &True#False&a&. The statement is true. During the French Revolution of 1789, King Louis XVI was indeed sentenced to death and guillotined. This event marked a significant turning point in the revolution and had profound consequences for the monarchy in France. *###"
+  }
+  ,
+  {
+  "prompt": "Question 5\nWhich of the following is not a primary color in subtractive color mixing?\nA\nB\nC\nD\nE\nRed\nGreen\nBlue\nYellow\nCyan\n\n###\n\n",
+  "completion": "5. Which of the following is not a primary color in subtractive color mixing? &Red#Green#Blue#Yellow#Cyan&d&Among the given options, Yellow is not a primary color in subtractive color mixing. In subtractive color mixing, the primary colors are Cyan, Magenta, and Yellow. Red, Green, and Blue are primary colors in additive color mixing.*###"
+  }
+  ,
+  {
+  "prompt": "Question 8\nWho is the author of the novel 'To Kill a Mockingbird'?\nA\nB\nC\nD\nE\nHarper Lee\nMaya Angelou\nToni Morrison\nAlice Walker\nJ.D. Salinger\n\n###\n\n",
+  "completion": "8. Who is the author of the novel 'To Kill a Mockingbird'? &Harper Lee#Maya Angelou#Toni Morrison#Alice Walker#J.D. Salinger&a&Harper Lee is the author of the novel 'To Kill a Mockingbird.' This Pulitzer Prize-winning novel, published in 1960, addresses themes of racial injustice and moral development in a small Southern town. Maya Angelou, Toni Morrison, Alice Walker, and J.D. Salinger are all renowned authors, but they did not write 'To Kill a Mockingbird.'*###"
+  }
+  ,
+  {
+  "prompt": "Question 11\nWhich of the following is not a programming language?\nA\nB\nC\nD\\nPython\nJava\nHTML\nCSS\n\n###\n\n",
+  "completion": "11. Which of the following is not a programming language? &Python#Java#HTML#CSS&c&Among the given options, HTML is not a programming language. HTML (Hypertext Markup Language) is a markup language used for creating web pages and structuring content, but it is not considered a programming language. Python, Java, CSS, and JavaScript, on the other hand, are programming languages commonly used in software and web development.*###"
+  }
+  ,
+  
+  {
+    "prompt": "2. It is crucial that he _____ more attention in class. a.pays b.pay c.paying d.to pay\n\n###\n\n",
+    "completion": "2. It is crucial that he _____ more attention in class.&pays#pay#paying#to pay&b&The sentence is in subjunctive mood, which is used to describe hypothetical situations, express suggestions, recommendations, necessity, or actions that haven't occurred yet. When 'that' is used with 'crucial,' 'important,' 'necessary,' etc., the verb that follows is often in the base form (without 's'), so the correct answer is 'pay'.*###"
+  }
+  ,
+  {
+    "prompt": "1. What is the derivative of the function y = x^2? a.2 b.2x c.x^2 d.2x+1\n\n###\n\n",
+    "completion": "1. What is the derivative of the function y = x^2?&2#2x#x^2#2x+1&b&The derivative of x^2 with respect to x is 2x according to the power rule in differentiation.*###"
+  }
+  ,
+  {
+    "prompt": "2. Light year is a unit of _____. a.Time b.Distance c.Speed d.Energy\n\n###\n\n",
+    "completion": "2. Light year is a unit of _____.&Time#Distance#Speed#Energy&b&A light year is the distance that light travels in one year, making it a unit of distance, not time, speed, or energy.*###"
+  }
+  ,
+  {
+    "prompt": "3. The atomic number of an element represents the number of _____. a.Protons b.Electrons c.Neutrons d.Protons and Neutrons\n\n###\n\n",
+    "completion": "3. The atomic number of an element represents the number of _____.&Protons#Electrons#Neutrons#Protons and Neutrons&a&The atomic number of an element is equal to the number of protons in its nucleus. This is the fundamental characteristic that defines each unique element.*###"
+  }
+  ,
+  
+  
+  {
+    "prompt": "4. What is the powerhouse of the cell? a.Nucleus b.Ribosome c.Mitochondria d.Endoplasmic Reticulum\n\n###\n\n",
+    "completion": "4. What is the powerhouse of the cell?&Nucleus#Ribosome#Mitochondria#Endoplasmic Reticulum&c&Mitochondria are often referred to as the powerhouse of the cell because they generate the most of the cell's supply of adenosine triphosphate (ATP), used as a source of chemical energy.*###"
+  }
+  ,
+  {
+    "prompt": "5. Mount Everest is located in _____. a.China b.Nepal c.India d.Bhutan\n\n###\n\n",
+    "completion": "5. Mount Everest is located in _____.&China#Nepal#India#Bhutan&b&Mount Everest is located in Nepal. While the mountain is near the border of China, its peak is located in Nepal.*###"
+  }
+  ,
+  {
+    "prompt": "6. Who was the first President of the United States? a.Abraham Lincoln b.Thomas Jefferson c.George Washington d.Benjamin Franklin\n\n###\n\n",
+    "completion": "6. Who was the first President of the United States?&Abraham Lincoln#Thomas Jefferson#George Washington#Benjamin Franklin&c&George Washington was the first President of the United States. He served from 1789 to 1797.*###"
+  }
+  ,
+  {
+    "prompt": "7. In computer science, 'HTML' stands for _____. a.Hyper Text Markup Language b.High Text Markup Language c.Hyper Textual Markup Language d.High Transcription Markup Language\n\n###\n\n",
+    "completion": "7. In computer science, 'HTML' stands for _____.&Hyper Text Markup Language#High Text Markup Language#Hyper Textual Markup Language#High Transcription Markup Language&a&HTML stands for Hyper Text Markup Language. It is the standard markup language for documents designed to be displayed in a web browser.*###"
+  }
+  ,
+  
+  {
+    "prompt": "8. GDP stands for _____. a.General Domestic Product b.General Development Product c.Gross Domestic Product d.Gross Development Product\n\n###\n\n",
+    "completion": "8. GDP stands for _____.&General Domestic Product#General Development Product#Gross Domestic Product#Gross Development Product&c&GDP stands for Gross Domestic Product. It is the total monetary or market value of all the finished goods and services produced within a country's borders in a specific time period. It serves as a comprehensive measure of a nation’s overall economic activity.*###"
+  }
+  ,
+  {
+    "prompt": "9. Who is the author of '1984'? a.George Orwell b.F. Scott Fitzgerald c.Mark Twain d.J.D. Salinger\n\n###\n\n",
+    "completion": "9. Who is the author of '1984'?&George Orwell#F. Scott Fitzgerald#Mark Twain#J.D. Salinger&a&'1984' is a novel written by George Orwell. It's a dystopian novel published in 1949 that presents a future society where individuality and privacy are outlawed.*###"
+  }
+  ,
+  {
+    "prompt": "1. What is the derivative of the function y = x^2? a.2 b.2x c.x^2 d.2x+1\n\n###\n\n",
+    "completion": "1. What is the derivative of the function y = x^2?&2#2x#x^2#2x+1&b&The derivative of the function y = x^2, using the power rule of differentiation, is 2x. This rule states that the derivative of x to the power of n is n times x to the power of n minus 1.*###"
+  }
+  ,
+  {
+    "prompt": "2. Light year is a unit of _____. a.Time b.Distance c.Speed d.Energy\n\n###\n\n",
+    "completion": "2. Light year is a unit of _____.&Time#Distance#Speed#Energy&b&A light year is a unit of distance, not time, speed, or energy. It is the total distance that light can travel in one year in the vacuum of space. Given that light moves at a speed of about 300,000 kilometers per second, a light year is roughly 9.46 trillion kilometers.*###"
+  }
+  ,
+  {
+    "prompt": "3. The atomic number of an element represents the number of _____. a.Protons b.Electrons c.Neutrons d.Protons and Neutrons\n\n###\n\n",
+    "completion": "3. The atomic number of an element represents the number of _____.&Protons#Electrons#Neutrons#Protons and Neutrons&a&The atomic number of an element is the number of protons in the nucleus of an atom. It is what defines an element and sets it apart from other elements. In a neutral atom, the atomic number also equals the number of electrons, but it does not include the number of neutrons.*###"
+  }
+  ,
+  {
+    "prompt": "4. What is the powerhouse of the cell? a.Nucleus b.Ribosome c.Mitochondria d.Endoplasmic Reticulum\n\n###\n\n",
+    "completion": "4. What is the powerhouse of the cell?&Nucleus#Ribosome#Mitochondria#Endoplasmic Reticulum&c&Mitochondria are often referred to as the 'powerhouse of the cell' because they generate most of the cell's supply of adenosine triphosphate (ATP), which is used as a source of chemical energy. ATP is often called the 'energy currency' of the cell, and it's needed for the biochemical reactions involved in any physiological process.*###"
+  }
+  ,
+  {
+    "prompt": "5. Who was the first President of the United States? a.Abraham Lincoln b.Thomas Jefferson c.George Washington d.Benjamin Franklin\n\n###\n\n",
+    "completion": "5. Who was the first President of the United States?&Abraham Lincoln#Thomas Jefferson#George Washington#Benjamin Franklin&c&George Washington was the first President of the United States. He served two terms from 1789-1797. Before becoming president, Washington was a military leader who played a crucial role in the American Revolutionary War against the British. His leadership style and policies set many precedents that still influence the office of the president today.*###"
+  }
+  ,
+  {
+    "prompt": "7. Which country is known for the Great Barrier Reef? a.Australia b.Brazil c.India d.Canada e.China\n\n###\n\n",
+    "completion": "7. Which country is known for the Great Barrier Reef?&Australia#Brazil#India#Canada#China&a&The Great Barrier Reef is off the coast of Queensland in northeastern Australia. It's the world's largest coral reef system composed of over 2,900 individual reefs and 900 islands stretching for over 2,300 kilometers (1,430 miles). It's known for its diverse marine life and beauty and is a popular destination for tourists, especially divers and snorkelers.*###"
+  },
+  {
+    "prompt": "11. What is the theory of relativity? a.A theory in physics proposed by Albert Einstein b.A theory in biology proposed by Charles Darwin c.A theory in psychology proposed by Sigmund Freud d.A theory in economics proposed by Adam Smith e.A theory in chemistry proposed by Marie Curie\n\n###\n\n",
+    "completion": "11. What is the theory of relativity?&A theory in physics proposed by Albert Einstein#A theory in biology proposed by Charles Darwin#A theory in psychology proposed by Sigmund Freud#A theory in economics proposed by Adam Smith#A theory in chemistry proposed by Marie Curie&a&The theory of relativity is a fundamental theory in physics proposed by Albert Einstein. It consists of two major components: the theory of special relativity and the theory of general relativity. The theory of special relativity revolutionized our understanding of space and time, while the theory of general relativity extended these principles to include gravity. Together, they have had a significant impact on our understanding of the universe.*###"
+  }
+  ,
+  {
+    "prompt": "12. Which scientist is known for discovering penicillin? a.Alexander Fleming b.Louis Pasteur c.Isaac Newton d.Nikola Tesla e.Marie Curie\n\n###\n\n",
+    "completion": "12. Which scientist is known for discovering penicillin?&Alexander Fleming#Louis Pasteur#Isaac Newton#Nikola Tesla#Marie Curie&a&Alexander Fleming is the scientist known for discovering penicillin. In 1928, Fleming, a Scottish bacteriologist, accidentally stumbled upon the antibacterial properties of the Penicillium fungus while working in his laboratory at St. Mary's Hospital in London. He observed that the fungus produced a substance that inhibited the growth of bacteria. This chance discovery marked the beginning of the era of antibiotics, as penicillin went on to become one of the most important and widely used antibiotics in the world. Fleming's work laid the foundation for the development of numerous other antibiotics, saving countless lives by effectively treating bacterial infections. His discovery revolutionized the field of medicine and earned him the Nobel Prize in Physiology or Medicine in 1945, jointly shared with Howard Florey and Ernst Chain, who played crucial roles in the mass production and clinical application of penicillin.*###"
+  }
+  ,
+  
+  {
+    "prompt": "13. True or False: The Earth is flat. a.True b.False\n\n###\n\n",
+    "completion": "13. True or False: The Earth is flat?&True#False&b&The Earth is not flat. This misconception was prevalent in ancient times, but modern scientific understanding and empirical evidence confirm that the Earth is a roughly spherical shape. The evidence for a spherical Earth includes photographs of the Earth taken from space, observations of Earth's curved shadow during lunar eclipses, measurements of the Earth's curvature, and the ability to circumnavigate the globe. The idea that the Earth is flat has been thoroughly debunked by scientific consensus and is considered a pseudoscientific belief. The understanding of Earth's shape is an essential aspect of astronomy, geography, and other scientific disciplines.*###"
+  }
+  ,
+  
+  {
+    "prompt": "14. Dogs belong to the feline family. a.True b.False\n\n###\n\n",
+    "completion": "14. Dogs belong to the feline family?&True#False&b&Dogs do not belong to the feline family. Dogs are actually members of the Canidae family, which includes animals such as wolves, foxes, and jackals. They are classified as canids, specifically as Canis lupus familiaris, the domesticated form of the gray wolf. Felines, on the other hand, belong to the Felidae family, which includes species like lions, tigers, cheetahs, and domestic cats. While both dogs and cats are popular pets, they are distinct species with different characteristics, behaviors, and evolutionary lineages.*###"
+  }
+  ,
+  {
+    "prompt": "15. Which planet is known as the 'Red Planet'? a.Mars b.Venus c.Jupiter\n\n###\n\n",
+    "completion": "15. Which planet is known as the 'Red Planet'?&Mars#Venus#Jupiter&a&Mars is known as the 'Red Planet' due to its reddish appearance. This distinctive color is primarily caused by iron oxide, or rust, on its surface. Mars is the fourth planet from the Sun in our solar system and is often visible in the night sky. It has long captured the fascination of scientists and astronomers due to its potential for hosting life and its similarities to Earth. The reddish hue of Mars, visible even to the naked eye, has made it a subject of curiosity and exploration.*###"
+  }
+  ,
+  {
+    "prompt": "16. Which of the following are primary colors? a.Red b.Blue c.Yellow d.All of the above\n\n###\n\n",
+    "completion": "16. Which of the following are primary colors?&Red#Blue#Yellow#All of the above&a&Red, blue, and yellow are considered primary colors. In traditional color theory, primary colors are the foundation for creating all other colors. They cannot be created by mixing other colors together. When combined in different ways, primary colors can produce a wide range of secondary and tertiary colors. Red, blue, and yellow are often used as primary colors in various artistic, scientific, and educational contexts, including painting, printing, color mixing, and color models. Understanding primary colors is fundamental to color theory and the study of color perception.*###"
+  }
+  ,
+  {
+    "prompt": "17. ¿Cuál es el río más largo del mundo? a.Nilo b.Amazonas c.Misisipi\n\n###\n\n",
+    "completion": "17. ¿Cuál es el río más largo del mundo?&Nilo#Amazonas#Misisipi&a&El río Nilo es considerado el río más largo del mundo. Con una longitud aproximada de 6,650 kilómetros, atraviesa varios países del continente africano, incluyendo Uganda, Sudán, Egipto y Sudán del Sur. El Nilo es de vital importancia para las civilizaciones que han florecido a lo largo de su curso a lo largo de la historia. Ha sido una fuente de agua, alimento y transporte, y ha desempeñado un papel crucial en el desarrollo de las culturas y sociedades en la región. Además, el río Nilo es conocido por su importancia simbólica y mitológica en las antiguas civilizaciones egipcias.*###"
+  }
+  ,
+  {
+    "prompt": "18. विश्व का सबसे लंबा नदी कौनसी है? a.गंगा b.यमुना c.ब्रह्मपुत्र\n\n###\n\n",
+    "completion": "18. विश्व का सबसे लंबा नदी कौनसी है?&गंगा#यमुना#ब्रह्मपुत्र&c&ब्रह्मपुत्र। ब्रह्मपुत्र नदी को विश्व की सबसे लंबी नदी माना जाता है। इसकी लम्बाई लगभग 2,900 किलोमीटर है और यह भारत के उत्तरी भाग से होकर बांगलादेश के द्वीपसमूह तक बहती है। ब्रह्मपुत्र नदी का नाम संस्कृत शब्द 'ब्रह्मपुत्र' से लिया गया है, जिसका अर्थ होता है 'देवताओं की माता'। यह नदी भारतीय सभ्यताओं के लिए महत्वपूर्ण है और इसका महत्व धार्मिक और सांस्कृतिक मायने रखता है। *###"
+  }
+  ,
+  {
+    "prompt": "19. Qual é o rio mais longo do mundo? a.Amazônia b.Nilo c.Mississipi\n\n###\n\n",
+    "completion": "19. Qual é o rio mais longo do mundo?&Amazônia#Nilo#Mississipi&b&O rio Nilo é considerado o rio mais longo do mundo. Com aproximadamente 6.650 quilômetros de extensão, ele atravessa vários países no continente africano, incluindo Uganda, Sudão, Egito e Sudão do Sul. O Nilo tem sido de vital importância para as civilizações que floresceram ao longo de seu curso ao longo da história. Foi uma fonte de água, alimento e transporte, desempenhando um papel crucial no desenvolvimento das culturas e sociedades da região. Além disso, o rio Nilo é conhecido por sua importância simbólica e mitológica nas antigas civilizações egípcias. *###"
+  }
+  ,
+  {
+    "prompt": "20. 世界上最长的河流是哪个? a.长江 b.亚马逊河 c.尼罗河\n\n###\n\n",
+    "completion": "20. 世界上最长的河流是哪个?&长江#亚马逊河#尼罗河&c&尼罗河。尼罗河被认为是世界上最长的河流。它的长度约为6,650公里，流经非洲多个国家，包括乌干达、苏丹、埃及和南苏丹。尼罗河对于沿线文明的发展历史起到了至关重要的作用。它是水源、食物和交通的重要来源，对于该地区的文化和社会的发展起到了关键性的推动作用。此外，尼罗河在古埃及文明中具有重要的象征和神话意义。*###"
+  }
+  ,
+  {
+    "prompt": "Which artist painted the Mona Lisa? a.Pablo Picasso b.Vincent van Gogh c.Leonardo da Vinci\n\n###\n\n",
+    "completion": "Which artist painted the Mona Lisa?&Pablo Picasso#Vincent van Gogh#Leonardo da Vinci&c&The artist who painted the Mona Lisa is Leonardo da Vinci. The Mona Lisa is one of the most famous and iconic paintings in the world, known for its enigmatic smile and exquisite details. Created during the Renaissance period, Leonardo da Vinci's masterpiece showcases his exceptional skill in capturing human emotions and his mastery of techniques such as sfumato. The painting is housed in the Louvre Museum in Paris and continues to captivate viewers with its timeless beauty and intrigue. Leonardo da Vinci, an Italian polymath, was not only an accomplished painter but also excelled in various fields such as science, engineering, and anatomy. His contributions to art and human knowledge make him one of the most celebrated figures in history.* ###"
+  }
+  ,
+  {
+    "prompt": "Which country won the FIFA World Cup in 1950? a.Brazil b.Germany c.England\n\n###\n\n",
+    "completion": "Which country won the FIFA World Cup in 1950?&Brazil#Germany#England&a&Brazil. In 1950, Brazil won the FIFA World Cup. The tournament, held in Brazil, was notable for its final match known as the 'Maracanazo.' Brazil faced Uruguay in the final at the Maracanã Stadium in Rio de Janeiro, with Brazil needing only a draw to secure the championship. However, Uruguay won the match 2-1, causing an upset and denying Brazil the title. Despite the loss, Brazil's performance throughout the tournament was commendable, and they have since become the most successful nation in World Cup history, winning the tournament a record five times. The 1950 World Cup holds a significant place in Brazilian football history and is remembered as a turning point in the country's soccer culture. *###"
+  }
+  ,
+  {
+  "prompt": "23. What is the chemical symbol for gold? A.Au B.Ag C.Gd\n\n###\n\n",
+  "completion": "23. What is the chemical symbol for gold?&Au#Ag#Gd&a&The chemical symbol for gold is Au. Gold is a precious metal known for its lustrous yellow color and high value. The symbol Au is derived from the Latin word 'aurum'. Gold has been treasured throughout human history for its beauty and rarity. It is used in various industries, including jewelry, electronics, and dentistry, and it has cultural and symbolic significance in many societies. Gold is also an important investment commodity and is traded on financial markets. Its chemical properties make it resistant to corrosion and highly malleable, allowing it to be shaped into intricate designs.*###"
+  }
+  ,
+  {
+  "prompt": "24. Which planet is known as the 'Red Planet'? a)Mars b)Venus c)Jupiter\n\n###\n\n",
+  "completion": "24. Which planet is known as the 'Red Planet'?&Mars#Venus#Jupiter&a&Mars is known as the 'Red Planet' due to its reddish appearance. This distinctive color is primarily caused by iron oxide, or rust, on its surface. Mars is the fourth planet from the Sun in our solar system and is often visible in the night sky. It has long captured the fascination of scientists and astronomers due to its potential for hosting life and its similarities to Earth. The reddish hue of Mars, visible even to the naked eye, has made it a subject of curiosity and exploration. ###"
+  }
+  ,
+  {
+  "prompt": "Which of the following is a Nobel Prize category? A) Literature B) Chemistry C) Music\n\n###\n\n",
+  "completion": "Which of the following is a Nobel Prize category?&Literature#Chemistry#Music&a&The Nobel Prize is awarded in various categories to individuals and organizations that have made significant contributions in their respective fields. One of the Nobel Prize categories is Literature. It recognizes authors, poets, playwrights, and novelists who have produced outstanding literary works. The Nobel Prize in Literature has been awarded since 1901 and aims to honor literary excellence, cultural impact, and contributions to humanity's understanding. Recipients of the Nobel Prize in Literature include renowned writers such as Ernest Hemingway, Gabriel Garcia Marquez, and Toni Morrison. Their works have enriched the literary landscape and shaped literary traditions across the globe.*###"
+  }
+  ,
+  {
+  "prompt": "1. Solve the following system of linear equations: \n\n3x - 2y + z = 1 \n2x + 3y - z = 12 \n5x - y + 4z = -1 \n\nChoose the correct solution from the following options: \n\na. x = 1, y = 2, z = 3 \nb. x = -1, y = 2, z = -1 \nc. x = 2, y = 3, z = -1 \nd. x = 2, y = -1, z = 1 \n\n###\n\n",
+  "completion": "1. Solve the following system of linear equations:&3x - 2y + z = 1#2x + 3y - z = 12#5x - y + 4z = -1&d&To solve the system of equations, we can use the method of substitution or elimination. Here, we can eliminate 'z' from the first and second equations by adding them. This results in 5x + y = 13. Similarly, by adding the second and third equations, we get 7x + 2y = 11. Solving these two equations simultaneously will give x = 2 and y = -1. Substituting these values into any of the original equations, say the first one, we get z = 1. Therefore, the solution to the system of equations is x = 2, y = -1, z = 1.* ###"
+  }
+  ,
+  {
+  "prompt": "1. Consider the following 2x2 matrices A and B:\n\nA = [[2, 3], [4, -1]]\n\nB = [[1, 2], [-1, 3]]\n\nWhat is the result of the matrix multiplication AB? Choose the correct option: \n\na. [[0, 13], [5, 5]]\nb. [[1, 11], [3, 5]]\nc. [[1, 13], [5, 5]]\nd. [[0, 11], [3, 5]] \n\n###\n\n",
+  "completion": "1. Consider the following 2x2 matrices A and B:\n\nA = [[2, 3], [4, -1]]\n\nB = [[1, 2], [-1, 3]]\n\nWhat is the result of the matrix multiplication AB?&[[2, 3], [4, -1]]#[[1, 2], [-1, 3]]&a&The multiplication of two matrices is performed element-wise and then added together for the resultant matrix. For 2x2 matrices A and B, the multiplication can be performed as follows:\n\nFor the first element (row 1, column 1) of AB, we multiply and add corresponding elements from the first row of A and the first column of B: (21) + (3-1) = 2 - 3 = -1.\n\nFor the second element (row 1, column 2) of AB, we use the first row of A and the second column of B: (22) + (33) = 4 + 9 = 13.\n\nFor the third element (row 2, column 1) of AB, we use the second row of A and the first column of B: (41) + (-1-1) = 4 + 1 = 5.\n\nFinally, for the last element (row 2, column 2) of AB, we use the second row of A and the second column of B: (42) + (-13) = 8 - 3 = 5.\n\nSo, AB = [[-1, 13], [5, 5]]. Therefore, option a is correct.*###"
+  }
+  ,
+  {
+  "prompt": "1. Find the local minimum and maximum of the function f(x) = x^3 - 3x^2 + 2. Choose the correct option: \n\na. Maximum at x=0, Minimum at x=2\nb. Maximum at x=2, No local minimum\n\nc. Maximum at x=2, Minimum at x=0\n\nd. No local maximum, Minimum at x=0\n\n###\n\n",
+  "completion": "1. Find the local minimum and maximum of the function f(x) = x^3 - 3x^2 + 2. &Maximum at x=0, Minimum at x=2#Maximum at x=2, No local minimum#Maximum at x=2, Minimum at x=0#No local maximum, Minimum at x=0&a&To find the local minimum and maximum of the function, we first need to find the derivative of the function, f'(x). The derivative of f(x) = x^3 - 3x^2 + 2 is f'(x) = 3x^2 - 6x. Setting this equation to 0, we can find the critical points: 0 = 3x^2 - 6x --> 0 = x(3x - 6) --> x = 0, x = 2. These are the x-values where the function could have a local minimum or maximum. To determine whether these points are local minimums or maximums, we can use the second derivative test. The second derivative of f(x) is f''(x) = 6x - 6. At x = 0, f''(0) = -6, which is less than 0, so by the second derivative test, f has a local maximum at x = 0. At x = 2, f''(2) = 6, which is more than 0, so by the second derivative test, f has a local minimum at x = 2. Therefore, option a is correct.*###"
+  },
+  {
+  "prompt": "1. Assume that we have two goods: Good A and Good B. The price of Good A is $5 and the price of Good B is $10. John has a budget of $50. He decides to spend all of his budget on these goods. If John decides to buy 4 units of Good B, how many units of Good A can he buy? Choose the correct option: \n\na. 2 units \nb. 3 units \nc. 5 units \nd. 1 unit \n\n###\n\n",
+  "completion": "1. Assume that we have two goods: Good A and Good B. The price of Good A is $5 and the price of Good B is $10. John has a budget of $50. He decides to spend all of his budget on these goods. If John decides to buy 4 units of Good B, how many units of Good A can he buy? &2 units#3 units#5 units#1 unit&a&In this situation, if John decides to buy 4 units of Good B, he will spend 4 * $10 = $40 on Good B. Since his total budget is $50, he will have $50 - $40 = $10 left to spend on Good A. Since the price of Good A is $5, with $10, he can buy $10 / $5 = 2 units of Good A. Therefore, the correct answer is option a. 2 units.*###"
+  } , 
+  {
+  "prompt": "1. A car moving at a speed of 20 m/s manages to stop in a distance of 50 meters. What was the car's deceleration? Choose the correct option: \n\na. 4 m/s² \nb. -4 m/s² \nc. -8 m/s² \nd. 8 m/s² \n\n###\n\n",
+  "completion": "1. A car moving at a speed of 20 m/s manages to stop in a distance of 50 meters. What was the car's deceleration? Choose the correct option: &4 m/s²#-4 m/s²#-8 m/s²#8 m/s²&b&Deceleration (or negative acceleration) can be calculated using the formula v² = u² + 2as, where v is the final velocity, u is the initial velocity, a is the acceleration, and s is the distance. Given that the final velocity (v) is 0 (as the car stops), the initial velocity (u) is 20 m/s, and the stopping distance (s) is 50 m, we can solve the equation for a (acceleration), which results in a = -4 m/s². The negative sign indicates that it's a deceleration. Therefore, the correct answer is option b. -4 m/s².*###"
+  },
+  {
+  "prompt": "1. What is the value of the expression 0^0? Choose the correct option: \n\na. Undefined \nb. 0 \nc. 1 \nd. Infinity \n\n###\n\n",
+  "completion": "1. What is the value of the expression 0^0? &Undefined#0#1#Infinity&a&The expression 0^0 is an example of an indeterminate form. That means it does not have a clear or consistent definition. In some contexts, it might be treated as 1 for convenience (such as in some areas of mathematics like combinatorics), while in others, it might be left as undefined due to the conflicting tendencies of the power and base (0 to any power tends to 0, while any number to the power of 0 tends to 1). Therefore, the most accurate answer in a general context is that 0^0 is undefined. *###"
+  },
+  
+  {
+  "prompt": "1. If a country increases its investment in technology and education, in the long run, this will most likely shift the country's: \n\na. Aggregate demand curve to the right \nb. Aggregate supply curve to the right \nc. Aggregate demand curve to the left \nd. Aggregate supply curve to the left \n\n###\n\n",
+  "completion": "1. If a country increases its investment in technology and education, in the long run, this will most likely shift the country's: &Aggregate demand curve to the right#Aggregate supply curve to the right#Aggregate demand curve to the left#Aggregate supply curve to the left&b&Investment in technology and education typically increases a country's productive capacity, allowing it to produce more goods and services with the same amount of resources. This increase in productivity would likely shift the long-run aggregate supply curve to the right.*###"
+  }
+  ,
+  {
+  "prompt": "1. Which of the following numbers is not a real number? \n\na. √4 \nb. -5 \nc. √-1 \nd. 2/3 \n\n###\n\n",
+  "completion": "1. Which of the following numbers is not a real number? &√4#-5#√-1#2/3&c&The square root of -1 is not a real number. It is represented by the imaginary unit 'i' in the complex number system. The other options are all real numbers.*###"
+  },
+  {
+  "prompt": "1. A certain element has three naturally occurring isotopes: 78% of atoms are isotope X with a mass of 20.018, 21% are isotope Y with a mass of 21.998, and 1% are isotope Z with a mass of 22.989. What is the approximate atomic mass of this element? \n\na. 20.50 \nb. 20.82 \nc. 21.00 \nd. 21.27 \n\n###\n\n",
+  "completion": "1. A certain element has three naturally occurring isotopes: 78% of atoms are isotope X with a mass of 20.018, 21% are isotope Y with a mass of 21.998, and 1% are isotope Z with a mass of 22.989. What is the approximate atomic mass of this element? &20.50#20.82#21.00#21.27&b&The atomic mass of an element with multiple isotopes can be found by summing the products of the percent abundance and the mass of each isotope, and dividing the sum by 100. So, the atomic mass is approximately (7820.018 + 2121.998 + 1*22.989)/100 = 20.82.*###"
+  },
+  {
+  "prompt": "1. If a 10 kg box is pushed across a smooth surface (no friction) with a force of 30 N for 5 seconds, how far does the box travel? \n\na. 15 m \nb. 30 m \nc. 45 m \nd. 60 m \n\n###\n\n",
+  "completion": "1. If a 10 kg box is pushed across a smooth surface (no friction) with a force of 30 N for 5 seconds, how far does the box travel? &15 m#30 m#45 m#60 m&d&With no friction, the force applied leads to acceleration via Newton's second law (Force = mass * acceleration). So, acceleration = Force/mass = 30/10 = 3 m/s². The distance travelled under constant acceleration can be found by the formula Distance = 0.5 * acceleration * time², which gives Distance = 0.5 * 3 * 5² = 60 m.*###"
+  },
+  {
+  "prompt": "1. If a government imposes a price ceiling on a good, which of the following is likely to occur if the price ceiling is below the equilibrium price? \n\na. A surplus of the good \nb. A shortage of the good \nc. Equilibrium price and quantity will remain unchanged \nd. The demand curve for the good will shift rightward \n\n###\n\n",
+  "completion": "1. If a government imposes a price ceiling on a good, which of the following is likely to occur if the price ceiling is below the equilibrium price? &A surplus of the good#A shortage of the good#Equilibrium price and quantity will remain unchanged#The demand curve for the good will shift rightward&b&A price ceiling set below the equilibrium price means that the price is not high enough to eliminate excess demand at that price, creating a shortage. Suppliers will not be willing to supply as much of the good at the lower price, and consumers will demand more because the price is lower, exacerbating the shortage.*###"
+  },
+  {
+  "prompt": "1. What line of latitude runs exactly halfway between the North and South Poles? \n\na. The Tropic of Cancer \nb. The Equator \nc. The Tropic of Capricorn \nd. The Prime Meridian \n\n###\n\n",
+  "completion": "1. What line of latitude runs exactly halfway between the North and South Poles? &The Tropic of Cancer#The Equator#The Tropic of Capricorn#The Prime Meridian&b&The Equator is the line of latitude that runs exactly halfway between the North and South Poles. It is at 0 degrees latitude.*###"
+  },
+  {
+  "prompt": "13. Which of the following materials has the highest electrical conductivity? \n\na) Copper \nb) Glass \nc) Rubber \nd) Wood \n\n###\n\n",
+  "completion": "13. Which of the following materials has the highest electrical conductivity? &Copper#Glass#Rubber#Wood&a&Copper. Among the given options, copper has the highest electrical conductivity. It is widely used in electrical wiring and components due to its excellent ability to conduct electric current. Glass, rubber, and wood, on the other hand, are insulating materials with significantly lower conductivity.*###"
+  },
+  {
+  "prompt": "13. What is the primary goal of classical conditioning? \n\na) To create new responses \nb) To eliminate unwanted behaviors \nc) To strengthen existing behaviors \nd) To establish voluntary control \n\n###\n\n",
+  "completion": "13. What is the primary goal of classical conditioning? &To create new responses#To eliminate unwanted behaviors#To strengthen existing behaviors#To establish voluntary control&a&The primary goal of classical conditioning is to create new responses by associating a previously neutral stimulus with an unconditioned stimulus. This leads to a conditioned response, which is a learned reaction triggered by the conditioned stimulus alone. Classical conditioning is commonly associated with the work of Ivan Pavlov and the famous example of conditioning dogs to salivate at the sound of a bell.*###"
+  },
+  {
+  "prompt": "13. What is the area of a circle with a diameter of 10 units? \n\na) 25π square units \nb) 50π square units \nc) 100π square units \nd) 250π square units \n\n###\n\n",
+  "completion": "13. What is the area of a circle with a diameter of 10 units? &25π square units#50π square units#100π square units#250π square units&c&The area of a circle can be calculated using the formula A = πr², where r is the radius of the circle. In this case, the diameter is 10 units, so the radius is half of that, which is 5 units. Substituting the radius into the formula, we get A = π(5)² = 25π square units. Therefore, the area of the circle is 25π square units.*###"
+  },
+  {
+  "prompt": "13. Which of the following is an example of an extremophile? \n\na) Polar bear \nb) Cactus \nc) Mushroom \nd) Thermophilic bacteria \n\n###\n\n",
+  "completion": "13. Which of the following is an example of an extremophile? &Polar bear#Cactus#Mushroom#Thermophilic bacteria&d&Extremophiles are organisms that thrive in extreme environmental conditions, such as high temperatures, high pressure, or acidic environments. Thermophilic bacteria are a type of extremophile that can withstand and even thrive in high-temperature environments, like hot springs or deep-sea hydrothermal vents. Polar bears, cacti, and mushrooms do not fall into the category of extremophiles.*###"
+  },
+  
+  {
+  "prompt": "13. In economics, what does GDP stand for? \n\na) Gross Domestic Product \nb) Government Development Program \nc) General Demand Projection \nd) Goods and Services Distribution \n\n###\n\n",
+  "completion": "13. In economics, what does GDP stand for? &Gross Domestic Product#Government Development Program#General Demand Projection#Goods and Services Distribution&a&GDP stands for Gross Domestic Product, which is a measure of the total value of goods and services produced within a country's borders during a specific period, typically a year. It is used as an indicator of a country's economic performance and is widely used in economic analysis and policymaking. The other options do not accurately represent the concept of GDP.*###"
+  },
+  {
+  "prompt": "13. What artistic movement is known for its use of vivid colors, bold brushstrokes, and emphasis on capturing the impression of a moment? \n\na) Cubism \nb) Impressionism \nc) Surrealism \nd) Expressionism \n\n###\n\n",
+  "completion": "13. What artistic movement is known for its use of vivid colors, bold brushstrokes, and emphasis on capturing the impression of a moment? &Cubism#Impressionism#Surrealism#Expressionism&b&Impressionism is an artistic movement that emerged in the 19th century, characterized by its focus on capturing the fleeting impression of a scene or moment. Impressionist painters used vibrant colors, loose brushstrokes, and a play of light and shadow to convey their observations and emotions. Artists like Claude Monet, Pierre-Auguste Renoir, and Edgar Degas were prominent figures in the Impressionist movement.*###"
+  }
+  ,
+  {
+  "prompt": "13. Who was the first president of the United States? \n\na) George Washington \nb) Thomas Jefferson \nc) John Adams \nd) Benjamin Franklin \n\n###\n\n",
+  "completion": "13. Who was the first president of the United States? &George Washington#Thomas Jefferson#John Adams#Benjamin Franklin&a&George Washington served as the first president of the United States from 1789 to 1797. He played a crucial role in the formation of the country and set important precedents for future presidents. Thomas Jefferson, John Adams, and Benjamin Franklin were also influential figures during the founding era, but they did not serve as the first president.*###"
+  },
+  {
+  "prompt": "13. Which of the following compounds is classified as an organic compound? \n\na) Sodium chloride \nb) Methane \nc) Calcium carbonate \nd) Nitric acid \n\n###\n\n",
+  "completion": "13. Which of the following compounds is classified as an organic compound? &Sodium chloride#Methane#Calcium carbonate#Nitric acid&b&Methane (CH4) is an organic compound as it contains carbon atoms bonded to hydrogen atoms. Organic compounds are characterized by the presence of carbon atoms, which can form diverse molecular structures and give rise to a wide range of chemical properties. Sodium chloride (NaCl), calcium carbonate (CaCO3), and nitric acid (HNO3) are inorganic compounds and do not contain carbon atoms.*###"
+  },
+  
+  {
+  "prompt": "13. Which of the following programming languages is primarily used for web development? \n\na) Python \nb) Java \nc) JavaScript \nd) C++ \n\n###\n\n",
+  "completion": "13. Which of the following programming languages is primarily used for web development? &Python#Java#JavaScript#C++&c&JavaScript is primarily used for web development. It is a programming language that runs on the client side (in the user's web browser) and is commonly used for creating dynamic and interactive web pages. Python, Java, and C++ are versatile programming languages used in various domains, but they are not specifically focused on web development like JavaScript.*###"
+  },
+  
+  {
+  "prompt": "13. What is the philosophical concept that suggests that reality is ultimately unknowable? \n\na) Determinism \nb) Solipsism \nc) Nihilism \nd) Agnosticism \n\n###\n\n",
+  "completion": "13. What is the philosophical concept that suggests that reality is ultimately unknowable? &Determinism#Solipsism#Nihilism#Agnosticism&b&Solipsism is the philosophical concept that suggests that only one's mind or self is certain to exist, and the existence of anything beyond one's own consciousness is uncertain or unknowable. It challenges the notion of an objective reality external to one's own subjective experience. Determinism, nihilism, and agnosticism are distinct philosophical concepts that do not pertain to the unknowability of reality in the same way as solipsism.*###"
+  },
+  {
+  "prompt": "Question 12\nThe examination of everyday human social interactions on a small scale\ndescribes:\nA) functionalism\nB) macrosociology\nC) cultural anthropology\nD) microsociology\n10 points\ntranscript \n\n###\n\n",
+  "completion": "12. The examination of everyday human social interactions on a small scale describes: &functionalism#macrosociology#cultural anthropology#microsociology&d&microsociology. The examination of everyday human social interactions on a small scale is the focus of microsociology. Microsociology analyzes social dynamics at the individual or small group level, studying face-to-face interactions, symbolic meanings, and social behaviors. Functionalism, macrosociology, and cultural anthropology explore different aspects of social phenomena but do not specifically focus on the micro-level interactions.*###"
+  },
+  {
+  "prompt": "Question 7\nThe study of past societies through analysis of their material remains is called:\nA) archaeology\nB) paleontology\nC) sociology\nD) geology\n10 points\ntranscript \n\n###\n\n",
+  "completion": "7. The study of past societies through analysis of their material remains is called: &archaeology#paleontology#sociology#geology&a&archaeology. The study of past societies through analysis of their material remains is called archaeology. Archaeologists examine artifacts, structures, and other physical evidence to understand human history and culture. Paleontology focuses on the study of ancient life forms, sociology examines social behavior and structures, and geology deals with the Earth's composition and processes.*###"
+  },
+  {
+  "prompt": "Question 15\nThe belief that cultural norms and values derive their meaning within a specific social context is central to:\nA) functionalism\nB) conflict theory\nC) symbolic interactionism\nD) postmodernism\n10 points\ntranscript \n\n###\n\n",
+  "completion": "15.The belief that cultural norms and values derive their meaning within a specific social context is central to: &functionalism#conflict theory#symbolic interactionism#postmodernism&c&symbolic interactionism. The belief that cultural norms and values derive their meaning within a specific social context is central to symbolic interactionism. Symbolic interactionism emphasizes the role of symbols, language, and social interaction in shaping individual experiences and constructing shared meanings. Functionalism focuses on the interdependence of social institutions, conflict theory emphasizes social conflict and inequality, and postmodernism challenges grand narratives and emphasizes the diversity of perspectives.*###"
+  },
+  
+  {
+  "prompt": "Question 23\nWhich of the following is a primary source of data in qualitative research?\nA) Surveys\nB) Experiments\nC) Interviews\nD) Statistical analysis\n10 points\ntranscript \n\n###\n\n",
+  "completion": "23. Which of the following is a primary source of data in qualitative research? &Surveys#Experiments#Interviews#Statistical analysis&c&Interviews. Interviews are a primary source of data in qualitative research. Qualitative researchers often conduct in-depth interviews with participants to gather rich and detailed information about their experiences, perspectives, and behaviors. Surveys, experiments, and statistical analysis, on the other hand, are commonly associated with quantitative research methods.*###"
+  },
+  {
+  "prompt": "Question 31\nWhich of the following is NOT a characteristic of a market economy?\nA) Centralized planning\nB) Private ownership of resources\nC) Free market competition\nD) Price determination through supply and demand\n10 points\ntranscript \n\n###\n\n",
+  "completion": "31. Which of the following is NOT a characteristic of a market economy? &Centralized planning#Private ownership of resources#Free market competition#Price determination through supply and demand&a&Centralized planning. Centralized planning is NOT a characteristic of a market economy. In a market economy, resources are privately owned, and the allocation of goods and services is primarily determined by free market competition and the interaction of supply and demand. Centralized planning is more commonly associated with a command or centrally planned economy.*###"
+  },
+  
+  {
+  "prompt": "2. What is 'Blockchain Technology'? How has it influenced the financial sector?\n\n###\n\n",
+  "completion": "2. What is 'Blockchain Technology'? How has it influenced the financial sector?&none&a&none&Blockchain technology is a type of distributed ledger technology that stores data across multiple systems in a network, making it highly secure and tamper-resistant. It forms the basis of cryptocurrencies like Bitcoin and Ethereum, but its applications extend beyond that. In the financial sector, blockchain has been transformative. It has influenced everything from payment processing, by enabling faster and cheaper international transfers, to lending and credit, through decentralized finance (DeFi). It also offers opportunities for asset tokenization, which can provide liquidity to previously illiquid assets, and smart contracts, which automate contract execution when conditions are met, increasing efficiency and reducing reliance on intermediaries.*###"
+  },
+  {
+  "prompt": "2. Prove that the sum of the squares of the lengths of the diagonals of a rhombus is equal to the sum of the squares of the lengths of its sides.\n\n###\n\n",
+  "completion": "2. Prove that the sum of the squares of the lengths of the diagonals of a rhombus is equal to the sum of the squares of the lengths of its sides.&none&a&none&Let the diagonals of the rhombus be 'p' and 'q', and each side be 'a'. Since the diagonals of a rhombus are perpendicular bisectors of each other, they form four right-angled triangles inside the rhombus. Using the Pythagorean theorem (a² + b² = c²) in one of these triangles, where 'a' and 'b' are half the lengths of 'p' and 'q' and 'c' is the side of the rhombus, we get (p/2)² + (q/2)² = a². Multiply through by 4 to get p² + q² = 4a². Since the rhombus has four sides of equal length, 4a² is also the sum of the squares of the lengths of the sides. Therefore, the sum of the squares of the lengths of the diagonals of a rhombus is equal to the sum of the squares of the lengths of its sides.*###"
+  },
+  
+  {
+  "prompt": "2. Discuss the significance of the green light in F. Scott Fitzgerald's novel 'The Great Gatsby'.\n\n###\n\n",
+  "completion": "2. Discuss the significance of the green light in F. Scott Fitzgerald's novel 'The Great Gatsby'.&none&a&none&The green light in 'The Great Gatsby' is a powerful symbol of Gatsby's aspiration and longing. It is situated at the end of Daisy Buchanan's dock, representing Gatsby's dream of winning Daisy's love and achieving the idealized life he imagines they could lead together. The light's elusive and unattainable nature mirrors the impossibility of Gatsby's dream, reflecting the theme of illusion versus reality in the pursuit of the American Dream.*###"
+  },
+  {
+  "prompt": "2. Explain the difference between a stack and a queue data structure and provide a scenario in which each one might be useful.\n\n###\n\n",
+  "completion": "2. Explain the difference between a stack and a queue data structure and provide a scenario in which each one might be useful.&none&a&none&A stack and a queue are both linear data structures but they differ in how elements are added and removed. In a stack, elements are added and removed according to the LIFO (Last In First Out) principle. This makes stacks useful for scenarios like function call execution in programming, where the last function entered is the first one to be completed and removed from the stack. A queue, on the other hand, operates on the FIFO (First In First Out) principle. This is useful in scenarios like a print job queue, where tasks are executed in the order they were received.*###"
+  }
+  ,
+  {
+  "prompt": "2. Explain the concept of 'cognitive dissonance' and provide an example.\n\n###\n\n",
+  "completion": "2. Explain the concept of 'cognitive dissonance' and provide an example.&none&a&none&Cognitive dissonance refers to the mental discomfort or tension that a person experiences when they hold two contradictory beliefs, values, or attitudes, or when their behavior conflicts with their beliefs or values. For example, a person might believe that smoking is harmful to health (belief), but they continue to smoke (behavior). This creates a dissonance which they may try to reduce by changing their behavior (quitting smoking), changing their belief (convincing themselves smoking isn't that harmful), or adding new beliefs (believing smoking helps with stress relief).*###"
+  }
+  ,
+  {
+  "prompt": "2. Discuss the significance of the Magna Carta in the context of British history and its influence on modern democracy.\n\n###\n\n",
+  "completion": "2. Discuss the significance of the Magna Carta in the context of British history and its influence on modern democracy.&none&a&none&The Magna Carta, signed in 1215, is a foundational document in British history and a significant influence on modern democracy. It was a charter agreed by King John of England, guaranteeing certain legal rights, limiting the king's power by law, and prohibiting arbitrary punishment. Although many of its clauses were specific to the feudal conditions of the time, the Magna Carta is considered a symbol of liberty today because it established the principle that everyone, including the king, was subject to the law. It influenced constitutional developments worldwide, including the U.S. Constitution and Bill of Rights.*###"
+  },
+  {
+    "prompt": "2. Discuss the symbolism of the scarlet letter 'A' in Nathaniel Hawthorne's novel 'The Scarlet Letter'.\n\n###\n\n",
+    "completion": "2. Discuss the symbolism of the scarlet letter 'A' in Nathaniel Hawthorne's novel 'The Scarlet Letter'.&none&a&none&The scarlet letter 'A' in Nathaniel Hawthorne's novel represents different meanings as the story progresses. Initially, it symbolizes 'Adultery' as punishment for Hester Prynne's sin. Over time, the townspeople interpret it as 'Able', recognizing her strength and goodness. To Hester herself, the 'A' becomes a symbol of 'Affection' or 'Angel', a personal transformation. The shifting meanings of the 'A' highlight the subjectivity of truth and morality in society.*###"
+    }
+    ,
+    {
+    "prompt": "2. Describe the Heisenberg's uncertainty principle and provide a scenario where it applies.\n\n###\n\n",
+    "completion": "2. Describe the Heisenberg's uncertainty principle and provide a scenario where it applies.&none&a&none&Heisenberg's Uncertainty Principle is a fundamental concept in quantum mechanics, stating that it is impossible to precisely measure both the position and momentum of a particle at the same time. The more accurately one of these is known, the less accurately the other can be known. In the context of an electron in an atom, the uncertainty principle implies that we cannot know the electron's exact location and its exact velocity simultaneously. This principle essentially defines the behavior of quantum particles and forms the basis for the wave-particle duality concept.*###"
+    }
+    ,
+    {
+    "prompt": "2. Explain the bystander effect and provide a real-life example.\n\n###\n\n",
+    "completion": "2. Explain the bystander effect and provide a real-life example.&none&a&none&The bystander effect is a social psychological phenomenon where individuals are less likely to help a victim when other people are present. It is influenced by diffusion of responsibility, where individuals feel less accountable due to the presence of others. A famous example of this is the case of Kitty Genovese, a woman who was attacked in New York City while numerous witnesses reportedly failed to intervene. However, this case has been reassessed over time, as some elements were misrepresented, but it still sparked research into the bystander effect.*###"
+    }
+    ,
+    {
+    "prompt": "2. Discuss the concept of 'checks and balances' in the U.S. Constitution and provide an example.\n\n###\n\n",
+    "completion": "2. Discuss the concept of 'checks and balances' in the U.S. Constitution and provide an example.&none&a&none&The system of 'checks and balances' in the U.S. Constitution is designed to ensure that no single branch of government (executive, legislative, judicial) becomes too powerful. Each branch has the ability to limit or check the power of the other two. For example, the President (executive branch) can veto laws passed by Congress (legislative branch), but Congress can override that veto with a two-thirds vote. Meanwhile, the Supreme Court (judicial branch) can declare laws passed by Congress or actions by the President unconstitutional, thereby nullifying them.*###"
+    }
+    ,
+    {
+    "prompt": "2. Explain the economic concept of 'opportunity cost' and provide an example.\n\n###\n\n",
+    "completion": "2. Explain the economic concept of 'opportunity cost' and provide an example.&none&a&none&Opportunity cost is an economic concept referring to the potential benefit or value that is given up when one alternative is selected over another. In other words, it's the cost of foregoing the next best alternative. For example, if a person decides to spend an hour playing a video game instead of studying for an exam, the opportunity cost of that decision is the potential better grade they might have received had they spent that hour studying. This concept emphasizes the trade-offs individuals and societies face when allocating scarce resources.*###"
+    },
+    {
+      "prompt": "3. Assume the price of Good X is $3 and the price of Good Y is $7. James has a budget of $30 and he decides to buy 2 units of Good Y. How many units of Good X can he afford to buy? Choose the correct option: \n\na. 1 unit \nb. 3 units \nc. 4 units \nd. 6 units \ne. 2 units\n\n###\n\n",
+      "completion": "3. Assume the price of Good X is $3 and the price of Good Y is $7. James has a budget of $30 and he decides to buy 2 units of Good Y. How many units of Good X can he afford to buy?&1 unit#3 units#4 units#6 units#2 units&d&If James buys 2 units of Good Y, he will spend 2 * $7 = $14. This leaves him with $30 - $14 = $16. Given that the price of Good X is $3, he can afford to buy $16 / $3 = 5.33 units, which we round down to 5 units of Good X. Therefore, the correct answer is not listed among the options.*###"
+      }
+      ,
+      {
+      "prompt": "4. A cyclist moving at 15 m/s manages to stop in a distance of 30 meters. What was the cyclist's deceleration? Choose the correct option: \n\na. -7.5 m/s² \nb. 7.5 m/s² \nc. -5 m/s² \nd. 5 m/s² \n\n###\n\n",
+      "completion": "4. A cyclist moving at 15 m/s manages to stop in a distance of 30 meters. What was the cyclist's deceleration? Choose the correct option: &-7.5 m/s²#7.5 m/s²#-5 m/s²#5 m/s²&c&Using the formula v² = u² + 2as, with v=0, u=15 m/s, and s=30 m, we can solve for a to find that the deceleration is -7.5 m/s². However, the correct answer is not listed among the options.*###"
+      }
+      ,
+      {
+      "prompt": "5. What is the value of the expression 0^1? Choose the correct option: \n\na. Undefined \nb. 0 \nc. 1 \nd. Infinity \n\n###\n\n",
+      "completion": "5. What is the value of the expression 0^1? Choose the correct option: &Undefined#0#1#Infinity&b&The expression 0^1 means we are raising 0 to the power of 1, which will always equal 0. So, the correct answer is option b. 0.*###"
+      }
+      ,
+      {
+      "prompt": "6. If a country improves its transport infrastructure, in the long run, this will most likely shift the country's: \n\na. Aggregate demand curve to the right \nb. Aggregate supply curve to the right \nc. Aggregate demand curve to the left \nd. Aggregate supply curve to the left \n\n###\n\n",
+      "completion": "6. If a country improves its transport infrastructure, in the long run, this will most likely shift the country's: &Aggregate demand curve to the right#Aggregate supply curve to the right#Aggregate demand curve to the left#Aggregate supply curve to the left&b&Improving transport infrastructure typically increases a country's productive efficiency, allowing it to produce more goods and services with the same amount of resources. This would likely shift the aggregate supply curve to the right.*###"
+      }
+      ,
+      {
+      "prompt": "7. A triangle has sides of 3, 4, and 5 units in length. What type of triangle is it? Choose the correct option: \n\na. Equilateral \nb. Isosceles \nc. Right \nd. Obtuse \n\n###\n\n",
+      "completion": "7. A triangle has sides of 3, 4, and 5 units in length. What type of triangle is it? Choose the correct option: &Equilateral#Isosceles#Right#Obtuse&c&A triangle with side lengths of 3, 4, and 5 units is a right triangle. This is because the square of the longest side (5^2=25) is equal to the sum of the squares of the other two sides (3^2 + 4^2 = 9 + 16 = 25). This satisfies the Pythagorean theorem, which is true for all right triangles. Therefore, the correct answer is option c. Right.*###"
+      }
+      ,
+      {
+      "prompt": "8. The slope of a line passing through the points (4, 3) and (2, 2) is: \n\na. -0.5 \nb. 0.5 \nc. 1 \nd. -1 \n\n###\n\n",
+      "completion": "8. The slope of a line passing through the points (4, 3) and (2, 2) is: &-0.5#0.5#1#-1&b&The slope of a line passing through two points (x1, y1) and (x2, y2) is given by (y2-y1) / (x2-x1). So, for the points (4, 3) and (2, 2), the slope is (2-3) / (2-4) = -1 / -2 = 0.5. Therefore, the correct answer is option b. 0.5.*###"
+      }
+      ,
+      {
+      "prompt": "9. What is the derivative of the function f(x) = 3x^2 + 2x + 1? Choose the correct option: \n\na. 6x + 2 \nb. 6x \nc. 3x^2 + 2 \nd. 6x^2 + 2 \n\n###\n\n",
+      "completion": "9. What is the derivative of the function f(x) = 3x^2 + 2x + 1? Choose the correct option: &6x + 2#6x#3x^2 + 2#6x^2 + 2&a&The derivative of a function, f(x) = ax^n, is given by f'(x) = nax^(n-1). So, the derivative of 3x^2 is 23x^(2-1) = 6x, and the derivative of 2x is 21x^(1-1) = 2. The derivative of a constant, like 1, is zero. Therefore, the derivative of f(x) = 3x^2 + 2x + 1 is f'(x) = 6x + 2, and the correct answer is option a. 6x + 2.*###"
+      }
+      ,
+      {
+      "prompt": "10. The 5th term of the arithmetic sequence where the first term is 2 and the common difference is 3 is: \n\na. 11 \nb. 14 \nc. 17 \nd. 20 \n\n###\n\n",
+      "completion": "10. The 5th term of the arithmetic sequence where the first term is 2 and the common difference is 3 is: &11#14#17#20&b&The nth term of an arithmetic sequence can be found using the formula a + (n-1)d, where a is the first term and d is the common difference. So, the 5th term is 2 + (5-1)*3 = 2 + 12 = 14. Therefore, the correct answer is option b. 14.*###"
+      }
+      ,
+      {
+      "prompt": "11. The total surface area of a cube with edge length of 2 cm is: \n\na. 8 cm² \nb. 12 cm² \nc. 16 cm² \nd. 24 cm² \n\n###\n\n",
+      "completion": "11. The total surface area of a cube with edge length of 2 cm is: &8 cm²#12 cm²#16 cm²#24 cm²&d&The total surface area of a cube is given by the formula 6s^2, where s is the length of an edge. So, for a cube with edge length of 2 cm, the total surface area is 6*(2 cm)^2 = 24 cm². Therefore, the correct answer is option d. 24 cm².*###"
+      }
+      ,
+      {
+      "prompt": "12. The sum of the interior angles of a pentagon is: \n\na. 360° \nb. 540° \nc. 720° \nd. 900° \n\n###\n\n",
+      "completion": "12. The sum of the interior angles of a pentagon is: &360°#540°#720°#900°&b&The sum of the interior angles of any polygon can be calculated by the formula (n-2)*180°, where n is the number of sides. So, for a pentagon, which has 5 sides, the sum of the interior angles is (5-2)*180° = 540°. Therefore, the correct answer is option b. 540°.*###"
+      },
+      {
+        "prompt": "24. Who developed the theory of relativity? a.Albert Einstein b.Isaac Newton c.Nikola Tesla\n\n###\n\n",
+        "completion": "24. Who developed the theory of relativity?&Albert Einstein#Isaac Newton#Nikola Tesla&a&Albert Einstein is the scientist who developed the theory of relativity. His theory, presented in the early 20th century, revolutionized the understanding of space, time, and gravity. Einstein's theory is composed of two parts: the special theory of relativity and the general theory of relativity. The special theory, introduced in 1905, postulates that the laws of physics are the same for all non-accelerating observers, and that the speed of light is constant in all frames of reference. The general theory, published in 1915, extends the theory to include gravity as a curve in the spacetime continuum caused by mass and energy. Einstein's revolutionary ideas have had a profound impact on modern physics and cosmology. *###"
+        }
+        ,
+        {
+        "prompt": "25. Which planet is known as the 'Red Planet'? a.Mars b.Jupiter c.Venus\n\n###\n\n",
+        "completion": "25. Which planet is known as the 'Red Planet'?&Mars#Jupiter#Venus&a&Mars is often referred to as the 'Red Planet' due to its reddish appearance, which is visible even from Earth. This color is caused by iron oxide, or rust, on its surface. Mars is the fourth planet from the Sun in our solar system, and it's the second smallest planet, after Mercury. It has been the subject of much scientific study and exploration due to its similarities with Earth, such as the presence of polar ice caps and a complex system of valleys that suggests an ancient history of liquid water. The exploration of Mars has advanced significantly with numerous missions sent by NASA and other space agencies to study its atmosphere, climate, geology, and potential for past or present life. *###"
+        }
+        ,
+        {
+        "prompt": "26. Who wrote the novel '1984'? a.George Orwell b.Fyodor Dostoevsky c.J.D. Salinger\n\n###\n\n",
+        "completion": "26. Who wrote the novel '1984'?&George Orwell#Fyodor Dostoevsky#J.D. Salinger&a&'1984' is a novel written by George Orwell. Published in 1949, '1984' is a dystopian novel that presents a future totalitarian society where individual freedom is suppressed, and 'Big Brother' – the leader of the Party – exercises total control over people's lives. The novel explores themes such as surveillance, censorship, and propaganda. It has had a significant influence on modern culture, introducing terms like 'Big Brother', 'doublethink', and 'thoughtcrime' into common usage. Orwell's other works, such as 'Animal Farm', also offer pointed critiques of totalitarian regimes and societal control. *###"
+        }
+        ,
+        {
+        "prompt": "27. What is the capital city of Australia? a.Sydney b.Canberra c.Melbourne\n\n###\n\n",
+        "completion": "27. What is the capital city of Australia?&Sydney#Canberra#Melbourne&b&The capital city of Australia is Canberra. While Sydney and Melbourne are the largest cities in Australia, Canberra was chosen as the capital in 1908 as a compromise between these two rival cities. Located in the Australian Capital Territory, Canberra was purpose-built as the nation's capital. The city is known for its architectural style, green spaces, and the artificial Lake Burley Griffin at its center. Canberra is home to many national institutions, including the Parliament House, the High Court, and numerous museums and galleries. *###"
+        }
+        ,
+        {
+        "prompt": "28. What is the largest ocean on Earth? a.Atlantic Ocean b.Pacific Ocean c.Indian Ocean\n\n###\n\n",
+        "completion": "28. What is the largest ocean on Earth?&Atlantic Ocean#Pacific Ocean#Indian Ocean&b&The Pacific Ocean is the largest ocean on Earth. It covers more than 60 million square miles, which is more than twice the size of the second-largest, the Atlantic Ocean. The Pacific Ocean is so large that it makes up more than one-third of the Earth's surface. It extends from the Arctic Ocean in the north to the Southern Ocean in the south, and from Asia and Australia in the west to the Americas in the east. It is known for its depth, with the Mariana Trench being the deepest point in the world's oceans. *###"
+        },
+        {
+          "prompt": "1. You have been tracking your daily calorie intake for a month. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the meal homemade or ordered from a restaurant?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you consume more calories during weekends compared to weekdays?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How many calories did you consume in a day?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the day include at least one dessert?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average calorie intake per meal?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the meal homemade or ordered from a restaurant?&Categorical variable#Numerical variable#Not a variable&a*b) Do you consume more calories during weekends compared to weekdays?&Categorical variable#Numerical variable#Not a variable&c*c) How many calories did you consume in a day?&Categorical variable#Numerical variable#Not a variable&b*d) Did the day include at least one dessert?&Categorical variable#Numerical variable#Not a variable&A*e) What was the average calorie intake per meal?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+        {
+          "prompt": "1. You have been tracking your daily calorie intake for a month. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the meal homemade or ordered from a restaurant?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you consume more calories during weekends compared to weekdays?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How many calories did you consume in a day?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the day include at least one dessert?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average calorie intake per meal?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the meal homemade or ordered from a restaurant?&Categorical variable#Numerical variable#Not a variable&a*b) Do you consume more calories during weekends compared to weekdays?&Categorical variable#Numerical variable#Not a variable&c*c) How many calories did you consume in a day?&Categorical variable#Numerical variable#Not a variable&b*d) Did the day include at least one dessert?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average calorie intake per meal?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+        {
+          "prompt": "2. You are analyzing the films you watched in the last year. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the movie watched in a theater or at home?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you watch more dramas than comedies?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How long is the movie?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the movie include at least one Oscar-winning actor?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average rating of these movies?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the movie watched in a theater or at home?&Categorical variable#Numerical variable#Not a variable&a*b) Do you watch more dramas than comedies?&Categorical variable#Numerical variable#Not a variable&c*c) How long is the movie?&Categorical variable#Numerical variable#Not a variable&B*d) Did the movie include at least one Oscar-winning actor?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average rating of these movies?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+        {
+          "prompt": "3. Consider your monthly electricity usage in the past year. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the electricity usage higher in winter compared to summer?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you use more electricity during the day or at night?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How much electricity did you use in a month?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the usage include at least one power outage?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average electricity usage per day?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the electricity usage higher in winter compared to summer?&Categorical variable#Numerical variable#Not a variable&c*b) Do you use more electricity during the day or at night?&Categorical variable#Numerical variable#Not a variable&c*c) How much electricity did you use in a month?&Categorical variable#Numerical variable#Not a variable&b*d) Did the usage include at least one power outage?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average electricity usage per day?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+        {
+          "prompt": "4. You have recorded the books you read in the last year. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the book a fiction or non-fiction?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you read more books by female authors compared to male authors?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How many pages did the book have?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the book win any literary awards?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average rating of these books?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the book a fiction or non-fiction?&Categorical variable#Numerical variable#Not a variable&a*b) Do you read more books by female authors compared to male authors?&Categorical variable#Numerical variable#Not a variable&c*c) How many pages did the book have?&Categorical variable#Numerical variable#Not a variable&b*d) Did the book win any literary awards?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average rating of these books?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+        {
+          "prompt": "5. Analyze your physical exercise routine in the past year. Identify each of the following as a categorical variable, a numerical variable, or not a variable.\na) Was the exercise indoors or outdoors?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nb) Do you exercise more in the morning than in the evening?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nc) How long was each exercise session?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\nd) Did the exercise include strength training?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\ne) What was the average calorie burn per session?\nA. Categorical variable\nB. Numerical variable\nC. Not a variable\n\n###\n\n",
+          "completion": "a) Was the exercise indoors or outdoors?&Categorical variable#Numerical variable#Not a variable&a*b) Do you exercise more in the morning than in the evening?&Categorical variable#Numerical variable#Not a variable&c*c) How long was each exercise session?&Categorical variable#Numerical variable#Not a variable&b*d) Did the exercise include strength training?&Categorical variable#Numerical variable#Not a variable&a*e) What was the average calorie burn per session?&Categorical variable#Numerical variable#Not a variable&b*###"
+        },
+         {
+          "prompt": "Question 2\nWhich of these actors wasn't born in England ?\nA\nB\nC\nD\nE\nBela Lugosi\nVincent Price\nBoris Karloff\nPeter Cushing\nChristopher Lee\n\n###\n\n",
+          "completion": "2. Which of these actors wasn't born in England? &Bela Lugosi#Vincent Price#Boris Karloff#Peter Cushing#Christopher Lee&a&Bela Lugosi. Among the given actors, Bela Lugosi was not born in England. Bela Lugosi was born in Hungary and is best known for his portrayal of Count Dracula in the 1931 film 'Dracula.' Vincent Price, Boris Karloff, Peter Cushing, and Christopher Lee were all born in England and had notable careers in the film industry.*###"
+          },
+          {
+            "prompt": "Question 4\nWhich of these cities is not located in the United States?\nA\nB\nC\nD\nE\nParis\nLondon\nTokyo\nSydney\nRome\n\n###\n\n",
+            "completion": "4. Which of these cities is not located in the United States? &Paris#London#Tokyo#Sydney#Rome&a&Paris. Among the given cities, Paris is not located in the United States. Paris is the capital of France and is known for its iconic landmarks, such as the Eiffel Tower and Louvre Museum. London, Tokyo, Sydney, and Rome are all cities outside of the United States.*###"
+            },
+            {
+            "prompt": "Question 6\nWhich of these planets is closest to the Sun?\nA\nB\nC\nD\nE\nMercury\nVenus\nMars\nJupiter\nSaturn\n\n###\n\n",
+            "completion": "6. Which of these planets is closest to the Sun? &Mercury#Venus#Mars#Jupiter#Saturn&a&Mercury. Among the given planets, Mercury is the closest to the Sun. Mercury is the innermost planet in our solar system and experiences extreme temperatures due to its proximity to the Sun. Venus, Mars, Jupiter, and Saturn are also planets in our solar system but are located farther from the Sun than Mercury.*###"
+            },
+            {
+            "prompt": "Question 8\nWhich of these animals is not a mammal?\nA\nB\nC\nD\nE\nElephant\nDolphin\nPenguin\nTiger\nGiraffe\n\n###\n\n",
+            "completion": "8. Which of these animals is not a mammal? &Elephant#Dolphin#Penguin#Tiger#Giraffe&c&Penguin. Among the given animals, Penguin is not a mammal. Penguins are flightless birds that belong to the bird family Spheniscidae. While mammals give birth to live young and nurse them with milk, penguins lay eggs and do not possess mammary glands. Elephants, dolphins, tigers, and giraffes are all mammals.*###"
+            },
+            {
+            "prompt": "Question 10\nWhich of these countries is not located in Europe?\nA\nB\nC\nD\nE\nGermany\nFrance\nItaly\nJapan\nSpain\n\n###\n\n",
+            "completion": "10. Which of these countries is not located in Europe? &Germany#France#Italy#Japan#Spain&d&Japan. Among the given countries, Japan is not located in Europe. Japan is an island country in East Asia, located in the Pacific Ocean. Germany, France, Italy, and Spain are all countries in Europe.*###"
+            },
+            {
+            "prompt": "Question 12\nWhich of these sports is not played with a ball?\nA\nB\nC\nD\nE\nFootball\nBasketball\nTennis\nSwimming\nGolf\n\n###\n\n",
+            "completion": "12. Which of these sports is not played with a ball? &Football#Basketball#Tennis#Swimming#Golf&d&Swimming. Among the given sports, Swimming is not played with a ball. Swimming is a water-based sport that involves propelling oneself through water using various strokes and techniques. Football, basketball, tennis, and golf are all sports that use a ball in their gameplay.*###"
+            },
+            {
+              "prompt": "Question 3\nWhich of these colors is not a primary color?\nA.\nB.\nC.\nD.\nRed\nGreen\nBlue\nYellow\n\n###\n\n",
+              "completion": "3. Which of these colors is not a primary color? &Red#Green#Blue#Yellow&b&Green. Among the given colors, Green is not a primary color. The primary colors are Red, Blue, and Yellow, which are fundamental colors that cannot be created by mixing other colors. Green is a secondary color formed by mixing Yellow and Blue.*###"
+              },
+              {
+              "prompt": "Question 5\nWhich of these musical instruments is not a string instrument?\na\nb\nc\nViolin\nGuitar\nDrums\nCello\n\n###\n\n",
+              "completion": "5. Which of these musical instruments is not a string instrument? &Violin#Guitar#Drums#Cello&c&Drums. Among the given musical instruments, Drums is not a string instrument. Drums are percussion instruments that produce sound through the vibration of a membrane or a series of membranes called drumheads. Violin, Guitar, and Cello are all string instruments that produce sound by vibrating strings.*###"
+              },
+
+              {
+                "prompt": "1. What characteristic is relatively constant in mitochondrial genomes across species? Choose the correct option: \n\nA. Content (i.e., types of genes) \nB. Organization \nC. Size \n\n###\n\n",
+                "completion": "1. What characteristic is relatively constant in mitochondrial genomes across species? &Content (i.e., types of genes)#Organization#Size&a&The characteristic that is relatively constant in mitochondrial genomes across species is the content, specifically the types of genes present. While the organization and size of mitochondrial genomes can vary among different species, the set of genes that encode important mitochondrial functions remains relatively consistent. These genes are responsible for essential mitochondrial processes such as energy production and metabolism. Therefore, option A, Content (i.e., types of genes), is the correct answer.*###"
+                },
+                {
+                  "prompt": "1. What is the value of the expression 0^0? Choose the correct option: \n\na. 0 \nb. Undefined \nc. 1 \nd. Infinity \n\n###\n\n",
+                  "completion": "1. What is the value of the expression 0^0? &Undefined#0#1#Infinity&b&The value of the expression 0^0 is undefined. The expression 0^0 is an example of an indeterminate form, meaning it does not have a clear or consistent value. In mathematics, there is no consensus on how to define 0^0 because it leads to conflicting tendencies. While 0 to any power tends to 0, any number (except 0) to the power of 0 tends to 1. Therefore, the value of 0^0 is considered undefined and depends on the specific context or mathematical convention used.* ###"
+                  },
+                  {
+                    "prompt": "1. What is the capital city of Australia? Choose the correct option: \n\nA. Sydney \nB. Melbourne \nC. Canberra \n\n###\n\n",
+                    "completion": "1. What is the capital city of Australia? &Sydney#Melbourne#Canberra&c&The capital city of Australia is Canberra. While Sydney and Melbourne are major cities in Australia, Canberra is specifically designated as the capital and serves as the seat of government. Therefore, option C, Canberra, is the correct answer.*###"
+                    }
+                    ,
+                    {
+                    "prompt": "1. Which of the following is a primary color? Choose the correct option: \n\nA. Green \nB. Orange \nC. Blue \n\n###\n\n",
+                    "completion": "1. Which of the following is a primary color? &Green#Orange#Blue&c&A primary color is a color that cannot be created by mixing other colors. The primary colors in traditional color theory are red, blue, and yellow. Green and orange are secondary colors that can be obtained by mixing primary colors, while blue is a primary color. Therefore, option C, Blue, is the correct answer.*###"
+                    },
+                    {
+                      "prompt": "1. Is the most widely used medium for telecommunications\na) Twisted Pair\nb) Coaxial Cable\nc) Optical Fiber\nd) None of the above\n\n2. Is widely used medium of communication for cable television systems\na) Twisted Pair\nb) Coaxial Cable\nc) Optical Fiber\nd) None of the above\n\n3. Cable consists of one or more filaments of glass fiber wrapped in protective layers that carries data by means of pulses of light\na) Twisted Pair\nb) Coaxial Cable\nc) Optical Fiber\nd) None of the above\n\n4. Is a computer network used for communications among computers and different information technological devices close to one person\na) Personal Area Network\nb) Local Area Network\nc) Metropolitan Area Network\n\n###\n\n",
+                      "completion": "1. Is the most widely used medium for telecommunications? &Twisted Pair#Coaxial Cable#Optical Fiber#None of the above&c*2. Is widely used medium of communication for cable television systems? &Twisted Pair#Coaxial Cable#Optical Fiber#None of the above&b*3. Cable consists of one or more filaments of glass fiber wrapped in protective layers that carries data by means of pulses of light? &Twisted Pair#Coaxial Cable#Optical Fiber#None of the above&c*4. Is a computer network used for communications among computers and different information technological devices close to one person? &Personal Area Network#Local Area Network#Metropolitan Area Network&b*###"
+                      },
+                      {
+                        "prompt": "1. Which of the following programming languages is used for web development?\na) Python\nb) Java\nc) JavaScript\nd) C++\n\n2. What is the process of converting a high-level programming language code into machine-readable binary code called?\na) Compilation\nb) Interpretation\nc) Execution\nd) Debugging\n\n3. Which of the following is an example of a front-end web development framework?\na) React\nb) Node.js\nc) Django\nd) Laravel\n\n4. What is the primary function of an operating system?\na) File management\nb) Memory management\nc) Process management\nd) All of the above\n\n5. What is the purpose of a database management system (DBMS)?\na) Store and organize data\nb) Retrieve and manipulate data\nc) Ensure data security\nd) All of the above\n\n###\n\n",
+                        "completion": "1. Which of the following programming languages is used for web development?&Python#Java#JavaScript#C++&c*2. What is the process of converting a high-level programming language code into machine-readable binary code called?&Compilation#Interpretation#Execution#Debugging&a*3. Which of the following is an example of a front-end web development framework?&React#Node.js#Django#Laravel&a*4. What is the primary function of an operating system?&File management#Memory management#Process management#All of the above&d*5. What is the purpose of a database management system (DBMS)?&Store and organize data#Retrieve and manipulate data#Ensure data security#All of the above&d*###"
+                        },
+                        {
+                          "prompt": "1. Which of the following is not a programming language?\na) Python\nb) HTML\nc) CSS\nd) Photoshop\n\n2. What is the process of finding and fixing errors or bugs in a program called?\na) Debugging\nb) Compiling\nc) Interpreting\nd) Executing\n\n###\n\n",
+                          "completion": "1. Which of the following is not a programming language?&Python#HTML#CSS#Photoshop&d*2. What is the process of finding and fixing errors or bugs in a program called?&Debugging#Compiling#Interpreting#Executing&a*###"
+                          },
+                          {
+                            "prompt": "1. - Is the most widely used medium for telecommunications\na) Twisted Pair\nb) Coaxial Cable\nc) Optical Fiber\nd) None of the above\n\n###\n\n",
+                            "completion": "1. - Is the most widely used medium for telecommunications&a) Twisted Pair#b) Coaxial Cable#c) Optical Fiber#d) None of the above&c&Optical Fiber. Optical fiber is the most widely used medium for telecommunications. It uses thin strands of glass or plastic to transmit data using pulses of light. Optical fiber provides high-speed and high-bandwidth communication, making it essential for long-distance and high-capacity networks. Twisted Pair and Coaxial Cable are also used for telecommunications, but optical fiber offers advantages such as faster data transfer, greater bandwidth, and immunity to electromagnetic interference. None of the above is not the correct option as optical fiber is the widely used medium. *###"
+                            },
+                            {
+                              "prompt": "3. ---- Cable consists of one or more filaments of glass fiber wrapped in protective layers that carries data by means of pulses of light\na) Twisted Pair\nb) Coaxial Cable\nc) Optical Fiber\nd) None of the above\n\n###\n\n",
+                              "completion": "3. ---- Cable consists of one or more filaments of glass fiber wrapped in protective layers that carries data by means of pulses of light&a) Twisted Pair#b) Coaxial Cable#c) Optical Fiber#d) None of the above&c&Optical Fiber. Optical fiber cable consists of one or more filaments of glass fiber wrapped in protective layers that carry data by means of pulses of light. The fiber optic technology allows for high-speed and high-capacity data transmission over long distances. Twisted Pair and Coaxial Cable are other types of cables used for data transmission, but they do not use light pulses as the medium. None of the above is not the correct option as optical fiber cable fits the description given. *###"
+                              },
+                              {
+                                "prompt": "4. ---- Is a computer network used for communications among computers and different information technological devices close to one person\na) Personal Area Network\nb) Local Area Network\nc) Metropolitan Area Network\n\n###\n\n",
+                                "completion": "4. ---- Is a computer network used for communications among computers and different information technological devices close to one person&a) Personal Area Network#b) Local Area Network#c) Metropolitan Area Network&b&Local Area Network. A Local Area Network (LAN) is a computer network used for communications among computers and different information technological devices close to one person. It covers a small area such as a home, office, or building. A Personal Area Network (PAN) is a network used for communication between personal devices like smartphones and laptops. A Metropolitan Area Network (MAN) covers a larger area, like a city or town. In this context, a LAN is the appropriate answer as it fits the description given. *###"
+                                },
+    {
+         "prompt": "3. Bald eagles get a lot of their food from\nA\nB\nC\nD\nworms and other animals living in grass\ncollecting dead bodies of animals\nstealing food left outside of people's homes\ngoing on fishing missions\n\n4. Bald eagles have reached mating age when\nA\nB\nC\nD\nthey have managed to fly a certain distance\nthey have mastered their hunting skills\nthey have found a space with no other birds of prey\ntheir head and tail plumage turns white\n\n###\n\n",
+        "completion": "3. Bald eagles get a lot of their food from&worms and other animals living in grass#collecting dead bodies of animals#stealing food left outside of people's homes#going on fishing missions&d*4. Bald eagles have reached mating age when&they have managed to fly a certain distance#they have mastered their hunting skills#they have found a space with no other birds of prey#their head and tail plumage turns white.&a*###"
+     },
+     {
+         "prompt": "5. Which of the following is a natural satellite of Earth?\na\nb\nc\nd\nMars\nJupiter\nMoon\nVenus\n12. Which of the following is a renewable source of energy?\na\nb\nc\nd\nCoal\nNatural Gas\nSolar Power\nNuclear Power\n\n\n###\n\n",
+        "completion": "5. Which of the following is a natural satellite of Earth? &Mars#Jupiter#Moon#Venus&c*12. Which of the following is a renewable source of energy? &Coal#Natural Gas#Solar Power#Nuclear Power&c*###"
+     }
+     ,
+    {
+        "prompt": "9. Which of the following is not a primary color?\nA\nB\nC\nD\nRed\nBlue\nYellow\nGreen\n17. What is the capital city of Canada?\na\nb\nc\nd\nMontreal\nToronto\nOttawa\nVancouver\n\n\n###\n\n",
+        "completion": "9. Which of the following is not a primary color? &Red#Blue#Yellow#Green&d*17. What is the capital city of Canada? &Montreal#Toronto#Ottawa#Vancouver&c*###"
+    },
+    {
+      "prompt": "12. Which of the following is a renewable source of energy?\nA\nB\nC\nD\nCoal\nNatural Gas\nSolar Power\nNuclear Power\n\n###\n\n",
+      "completion": "12. Which of the following is a renewable source of energy? &Coal#Natural Gas#Solar Power#Nuclear Power&c&Solar Power is a renewable source of energy. Unlike fossil fuels such as coal and natural gas, which are finite and contribute to environmental pollution, solar power harnesses energy from the sun and is considered a clean and sustainable energy source. Solar panels convert sunlight into electricity, making it an eco-friendly choice for generating power. *###"
+    },
+    {
+      "prompt": "21. Which element has the atomic number 79?\nA\nB\nC\nD\nIron\nGold\nCopper\nSilver\n\n###\n\n",
+     "completion": "21. Which element has the atomic number 79? &Iron#Gold#Copper#Silver&b&The element with the atomic number 79 is Gold. Gold is a precious metal known for its lustrous yellow color, high malleability, and resistance to corrosion. It has been highly valued throughout history for its beauty and rarity. Iron, copper, and silver have different atomic numbers and are distinct elements on the periodic table. *###"
+    },
+    {
+      "prompt": "12. Which of the following formulas represents Ohm's Law?\nA\nB\nC\nD\nF = ma\nE = mc²\nV = IR\nP = mv\n\n###\n\n",
+      "completion": "12. Which of the following formulas represents Ohm's Law? &F = ma#E = mc²#V = IR#P = mv&c&The formula that represents Ohm's Law is V = IR. Ohm's Law states that the voltage (V) across a conductor is directly proportional to the current (I) flowing through it, with the constant of proportionality being the resistance (R). This relationship is fundamental in understanding and analyzing electrical circuits. The other options, F = ma, E = mc², and P = mv, are equations related to Newton's laws of motion and Einstein's theory of relativity, not specifically related to electrical circuits and Ohm's Law. *###"
+    },
+    {
+      "prompt": "2. The almost complete disappearance of bald eagles was partially due to\nLack of fish which were the main source of food of bald eagles\nA\nB\nAnger from local residents\nc\nThe components of a particular type of insecticides\nLack of space for bald eagles to procreate.\n\n###\n\n",
+      "completion": "2. The almost complete disappearance of bald eagles was partially due to&Lack of fish which were the main source of food of bald eagles#Anger from local residents#The components of a particular type of insecticides#Lack of space for bald eagles to procreate.&c&The almost complete disappearance of bald eagles was partially due to the components of a particular type of insecticides. The widespread use of certain insecticides, such as DDT, caused a decline in bald eagle populations by affecting their reproductive success and thinning the eggshells, leading to high egg mortality rates. While other factors like lack of fish as the main food source, anger from local residents, and lack of space for procreation may impact bald eagles to some extent, the use of certain insecticides had a significant and detrimental effect on their population numbers. *###"
+    },
+    {
+      "prompt": "3. Which of the following subatomic particles has a positive charge?\nProton\nA\nB\nNeutron\nC\nD\nElectron\nNone of the above\n\n\n###\n\n",
+      "completion": "3. Which of the following subatomic particles has a positive charge?&Proton#Neutron#Electron#None of the above&a&The subatomic particle that has a positive charge is the proton. Protons are found in the nucleus of an atom and contribute to its overall positive charge. Neutrons, on the other hand, are neutral particles with no charge. While electrons have a negative charge, they were not listed as options in this question. Therefore, the correct answer is the proton. *###"
+    },
+    {
+      "prompt": "8. Which of the following phenomena is described by the Schrödinger equation?\nQuantum tunneling\nA\nB\nGravitational waves\nC\nD\nElectromagnetic induction\nWave-particle duality\n\n\n###\n\n",
+      "completion": "8. Which of the following phenomena is described by the Schrödinger equation? &Quantum tunneling#Gravitational waves#Electromagnetic induction#Wave-particle duality&a&The phenomenon described by the Schrödinger equation is quantum tunneling. The Schrödinger equation is a fundamental equation in quantum mechanics that describes the behavior of quantum particles. It is used to calculate the probability distribution of a particle's position or energy state. Quantum tunneling refers to the ability of particles to pass through potential barriers, even when classically they would not have enough energy to do so. Gravitational waves are described by Einstein's theory of general relativity, electromagnetic induction is described by Faraday's law, and wave-particle duality is a fundamental concept in quantum mechanics. Therefore, the correct answer is quantum tunneling. *###"
+      },
+    {
+      "prompt": "12. Which of the following particles is considered an elementary particle?\nQuark\nA\nB\nProton\nC\nD\nNeutron\nElectron\n\n\n###\n\n",
+      "completion": "12. Which of the following particles is considered an elementary particle? &Quark#Proton#Neutron#Electron&d&The particle that is considered an elementary particle is the electron. Elementary particles are particles that are not composed of smaller particles. Electrons are fundamental particles with a negative electric charge and are classified as leptons. Quarks are elementary particles as well, but they are classified as fermions and are the building blocks of protons and neutrons, which are composite particles. Protons and neutrons are made up of quarks and are not considered elementary particles. Therefore, the correct answer is the electron. *###"
+    },
+    {
+      "prompt": "1. The word 'bald' originates from an old word that means\nA\nGleaming white\nB\nWhite head\nC\nAngry bird\nD\nBig wings\n\n2. The almost complete disappearance of bald eagles was partially due to\nLack of fish which were the main source of food of bald eagles\nA\nB\nAnger from local residents\nC\nThe components of a particular type of insecticides\nD\nLack of space for bald eagles to procreate.\n\n###\n\n",
+      "completion": "1. The word 'bald' originates from an old word that means &Gleaming white#White head#Angry bird#Big wings&b*2. The almost complete disappearance of bald eagles was partially due to &Lack of fish which were the main source of food of bald eagles#Anger from local residents#The components of a particular type of insecticides#Lack of space for bald eagles to procreate.&c*###"
+    },
+    {
+      "prompt": "7. According to the theory of relativity, time dilation occurs when:\nA\nAn object accelerates to near the speed of light\nB\nAn object is subjected to extreme gravitational forces\nC\nAn object is in a state of absolute rest\nD\nAn object undergoes nuclear fusion\n\n12. In quantum mechanics, the Heisenberg uncertainty principle states that:\nA\nThe position and momentum of a particle cannot both be precisely determined\nB\nThe energy and time of a particle cannot both be precisely determined\nC\nThe angular momentum and spin of a particle cannot both be precisely determined\nD\nThe mass and charge of a particle cannot both be precisely determined\n\n###\n\n",
+      "completion": "7. According to the theory of relativity, time dilation occurs when &An object accelerates to near the speed of light#An object is subjected to extreme gravitational forces#An object is in a state of absolute rest#An object undergoes nuclear fusion&a*12. In quantum mechanics, the Heisenberg uncertainty principle states that &The position and momentum of a particle cannot both be precisely determined#The energy and time of a particle cannot both be precisely determined#The angular momentum and spin of a particle cannot both be precisely determined#The mass and charge of a particle cannot both be precisely determined&a*###"
+    },
+    {
+      "prompt": "1. The word 'bald' originates from an old word that means\nA\nGleaming white\nB\nWhite head\nC\nAngry bird\nD\nBig wings\n\n###\n\n",
+      "completion": "1. The word 'bald' originates from an old word that means &Gleaming white#White head#Angry bird#Big wings&b&The word 'bald' originates from an old word that means White head. It refers to the lack of hair on the head, specifically the white appearance of a bald person's scalp. While other options may have some association with baldness, 'White head' is the most accurate representation of the word's origin.*###"
+    }  ,                              
+    {
+      "prompt": "2. Which of the following is the largest planet in our solar system?\nA\nJupiter\nB\nSaturn\nC\nNeptune\nD\nMars\n\n###\n\n",
+      "completion": "2. Which of the following is the largest planet in our solar system? &Jupiter#Saturn#Neptune#Mars&a&Jupiter is the largest planet in our solar system. It is known for its immense size and massive storms, including the iconic Great Red Spot. Jupiter's diameter is approximately 11 times that of Earth, making it the largest planet by volume and mass. Saturn, Neptune, and Mars are smaller in comparison. *###"
+    },
+    {
+      "prompt": "3. Which of the following is not a type of galaxy?\nA\nSpiral\nB\nElliptical\nC\nIrregular\nD\nSolar\n\n###\n\n",
+      "completion": "3. Which of the following is not a type of galaxy? &Spiral#Elliptical#Irregular#Solar&d&Solar is not a type of galaxy. Spiral, elliptical, and irregular are the three main types of galaxies commonly observed in the universe. Spiral galaxies have distinctive spiral arms, elliptical galaxies have a more rounded and elongated shape, and irregular galaxies have no distinct shape. The term 'solar' refers to our own solar system, which is a collection of planets, moons, asteroids, and comets orbiting around the Sun. *###"
+    },
+    {
+      "prompt": "4. In the context of chemistry, what is the term used to describe a substance that speeds up a chemical reaction without being consumed in the process?\nA\nCatalyst\nB\nReactant\nC\nProduct\nD\nInhibitor\n\n###\n\n",
+      "completion": "4. In the context of chemistry, what is the term used to describe a substance that speeds up a chemical reaction without being consumed in the process? &Catalyst#Reactant#Product#Inhibitor&a&A catalyst is a substance that speeds up a chemical reaction without being consumed in the process. It works by lowering the activation energy required for the reaction to occur, thereby increasing the reaction rate. Reactants are the substances that undergo a chemical change, products are the substances formed as a result of the reaction, and inhibitors are substances that slow down or prevent a reaction. *###"
+    },
+      
+    {
+      "prompt": "5. In mathematics, what is the term used to describe a quantity that has both magnitude and direction?\nA\nScalar\nB\nVector\nC\nMatrix\nD\nVariable\n\n###\n\n",
+      "completion": "5. In mathematics, what is the term used to describe a quantity that has both magnitude and direction? &Scalar#Vector#Matrix#Variable&b&A vector is a term used in mathematics to describe a quantity that has both magnitude and direction. It represents a physical quantity such as displacement, velocity, or force. Scalars, on the other hand, only have magnitude and no direction. Matrices are arrays of numbers used for mathematical operations, and variables represent unknown quantities. *###"
+    }
+      
+      
+      
+      
+      
+      
+                                         
+                                      
+                                          
+                                  
+                          
+]

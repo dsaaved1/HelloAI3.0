@@ -45,7 +45,7 @@ function Settings({ route }){
   
   return (
     <View style={{flex:1}}>
-    <ScreenHeader title='Profile' />
+    {/* <ScreenHeader title='Profile' /> */}
     <Wrapper>
       <ScrollableView>
         <Spacer height={20} />
@@ -109,7 +109,8 @@ function Settings({ route }){
               onPress={() => navigation.navigate('Account')}
             > */}
                 <MenuItem
-                  iconBackgroundColor='#6653FF'
+                iconBackgroundColor='#3F22EC'
+                  //iconBackgroundColor='#6653FF'
                   icon={
                     <Entypo
                       name="key"
@@ -127,7 +128,7 @@ function Settings({ route }){
 
           <UIDivider forMenu={true} />
 
-          <MenuItem
+          {/* <MenuItem
           iconBackgroundColor='#3F22EC'
           //iconBackgroundColor='#33FFB3'
             icon={
@@ -139,12 +140,12 @@ function Settings({ route }){
             //two factor authentication
             //encryption
           />
-          <UIDivider forMenu={true} />
+          <UIDivider forMenu={true} /> */}
 
           <MenuItem
           iconBackgroundColor='#FFA500'
             icon={<Entypo name="notification" size={18} color='#859299' />}
-            rightIcon={false}
+            //rightIcon={false}
             mainText="Notifications"
           />
           <UIDivider forMenu={true} />
@@ -158,7 +159,7 @@ function Settings({ route }){
                 color='#859299'
               />
             }
-            rightIcon={false}
+            //rightIcon={false}
             mainText="Language"
           />
         </MenuWrapper>

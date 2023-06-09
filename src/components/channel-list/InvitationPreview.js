@@ -73,6 +73,7 @@ import {Pressable, StyleSheet, Text, View,
         colors: {grey},
       },
     } = useTheme()
+    const navigation = useNavigation()
 
     const isDirectMessage = async () => {
       if (!channel.data.isGroupChat){
@@ -130,33 +131,43 @@ import {Pressable, StyleSheet, Text, View,
 
 
     const acceptInvitation = async () => { 
-      //create a group chat
       console.log("accept invitiations")
       const targetChannelId = channel?.id;
-      await Promise.all([
-        channels.map(async (channel) => {
-          if (channel.id === targetChannelId) { 
-            // add the member without sending a text
-            await channel.acceptInvite()
+      
+      for (let i = 0; i < channels.length; i++) {
+        const channel = channels[i];
+        let text;
+
+        if (channel.id === targetChannelId) { 
+          // add the member without sending a text
+          await channel.acceptInvite()
+        } else {
+          if (channel.data.hideHistory) {
+            //reject and then add member for future update
+            console.log("about to remove invitation preview strategy")
+            await channel.removeMembers([chatClient?.user?.id])
+            console.log("about to add invitation preview strategy")
+            await channel.addMembers([chatClient?.user?.id], undefined, {hide_history: true});
+            text =  `${chatClient?.user?.id} joined this channel with past chat history hidden.`
           } else {
-            if (channel.data.hideHistory){
-              //reject and then add member for future update
-              //don't do anything
-              await channel.removeMembers([chatClient?.user?.id])
-              await channel.addMembers([chatClient?.user?.id], undefined, {hide_history: true});
-            } else {
-              await channel.acceptInvite()
-            }
-            const  text =  `${chatClient?.user?.id} joined this channel!`
-            const message = {
-                text,
-                type: 'system'
-            };
-            await channel.sendMessage(message);
+            console.log("don't accept history invitation preview")
+            await channel.acceptInvite()
+            text =  `${chatClient?.user?.id} joined this channel!`
           }
-        })
-      ]);
+         
+          const message = {
+              text,
+              type: 'system'
+          };
+          await channel.sendMessage(message);
+        }
+      }
+    
+      if (channel?.data.isGroupChat){
+        navigation.navigate(ROOT_STACK.CONVOS, { channel:channel, channelId: channel.id});
+      }
     }
+    
 
     const rejectInvitation = async () => {
       console.log("reject invitiations")

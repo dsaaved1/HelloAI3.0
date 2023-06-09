@@ -14,7 +14,7 @@ import {sizes} from '../../global'
 import {useAppContext} from '../../App'
 import RenderNothing from '../RenderNothing'
 import AIMessage from './AIMessage'
-import {MessageFooter} from '../MessageFooter'
+import MultipleChoice from './MultipleChoice'
 
 
 export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
@@ -25,12 +25,7 @@ export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
   const {clearQuotedMessageState} = useMessageInputContext()
   const isSelectedForEditing = selectedMessageIdsEditing.includes(message?.id)
 
-  const renderMessageFooter = () => (
-    <MessageFooter
-      //goToMessage={goToMessage}
-      //openReactionPicker={openReactionPicker}
-    />
-  );
+
 
   return (
     <Swipeable
@@ -60,19 +55,19 @@ export default ({setMessageContentWidth}: {setMessageContentWidth: any}) => {
           />
         </View>
       )}>
-        {
-        (message.class === 'AIQuestion' ||  message.isAI) ? (
-          //render another type of messsage which is not a bubble
-          <AIMessage 
-          />
-         ) : 
-         <MessageContent
-           setMessageContentWidth={setMessageContentWidth}
-           MessageFooter={RenderNothing}
-           MessageHeader={RenderNothing}
-         />
-      
-      }
+       
+       {
+          (message.class === 'AIQuestion' ||  message.isAI) ? (
+            <AIMessage />
+          ) : message.isMultipleChoice ? (
+            <MultipleChoice />
+          ) : 
+            <MessageContent
+              setMessageContentWidth={setMessageContentWidth}
+              MessageFooter={RenderNothing}
+              MessageHeader={RenderNothing}
+            />
+        }
     </Swipeable>
   )
 }

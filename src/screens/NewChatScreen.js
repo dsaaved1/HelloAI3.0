@@ -174,7 +174,7 @@ const NewChatScreen = props => {
                 setChatExists(true)
               } else {
                 console.log("chat does not exist")
-                inviteDirectMessage(chatClient.user.id, chatClient, userId, "Join my chat")
+                inviteDirectMessage(chatClient.user.id, chatClient, userId)
                 navigation.navigate('Main');
               }
             

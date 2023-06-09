@@ -44,16 +44,10 @@ import { measure } from 'react-native-reanimated';
 
 export default AIMessage = () => {
     const { message } = useMessageContext();
-    const {setSelectedMessageIdsEditing, setActiveMessage} = useAppContext()
+    const {setSelectedMessageIdsEditing} = useAppContext()
     const {channel} = useChannelContext()
-    const reactionPickerRef = useRef(null);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalClipboard, setModalClipboard] = useState(false);
 
-    const openReactionPicker = (message) => {
-      setActiveMessage(message);
-      //actionSheetRef.current?.dismiss();
-      reactionPickerRef.current?.present();
-    };
 
     const isMessageDeleted = useMemo(
       () => !isEmpty(message.deleted_at),
@@ -92,9 +86,9 @@ export default AIMessage = () => {
     const copyToClipboard = async (text) => {
       try {
         Clipboard.setString(text);
-        setModalVisible(true);
+        setModalClipboard(true);
         setTimeout(() => {
-          setModalVisible(false);
+          setModalClipboard(false);
         }, 1500); // Adjust the duration as needed
       } catch (error) {
         console.log(error);
@@ -182,17 +176,14 @@ export default AIMessage = () => {
               </View>
           </View>
         </View>
-        {/* <MessageFooter
-      // goToMessage={goToMessage}
-      openReactionPicker={openReactionPicker}
-    /> */}
+        
         </TouchableOpacity>
        {/* Modal to display the copied message */}
         <Modal
-          visible={modalVisible}
+          visible={modalClipboard}
           animationType="fade"
           transparent={true}
-          onRequestClose={() => setModalVisible(false)}
+          onRequestClose={() => setModalClipboard(false)}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: 20, borderRadius: 10 }}>
@@ -222,8 +213,8 @@ export default AIMessage = () => {
         marginRight: 10,
       },
       profilePicture: {
-        width: 28,
-        height: 28,
+        width: 30,
+        height: 30,
         borderRadius: 9,
       },
       messageContainer: {

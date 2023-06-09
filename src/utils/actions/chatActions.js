@@ -42,11 +42,10 @@ export const createGroupChat = async (userId, client, chatName, channelMembers, 
       }
 }
 
-export const inviteDirectMessage = async (userId, client, channelMember, invitationMessage) => {
+export const inviteDirectMessage = async (userId, client, channelMember) => {
   try {
 
       const temporaryChannel = client.channel('messaging',  uuid.v4(), {
-        invitationMessage: invitationMessage,
         isGroupChat: false,
         typeChat: 'chat',
       });
@@ -99,7 +98,6 @@ export const inviteDirectMessage = async (userId, client, channelMember, invitat
     }
 } 
 
-
 export const createDirectMessage = async (client, channelMembers, nameOtherUser) => {
   try {
 
@@ -126,7 +124,6 @@ export const createDirectMessage = async (client, channelMembers, nameOtherUser)
       throw error;
     }
 }
-
 
 export const createMessageExpanded = async (client, messageId, channelMembers, text, question, 
   model, modelImage, chatName) => {
@@ -166,8 +163,6 @@ export const createMessageExpanded = async (client, messageId, channelMembers, t
       throw error;
     }
 }
-
-
 
 export const createConvo = async (client, channelMembers, chatId, chatName) => {
 

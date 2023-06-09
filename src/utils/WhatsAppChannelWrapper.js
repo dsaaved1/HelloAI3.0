@@ -14,10 +14,6 @@ import MessageText from '../components/channel/MessageText'
 import VoiceMessageAttachment from '../components/channel/VoiceMessageAttachment'
 import {StreamChatGenerics} from '../types'
 import {useAppContext} from '../App'
-import { MessageFooter } from '../components/MessageFooter';
-import { MessageHeader } from '../components/MessageHeader';
-import { MessageAvatar } from '../components/MessageAvatar'
-import { MessageRepliesAvatars } from '../components/MessageRepliesAvatars';
 import { supportedReactions } from './supportedReactions'
 import { ReactionPickerActionSheet } from '../components/ReactionPickerActionSheet/ReactionPickerActionSheet';
 import { View } from 'react-native';
@@ -36,12 +32,6 @@ export default ({
     reactionPickerRef.current?.present();
   };
 
-  const renderMessageFooter = () => (
-    <MessageFooter
-      // goToMessage={goToMessage}
-      openReactionPicker={openReactionPicker}
-    />
-  );
 
 
   const handleToggleMessageSelection = ({

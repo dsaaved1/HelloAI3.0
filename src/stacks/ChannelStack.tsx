@@ -11,6 +11,7 @@ import ImagePreview from '../screens/ImagePreview'
 import WallpaperTypeDetails from '../screens/wallpaper/WallpaperTypeDetails'
 import ChannelHeader from '../components/channel/ChannelHeader'
 import { ThreadsBaby } from '../screens/Thread';
+import QuizzesAlert from '../components/QuizzesAlert'
 
 
 const Stack = createStackNavigator()
@@ -70,13 +71,14 @@ export default () => {
             />
         </Stack.Group>
         
-        {/* <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          
           <Stack.Screen
-            component={ThreadsBaby}
-            name={CHANNEL_STACK.THREAD_SCREEN}
+            component={QuizzesAlert}
+            name={'Quiz'}
             options={noHeaderOptions}
           />
-        </Stack.Group> */}
+        </Stack.Group>
       </Stack.Navigator>
     </WhatsAppChannelWrapper>
   )
