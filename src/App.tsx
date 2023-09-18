@@ -69,7 +69,7 @@ export const AppContext = React.createContext<AppContextType>(
 )
 export const useAppContext = () => React.useContext(AppContext)
 
-const chatClient = StreamChat.getInstance('4w3su6g492jh')
+const chatClient = StreamChat.getInstance('bt3kt8euvm24')
 //   STREAM_API_KEY,
 // ) as unknown as ChatContextValue['client']
 

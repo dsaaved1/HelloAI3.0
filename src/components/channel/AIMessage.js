@@ -18,7 +18,6 @@ import {
   MessageTouchableHandlerPayload,
 } from 'stream-chat-react-native'
 import {useAppContext} from '../../App'
-import { MessageFooter } from '../MessageFooter';
 import {Check} from 'stream-chat-react-native-core/src/icons/index'
 import {colors} from '../../theme'
 import {sizes} from '../../global'

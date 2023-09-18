@@ -4,7 +4,7 @@ import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useKeyboard } from '../hooks/useKeaboard';
+//import { useKeyboard } from '../hooks/useKeaboard';
 import { SCText } from './SCText';
 import { SVGIcon } from './SVGIcon';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 export const BottomTabs = ({ navigation, state }) => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-  const { isOpen } = useKeyboard();
+  //const { isOpen } = useKeyboard();
   const getTitle = (key) => {
     // eslint-disable-next-line default-case
     //doesn't work even for root stack
@@ -62,7 +62,9 @@ export const BottomTabs = ({ navigation, state }) => {
   /**
    * TODO: For some reason bottom tabs show above the keyboard
    */
-  if (Platform.OS === 'android' && isOpen) {
+  if (Platform.OS === 'android' 
+  //&& isOpen
+  ) {
     return null;
   }
 

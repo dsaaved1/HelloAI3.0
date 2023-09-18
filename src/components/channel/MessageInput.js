@@ -747,9 +747,13 @@ export default (props) => {
           console.log(parts, "parts")
           const question = parts[0];
           const options = parts[1].split('#');
-          console.log(parts[2], "answer letter")
-          const answer = parts[2].charCodeAt(0) - 97; // Convert the answer from 'a', 'b', 'c', 'd' to 0, 1, 2, 3
-
+          console.log(options[0], parts[2], "answer letter")
+         
+          let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.toLowerCase().split('');
+          if (!alphabet.includes(parts[2]) || options[0] === undefined) {
+            throw new Error("Invalid letter response."); 
+          }
+          const answer = parts[2].charCodeAt(0) - 97;
           const messageData = {
             question: question,
             options: options,
@@ -764,6 +768,7 @@ export default (props) => {
           }
 
           if (parts[4]) {
+            console.log("part 4 exists!!!")
             messageData.answerExplanation = parts[4];
           }
 

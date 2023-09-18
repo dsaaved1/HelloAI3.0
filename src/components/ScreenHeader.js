@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { SCText } from './SCText';
-import { SlackAppContext } from '../contexts/SlackAppContext';
+//import { SlackAppContext } from '../contexts/SlackAppContext';
 import { HEADER_HEIGHT } from '../utils';
 import {colors} from '../theme'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -36,10 +36,8 @@ const styles = StyleSheet.create({
 
 export const ScreenHeader = ({ showLogo = false, title }) => {
   const insets = useSafeAreaInsets();
-  //const { colors } = useTheme();
   const navigation = useNavigation();
   
-
 
 
   return (
@@ -50,8 +48,11 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
           {
             backgroundColor: colors.dark.secondary,
             //backgroundColor: colors.primary,
-            height: HEADER_HEIGHT + insets.top,
+            height: HEADER_HEIGHT,
+            //+ insets.top,
             paddingTop: insets.top,
+            paddingBottom: 15
+            //paddingTop: 10
           },
         ]}>
         {showLogo && (
@@ -68,7 +69,9 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
           title === 'Home' &&
             (Platform.OS === 'android' ? (
               <TouchableOpacity style={{marginLeft:7}} onPress={() => navigation.openDrawer()}>
-                <Ionicons name="md-menu" size={30} color={colors.dark.secondaryLight} />
+                <Ionicons name="md-menu" size={30} 
+                color={colors.dark.secondaryLight} 
+                />
               </TouchableOpacity>
             ) : null)
         }
@@ -84,7 +87,9 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
         </SCText>
         {title === 'Profile' && (
           <TouchableOpacity style={{marginLeft:7}} onPress={() => navigation.navigate(ROOT_STACK.CONVOS, {channelId: chatClient.user.ownChatId, channel: null})}>
-            <MaterialCommunityIcons name="chat-question" color={colors.dark.secondaryLight} size={30} />
+            <MaterialCommunityIcons name="chat-question" 
+            color={colors.dark.secondaryLight} 
+            size={30} />
           </TouchableOpacity>
         )}
       </View>

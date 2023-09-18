@@ -12,10 +12,7 @@ import {isEmpty} from 'lodash'
 import MessageContent from '../components/channel/MessageContent'
 import MessageText from '../components/channel/MessageText'
 import VoiceMessageAttachment from '../components/channel/VoiceMessageAttachment'
-import {StreamChatGenerics} from '../types'
 import {useAppContext} from '../App'
-import { supportedReactions } from './supportedReactions'
-import { ReactionPickerActionSheet } from '../components/ReactionPickerActionSheet/ReactionPickerActionSheet';
 import { View } from 'react-native';
 export default ({
   channel,

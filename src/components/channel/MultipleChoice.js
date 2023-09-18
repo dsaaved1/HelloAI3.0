@@ -131,6 +131,7 @@ import React, {
       const answer = message.answer
       const question = message.question
       const explanation = message.explanation 
+      const answerExplanation = message.answerExplanation
       const userName = message.model;
       const imageUser = message.user.image? { uri: message.user.image} :  userImage
       const source = imageUser
@@ -199,8 +200,17 @@ import React, {
                 <Text style={{color: colors.dark.secondaryLight}}>{explanation}</Text>
             </View>
         )
-
     }
+
+    const answerExplanationRender = () => {
+      return (
+          <View style={{alignItems:'center'}}>
+              <Text style={{color: 'white', fontWeight: 'bold', marginBottom: 7, marginTop: 9}}>Answer</Text>
+              <Text style={{color: colors.dark.secondaryLight}}>{answerExplanation}</Text>
+          </View>
+      )
+
+  }
 
     const renderItem = ({item}) => (
       item !== "someone" &&
@@ -331,12 +341,17 @@ import React, {
                         <Paginator data={slides} scrollX={scrollX}/> */}
                      {/* </View> */}
 
-                     {showExplanation ? explanationRender() : optionsElements}
+
+                      {!answerExplanation ? 
+                          showExplanation ? explanationRender() : optionsElements 
+                          : 
+                          answerExplanationRender()
+                      }
                   </View>
 
                  
                     <View>
-                      {explanation &&
+                      {explanation && !answerExplanation &&
                         <View style={styles.dotsContainer}>
                           <TouchableOpacity 
                             style={[styles.dot, showExplanation ? styles.dotInactive : styles.dotActive]} 

@@ -13,7 +13,6 @@ import React, {
   import {colors} from '../theme'
   import {ActivityIndicator, View} from 'react-native'
   import {flex} from '../global'
-  import {MessageFooter} from '../components/MessageFooter';
   import {
     useFocusEffect,
     useNavigation,
