@@ -31,6 +31,7 @@ import Octicons from 'react-native-vector-icons/Octicons'
 import ThumbsContainer from '../ThumbsContainer';
 import { chatClient } from '../../client';
 import { measure } from 'react-native-reanimated';
+import hiBot from '../../images/hiBot.jpeg'
 
 
   function format24Hours(dateString) {
@@ -98,8 +99,12 @@ export default AIMessage = () => {
     const isSolved = message.isSolved
     const classMessage = message.class
     const userName = classMessage === 'AIQuestion' ? message.user.name: message.model;
+    //"HelloAI"
+    // message.model
     const imageUser = message.user.image? { uri: message.user.image} :  userImage
-    const source = classMessage === 'AIQuestion' ? imageUser : { uri: message.modelAIPhoto };
+    const source = classMessage === 'AIQuestion' ? imageUser : { uri: message.modelAIPhoto }
+    //hiBot
+    //{ uri: message.modelAIPhoto };
     const showThumbs =  classMessage === 'AIQuestion' 
     const date = message.created_at
     const dateString = date && format24Hours(date);

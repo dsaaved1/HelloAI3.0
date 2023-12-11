@@ -41,7 +41,6 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
   
 
 
-
   return (
     <>
       <View
@@ -50,8 +49,10 @@ export const ScreenHeader = ({ showLogo = false, title }) => {
           {
             backgroundColor: colors.dark.secondary,
             //backgroundColor: colors.primary,
-            height: HEADER_HEIGHT + insets.top,
+            height: HEADER_HEIGHT,
+            //insets.top,
             paddingTop: insets.top,
+            paddingBottom: 10
           },
         ]}>
         {showLogo && (

@@ -42,23 +42,23 @@ const Account = props => {
         Auth.signOut();
       };
 
-    const updateName = async (newName) => {
-      //when connecting to user it overrides
-        try {
-          const update = {
-            id: chatClient.user.id,
-            set: {
-                name: newName,
+    // const updateName = async (newName) => {
+    //   //when connecting to user it overrides
+    //     try {
+    //       const update = {
+    //         id: chatClient.user.id,
+    //         set: {
+    //             name: newName,
               
-            },
-          };
-          // response will contain user object with updated users info
-          await chatClient.partialUpdateUser(update);
-          setName(newName);
-        } catch (error) {
-          console.error('Error updating user name:', error);
-        }
-      };
+    //         },
+    //       };
+    //       // response will contain user object with updated users info
+    //       await chatClient.partialUpdateUser(update);
+    //       setName(newName);
+    //     } catch (error) {
+    //       console.error('Error updating user name:', error);
+    //     }
+    //   };
     
 
     useEffect(() => {
@@ -149,18 +149,19 @@ const Account = props => {
                 
                 <View style={styles.userDetails}>
                     <View style={styles.userNameContainer}>
-                    <TextInput
+                      <Text  style={styles.userName}>{name}</Text>
+                    {/* <TextInput
                         style={styles.userName}
                         value={name}
                         onChangeText={(text) => setName(text)}
                         onSubmitEditing={() => updateName(name)}
-                        />
-                    <MaterialIcons
+                        /> */}
+                    {/* <MaterialIcons
                         name="edit"
                         size={20}
                         color="#FFF"
                         style={styles.editIcon}
-                    />
+                    /> */}
                     </View>
                     <SCText style={styles.userID}>{chatClient.user.id}</SCText>
                 </View>

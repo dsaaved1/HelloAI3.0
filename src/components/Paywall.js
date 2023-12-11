@@ -66,8 +66,8 @@ const PaywallScreen = ({ onClose, onAccept }) => {
           <FeatureItem key={index} icon="check" title={feature} />
         ))}
       </View>
-      <SubscriptionButton onAccept={onAccept} title="Weekly" subtitle="$3.99/week"/>
-      <SubscriptionButton onAccept={onAccept} title="Yearly" subtitle="$39.99/year" discount="Save 80%" />
+      <SubscriptionButton onAccept={null} title="Weekly" subtitle="$3.99/week"/>
+      <SubscriptionButton onAccept={null} title="Yearly" subtitle="$39.99/year" discount="Save 80%" />
     </ScrollView>
     </SafeAreaView>
     // </View>

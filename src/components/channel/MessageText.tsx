@@ -119,7 +119,7 @@ const MessageText = ({renderText, ...props}: MessageTextProps) => {
           colors: themeColors,
           markdownStyles: markdown,
         } as RenderTextParams<StreamChatGenerics>)}
-      </View>
+      </View>  
       <View style={styles.infoContainer}>
         <PeekabooView isEnabled={message?.pinned && !isMessageDeleted}>
           <Star

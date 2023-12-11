@@ -138,7 +138,7 @@ export default ({
           onLongPress={onStartRecord}
           onPressOut={onStopRecord}
           iconName={'Mic'}
-          pathFill={colors.dark.secondaryLight}
+          pathFill={pressable ? colors.dark.secondaryLight: colors.dark.secondary}
           //pathFill={colors.dark.text}
           width={recordingActive ? sizes.xxxl : sizes.lxl}
           height={recordingActive ? sizes.xxxl : sizes.lxl}

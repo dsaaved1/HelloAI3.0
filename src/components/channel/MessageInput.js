@@ -104,6 +104,7 @@ export default (props) => {
     const [showChatAIAlert, setShowChatAIAlert] = useState(false);
     const [showChatAlert, setShowChatAlert] = useState(false);
     const [showAIModel, setShowAIModel] = useState(false);
+    const [showMultipleChoice, setShowMultipleChoice] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
     const [showQuizzesAlert, setShowQuizzesAlert] = useState(false);
     const [showErrorAI, setShowErrorAI] = useState(false);
@@ -193,22 +194,16 @@ export default (props) => {
         onPress: () => {
           if (hasProAccess) {
           } else {
+            setShowChatAIAlert(false)
+            setShowMultipleChoice(true)
 
-            // setShowPaywall(true)
             
-            //multipleChoice("k");
-            (async () => {
-             
-              //const tempUri = await launchImagePicker();
-              const transcript = await pickImageAI();
-              multipleChoice(transcript);
-            })();
            
           }
         },
       },
       {
-        text: 'Quizzes',
+        text: 'Manual Quiz',
         icon: <FontAwesoem5Icons name="poll-h" color= '#3777f0' size={25} solid />,
         onPress: () => {
           if (hasProAccess) {
@@ -242,6 +237,39 @@ export default (props) => {
         },
       },
     ];
+
+    const multipleChoiceOptions = [
+      {
+        text: 'Cancel',
+        onPress: () => setShowMultipleChoice(false),
+      },
+      {
+        text: 'Camera',
+        icon: (
+          <IoniconsIcon name="ios-camera-outline" color= '#3777f0' size={25} />
+        ),
+        onPress: () => {
+          setShowMultipleChoice(false)
+        },
+      },
+      {
+        text: 'Library',
+        icon: <FeatherIcons name="image" color= '#3777f0' size={25} />,
+        onPress: () => {
+           // setShowPaywall(true)
+            //multipleChoice("k");
+            (async () => {
+              setShowMultipleChoice(false)
+              //const tempUri = await launchImagePicker();
+              const transcript = await pickImageAI();
+              multipleChoice(transcript);
+            })();
+          
+        },
+      },
+      
+    ];
+    
 
     const chatOption = [
       {
@@ -690,7 +718,8 @@ export default (props) => {
             isQuiz: true,
             quizAnsweredUsers: ["someone"],
             model: "HelloAI",
-            text: "Multiple Choice"
+            text: "Multiple Choice",
+            //isAI: true,
           };
 
           await channel.sendMessage(messageData);
@@ -720,55 +749,147 @@ export default (props) => {
     console.log("here in multiple choice before response")
     try {
        
-        console.log(transcript, "transcript")
-        console.log("here in ai fine tuned during response1")
-        const response = await openai.createCompletion({
-          model: "davinci:ft-personal-2023-06-01-21-41-13",
-          prompt: transcript + "\n\n###\n\n",
-          max_tokens: 300,  // Adjust this value as needed
-          stop: ["###"]
-        });
+
+      completePrompt = `Given this question ${transcript} provide me the multiple-choice options by labeling them as A, B, C, D, etc. Lastly, indicate the correct answer among A, B, C, D, etc with its explanation. Do it in this format below.: 
+      Question: What is the color of the sky?
+      A: Blue
+      B: Green
+      C: Yellow
+      D: Red
+      Answer: A
+      Explanation: The blue color of the sky is primarily caused by Rayleigh scattering. This phenomenon occurs because molecules and small particles in the Earth's atmosphere scatter sunlight in all directions. Blue light from the sun is scattered more than other colors because it travels as shorter, smaller waves. 
+      `
+      
+      const messages = [
+        {
+          "content": "You are a helpful assistant.", 
+          "role": "system"
+        },
+        {
+          "role": "user",
+          "content": completePrompt
+        },
+      ];
+
+      const responseSimilar = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: messages
+      });
+
+      const answerSimilar = responseSimilar.data.choices[0].message.content
+
+      console.log(answerSimilar, "answer multiple choice easy way")
+
+      // Split the response into lines
+      let lines = answerSimilar.trim().split("\n");
     
-        const answer = response.data.choices[0].text.trim();
+      // Remove empty lines
+      const filteredLines = lines.filter(line => line.trim() !== '');
+
+      console.log(filteredLines, "filtered lines")
+
+      // Define the alphabet
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');  
+
+      console.log("Im here before question")
+      // Extract question
+      const questionLine = filteredLines.find(line => line.startsWith("Question: "));
+      const question = questionLine ? questionLine.split(": ")[1] : "";
+
+      console.log('question')
+
+      // Extract options
+      let options = [];
+      let i = 1;
+      while (filteredLines[i] && filteredLines[i].startsWith(`${alphabet[i - 1]}: `)) {
+        options.push(filteredLines[i].split(": ")[1]);
+        i++;
+      }
+
+      // Determine the answer letter
+      const answerLetterLine = filteredLines[i];
+      const letter = answerLetterLine.split(": ")[1].trim();
+
+      
+      if (!alphabet.includes(letter) || options[0] === undefined) {
+        throw new Error("Invalid letter response.");
+      }
+
+      let answer = alphabet.indexOf(letter); // Convert letter to index
+
+      // Extract explanation
+      const explanationIndex = filteredLines.findIndex(line => line.startsWith("Explanation: "));
+      const explanation = explanationIndex !== -1 ? filteredLines[explanationIndex].split(": ")[1] : "";
+
+      console.log("Options:", options);
+      console.log("Answer:", answer);
+      console.log("Explanation:", explanation);
+        // console.log(transcript, "transcript")
+        // console.log("here in ai fine tuned during response1")
+        // const response = await openai.createCompletion({
+        //   model: "davinci:ft-personal-2023-06-01-21-41-13",
+        //   prompt: transcript + "\n\n###\n\n",
+        //   max_tokens: 300,  // Adjust this value as needed
+        //   stop: ["###"]
+        // });
+    
+        // const answer = response.data.choices[0].text.trim();
         
-        console.log("here in ai ai fine tuned after response2")
-        console.log(answer, "answer fine tuned")
+        // console.log("here in ai ai fine tuned after response2")
+        // console.log(answer, "answer fine tuned")
 
     
         setShowLoading(false)
         //const input = "1. Sign tracking is also called&sign monitoring#autotracking#autoshaping#autotrack&c*2. The first person to use counterconditioning to treat a phobia was probably&Rosalie Rayner#Carl Rogers#Mary Cover Jones#John B. Watson&c*3. When a behaviour is defined by the procedure used to measure it, the definition is said to be&mechanistic#lexicographic#procedura#operational&d*4. Of the following, the schedule that is most likely to produce a superstitious behaviour is the&FD#VD#DRH#VT&b*5. The time between conditioning trials is called the&inter-stimulus interval#inter-trial interval#contiguity gap#trace period&b*6. If, following conditioning, a CS is repeatedly presented without the US, the procedure is&higher-order conditioning#latent inhibition#extinction.#preconditioning&c"
 
-        const questions = answer.split('*');
-        console.log(questions, " questions!!")
+        // const questions = answer.split('*');
+        // console.log(questions, " questions!!")
 
-        for (let i = 0; i < questions.length - 1; i++) {
-          console.log(i, "number i")
-          const parts = questions[i].split('&');
-          console.log(parts, "parts")
-          const question = parts[0];
-          const options = parts[1].split('#');
-          console.log(parts[2], "answer letter")
-          const answer = parts[2].charCodeAt(0) - 97; // Convert the answer from 'a', 'b', 'c', 'd' to 0, 1, 2, 3
+        // for (let i = 0; i < questions.length - 1; i++) {
+        //   console.log(i, "number i")
+        //   const parts = questions[i].split('&');
+        //   console.log(parts, "parts")
+        //   const question = parts[0];
+        //   const options = parts[1].split('#');
+        //   console.log(parts[2], "answer letter")
+        //   const answer = parts[2].charCodeAt(0) - 97; // Convert the answer from 'a', 'b', 'c', 'd' to 0, 1, 2, 3
 
-          const messageData = {
-            question: question,
-            options: options,
-            answer: answer,
-            isMultipleChoice: true,
-            model: "HelloAI",
-            text: "Multiple Choice"
-          };
+        //   const messageData = {
+        //     question: question,
+        //     options: options,
+        //     answer: answer,
+        //     isMultipleChoice: true,
+        //     model: "HelloAI",
+        //     text: "Multiple Choice"
+        //   };
 
-          if (parts[3]) {
-            messageData.explanation = parts[3];
-          }
+        //   if (parts[3]) {
+        //     messageData.explanation = parts[3];
+        //   }
 
-          if (parts[4]) {
-            messageData.answerExplanation = parts[4];
-          }
+        //   if (parts[4]) {
+        //     messageData.answerExplanation = parts[4];
+        //   }
 
-          await channel.sendMessage(messageData);
+        //   await channel.sendMessage(messageData);
+        // }
+
+        const messageData = {
+          question: question,
+          options: options,
+          answer: answer,
+          isMultipleChoice: true,
+          model: "HelloAI",
+          text: "Multiple Choice",
+          //isAI: true,
+        }; 
+
+        if (explanation) {
+          messageData.explanation = explanation;
         }
+
+
+        await channel.sendMessage(messageData);
     } catch (e) {
       setShowLoading(false)
       console.log(e.response ? e.response.data : e);
@@ -1063,7 +1184,7 @@ export default (props) => {
       ) {
         optimizeMemory()
       } else {
-        console.log("heree in show")
+        console.log("heree in show 2", e, question)
         setQuestionFailed(question)
         setShowErrorAI(true)
       }
@@ -1157,7 +1278,7 @@ export default (props) => {
       ) {
         optimizeMemory()
       } else {
-        console.log(e, "heree in show")
+        console.log(e, "heree in show 3")
         setQuestionFailed(question)
         setShowErrorAI(true)
       }
@@ -1361,6 +1482,7 @@ export default (props) => {
                           unpressable={true}
                           iconName={'Send'}
                           style={styles.send}
+                          
                         />
                     :
                       <IconButton
@@ -1389,6 +1511,12 @@ export default (props) => {
          <BottomAlert
           visible={showAIModel}
           actions={optionsModels}
+          textColor={colors.dark.text}
+          withIcon={true}
+        />
+        <BottomAlert
+          visible={showMultipleChoice}
+          actions={multipleChoiceOptions}
           textColor={colors.dark.text}
           withIcon={true}
         />

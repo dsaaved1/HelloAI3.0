@@ -413,8 +413,9 @@ import React, {
           marginRight: 10,
         },
         profilePicture: {
-          width: 35,
-          height: 35,
+          //35
+          width: 30,
+          height: 30,
           borderRadius: 9,
         },
         messageContainer: {
@@ -450,7 +451,8 @@ import React, {
            //fontWeight: '600',
            fontWeight: 'bold',
           letterSpacing: 0.3,
-          fontSize: 18,
+          //18
+          fontSize: 15,
           //color: '#D6D8E1',
           color: '#F4F5FA',
           marginRight: 8,
@@ -502,8 +504,8 @@ import React, {
       marginRight: 10
     },
     dot: {
-      width: 9,
-      height: 9,
+      width: 10,
+      height: 10,
       borderRadius: 5,
       marginHorizontal: 7
     },

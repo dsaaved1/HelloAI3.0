@@ -5,8 +5,8 @@ module.exports = {
   //          Set your API key and secret here
   // ============================================================================
 
-  apiKey: 'xnspp5s5ggeu',
-  secret: 'xncf5hf3jdc63fz6ruae455c9ywvmkdaegvfzr2jaxgk9gvmpwazym59n8hhwxnu',
+  apiKey: 'fv5cgz9cy3kb',
+  secret: 'he7p3f8yr9kkqc87bz2tpkqzv86znt6qkwtq8ne8sdn655z36cn6b8tpwxdzm238',
 
 
   // ============================================================================
@@ -22,43 +22,43 @@ module.exports = {
   },
   appUsers: [
     {
-      id: 'steve',
-      name: 'Steve Galili',
+      id: 'sami',
+      name: 'Sam Parker',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U039J798FJ7-894cf1f07326-512',
     },
     {
-      id: 'vishal',
-      name: 'Vishal Narkhede',
+      id: 'vischal',
+      name: 'Vischal Narkhede',
       image: 'https://ca.slack-edge.com/T02RM6X6B-UHGDQJ8A0-dae0b1606590-512',
     },
     {
-      id: 'khushal',
-      name: 'Khushal Agarwal',
+      id: 'kushal',
+      name: 'Kushal Agarwal',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U02DTREQ2KX-636ea4cf258d-512',
     },
     {
-      id: 'tommaso',
-      name: 'Tommaso Barbugli',
+      id: 'nick',
+      name: 'Nick Johnson',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U02U7SJP4-0f65a5997877-512',
     },
     {
-      id: 'mads',
-      name: 'Mads Røskar',
+      id: 'recruiter35',
+      name: 'Recruiter',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U02DWM9AYSF-gdb04dbb707a-512',
     },
     {
-      id: 'santhosh',
-      name: 'Santhosh Vaiyapuri',
+      id: 'santosh',
+      name: 'Santosh Vaiyapuri',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U0359AX2TUY-dc7dbec0bb88-512',
     },
     {
-      id: 'thierry',
-      name: 'Thierry Schellenbach',
+      id: 'joe',
+      name: 'Joe Jones',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U02RM6X6D-g28a1278a98e-512',
     },
     {
-      id: 'okechukwu',
-      name: 'Okechukwu Nwagba',
+      id: 'moises',
+      name: 'Moises Nwagba',
       image: 'https://ca.slack-edge.com/T02RM6X6B-U02VBCJJKUJ-adf6a29f65f3-512',
     },
   ],

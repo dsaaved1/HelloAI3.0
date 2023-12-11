@@ -106,7 +106,7 @@ const Invitations = () => {
 
   return (
     <View style={{flex: 1}}>
-        {/* <ScreenHeader title='Invitations' /> */}
+        <ScreenHeader title='Invitations' />
 
         <FlatList
           data={channels}

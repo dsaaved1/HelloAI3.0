@@ -343,11 +343,14 @@ export default ({ oldChannel, solved }) => {
           pathFill={colors.dark.text}
         /> */}
         
+     
           <IconButton
             onPress={Platform.OS === 'ios' ? handleMenuOnPress : null}
+            //onPress={handleMenuOnPress}
             iconName={'Menu'}
-            pathFill={colors.dark.text}
+            pathFill={Platform.OS === 'ios' ? colors.dark.text : colors.dark.secondary}
           />
+        
         
       </PeekabooView>
     </SafeAreaView>

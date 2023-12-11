@@ -45,7 +45,7 @@ function Settings({ route }){
   
   return (
     <View style={{flex:1}}>
-    {/* <ScreenHeader title='Profile' /> */}
+    <ScreenHeader title='Profile' />
     <Wrapper>
       <ScrollableView>
         <Spacer height={20} />
