@@ -73,7 +73,7 @@ const About = props => {
       <MaterialIcons
         name="privacy-tip"
         size={18}
-        color="#3777f0" // Choose a color for privacy policy
+        color="#3777f0" 
       />
     }
     mainText="Privacy policy"
